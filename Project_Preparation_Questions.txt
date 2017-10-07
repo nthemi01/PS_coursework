@@ -33,6 +33,7 @@ Code annotation style
 
 Test Framework
       Google Test
+      gconv
 
 Code check & inspection
       Cppcheck
