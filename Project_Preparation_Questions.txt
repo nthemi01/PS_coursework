@@ -1,0 +1,52 @@
+----------Project Preparation for Program Skills Coursework1-----------
+Language:
+  C++
+
+Platform/OS
+  Linux / Windows£¿
+
+Compile Link:
+  cmake + makefile / Visual Studio?
+
+Source code folder structure
+  To be decided:
+  One suggestion:
+      --\src\module1
+            \module2
+      --\include
+      --\lib
+      --\build\debug  \bin
+                      \obj
+              \release\bin
+                      \obj
+      --\dist
+      --\test
+      --\tools
+      --\doc
+      --makefile
+
+Code Style & Standard
+      Google C++ code style
+
+Test Framework
+      Google Test
+
+Document format
+      Latex? https://www.sharelatex.com
+      Word?
+
+Document List
+      Project Chapter Doc
+      Requirement & Analysis doc
+      Design doc
+      Test specification doc
+      Manual doc
+
+Document template
+      CMMI?  RUP£¿ Agile?
+
+Design Modules
+      How many modules? Should we use common library? What's the relationship of these modules?
+      How the dataflow looks like? What's the interface?
+
+Work Assignment
