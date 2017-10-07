@@ -3,7 +3,7 @@ Language:
   C++
 
 Platform/OS
-  Linux / Windows£¿
+  Linux / Windows?
 
 Compile Link:
   cmake + makefile / Visual Studio?
@@ -28,8 +28,15 @@ Source code folder structure
 Code Style & Standard
       Google C++ code style
 
+Code annotation style
+      Doxygen
+
 Test Framework
       Google Test
+
+Code check & inspection
+      Cppcheck
+      Vargrind
 
 Document format
       Latex? https://www.sharelatex.com
@@ -43,10 +50,12 @@ Document List
       Manual doc
 
 Document template
-      CMMI?  RUP£¿ Agile?
+      CMMI? RUP? Agile?
 
 Design Modules
-      How many modules? Should we use common library? What's the relationship of these modules?
+      How many modules? Should we use common library? 
+      What's the relationship of these modules?
       How the dataflow looks like? What's the interface?
 
 Work Assignment
+
