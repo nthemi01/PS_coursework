@@ -3,14 +3,12 @@ Language:
   C++
 
 Platform/OS
-  Linux / Windows?
+  Linux
 
 Compile Link:
-  cmake + makefile / Visual Studio?
+  cmake + makefile
 
 Source code folder structure
-  To be decided:
-  One suggestion:
       --\src\module1
             \module2
       --\include
@@ -40,8 +38,7 @@ Code check & inspection
       Vargrind
 
 Document format
-      Latex? https://www.sharelatex.com
-      Word?
+      Latex https://www.sharelatex.com
 
 Document List
       Project Chapter Doc
@@ -51,12 +48,29 @@ Document List
       Manual doc
 
 Document template
-      CMMI? RUP? Agile?
+      Tailored CMMI
 
 Design Modules
-      How many modules? Should we use common library? 
-      What's the relationship of these modules?
-      How the dataflow looks like? What's the interface?
+      CalculateDensity
+            Class Input
+            Class Calculate
+      DisplayDensity
+      MapGenerator
 
 Work Assignment
+       Conor
+          Develop the Class Input
+          Design the format of the map file and config file
+          Design the format of shared data(include map, H&P density) and
+parameter
+       Mengxuan Zhu
+          Develop the Display module
+          Design the interaction method with the user
+          Consider the map generator
+       Neofytos
+          Develop the Class Calculation 
+          Design the format of output file or share memory for inter-process access.
+       Kevin Liu
+          Develop the main process and parameters
+          Combine every part of this project to do integrated test.  
 
