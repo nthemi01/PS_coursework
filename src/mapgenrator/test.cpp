@@ -1,6 +1,4 @@
 #include "noise.h"
-#include "vector_arithmetic.hpp"
-#include "vector_maxmin.hpp"
 #include "randommap.h"
 #include <vector>
 #include <iostream>
