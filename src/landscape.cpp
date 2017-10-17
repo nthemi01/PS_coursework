@@ -1,36 +1,36 @@
 #include <iostream>
-#include "calculate.h"
+#include "include/landscape.h"
 
 
-calculate::calculate()
+landscape::landscape()
 {
 	// constractor will set the size of pumas & hares
 	// fill them (if this will be a seperate class)
 }
 
-void calculate::progress()
+void landscape::progress()
 {
 	// progress function will be the one doing the actual computation for both Pumas and Hares
 	// and calculating the densities for for the next time step.
 }
 
-double calculate::average_hares()
+double landscape::average_hares()
 {
 	// when average function is called it will return the average value of Hares at that time.
 }
 
 
-double calculate::average_pumas()
+double landscape::average_pumas()
 {
 	// when average function is called it will return the average value of Pumas at that time.
 }
 
-void calculate::printPPM()
+void landscape::printPPM()
 {
 	//export a PPM file when called
 }
 
-void calculate::printx()
+void landscape::printx()
 {
 	int x=5;	
 	std::cout<<x<<std::endl;
