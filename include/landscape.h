@@ -2,8 +2,8 @@
 #include <math.h>
 #include <vector>
 
-#ifndef CALCULATE_H
-#define CALCULATE_H
+#ifndef LANDSCAPE_H
+#define LANDSCAPE_H
 
 class calculate {
 private:
@@ -14,7 +14,7 @@ private:
 				//also maybe something about the squares filled with water
 public:
 
-	calculate();
+	landscape();
 	void progress();
 	double average_hares();
 	double average_pumas();
