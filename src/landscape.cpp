@@ -23,6 +23,9 @@ landscape::landscape(const Params &pars, const std::string mapPath, const std::s
 	map.resize(grid_size_x, std::vector<double>(grid_size_y,0)); // Initialize the map matrix
 	hares.resize(grid_size_x, std::vector<double>(grid_size_y,0)); // Initialize the hare density matrix
 	pumas.resize(grid_size_x, std::vector<double>(grid_size_y,0)); // Initialize the puma density matrix
+	pumas_old.resize(grid_size_x, std::vector<double>(grid_size_y,0)); // Initialize the pumas_old matrix (used by progress)
+	hares_old.resize(grid_size_x, std::vector<double>(grid_size_y,0)); // Initialize the hares_old  matrix (used by progess)
+	N.resize(grid_size_x, std::vector<double>(grid_size_y,0)); // Initialize the N  matrix (for counting "dry" neighbors)
 	mapfile.close();
 	}
 	
@@ -56,6 +59,14 @@ landscape::landscape(const Params &pars, const std::string mapPath, const std::s
 	// std::cout << "r=" << r << " a=" << a << " b=" << b<< " m=" << m<< " k=" << k<< " l=" << l << std::endl;
 	
 	// std::cout << "size of map: " << map.size() << " by " << map[0].size() << std::endl;
+
+	
+
+	//filling the N matrix that represents the number of dry neighbors
+	for(int i=1;i!=grid_size_x-1;i++)
+		for(int j=1;j!=grid_size_y-1;j++)
+			N[i][j]=grid[i+1][j]+grid[i][j+1]+grid[i-1][j]+grid[i][j-1];
+
 }
 
 void landscape::progress()
@@ -93,48 +104,35 @@ double landscape::average_pumas()
 	// when average function is called it will return the average value of Pumas at that time.
 }
 
-void landscape::printPPM()
-{
-	//export a PPM file when called
-}
-
-void landscape::printx()
-{
-	int x=5;
-	for(int i=0;i!=10;i++)	
-		progress();
-	//printhares();
-	//printpumas();
-}
-void landscape::resizeVec( std::vector<std::vector<double> > &vec , const unsigned short ROWS , const unsigned short COLUMNS )
-{
-    vec.resize( ROWS );
-    for( std::vector<std::vector<double> >::iterator it = vec.begin(); it != vec.end(); ++it)
-    {
-        it->resize( COLUMNS );
-    }
-}
+//void landscape::resizeVec( std::vector<std::vector<double> > &vec , const unsigned short ROWS , const unsigned short COLUMNS )
+//{
+//    vec.resize( ROWS );
+//    for( std::vector<std::vector<double> >::iterator it = vec.begin(); it != vec.end(); ++it)
+//    {
+//        it->resize( COLUMNS );
+//    }
+//}
 
 
 
-void landscape::resizeVec( std::vector<std::vector<bool> > &vec , const unsigned short ROWS , const unsigned short COLUMNS )
-{
-    vec.resize( ROWS );
-    for( std::vector<std::vector<bool> >::iterator it = vec.begin(); it != vec.end(); ++it)
-    {
-        it->resize( COLUMNS );
-    }
-}
+//void landscape::resizeVec( std::vector<std::vector<bool> > &vec , const unsigned short ROWS , const unsigned short COLUMNS )
+//{
+//    vec.resize( ROWS );
+//    for( std::vector<std::vector<bool> >::iterator it = vec.begin(); it != vec.end(); ++it)
+//    {
+//        it->resize( COLUMNS );
+//    }
+//}
 
 
-void landscape::resizeVec( std::vector<std::vector<int> > &vec , const unsigned short ROWS , const unsigned short COLUMNS )
-{
-    vec.resize( ROWS );
-    for( std::vector<std::vector<int> >::iterator it = vec.begin(); it != vec.end(); ++it)
-    {
-        it->resize( COLUMNS );
-    }
-}
+//void landscape::resizeVec( std::vector<std::vector<int> > &vec , const unsigned short ROWS , const unsigned short COLUMNS )
+//{
+//    vec.resize( ROWS );
+//    for( std::vector<std::vector<int> >::iterator it = vec.begin(); it != vec.end(); ++it)
+//    {
+//        it->resize( COLUMNS );
+//    }
+//}
 
 void landscape::printhares()
 {

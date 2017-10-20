@@ -50,12 +50,10 @@ public:
 	void printpumas();
 	void printPPM();
 
-	void printx();//just a temporary test function
-
 	//A neat way to resize vectors of vectors. As soon as I figure out how, I will use prototype to reduce these three to one function.
-	void resizeVec( std::vector<std::vector<bool> > &vec , const unsigned short ROWS , const unsigned short COLUMNS );
-	void resizeVec( std::vector<std::vector<int> > &vec , const unsigned short ROWS , const unsigned short COLUMNS );
-	void resizeVec( std::vector<std::vector<double> > &vec , const unsigned short ROWS , const unsigned short COLUMNS );
+	//void resizeVec( std::vector<std::vector<bool> > &vec , const unsigned short ROWS , const unsigned short COLUMNS );
+	//void resizeVec( std::vector<std::vector<int> > &vec , const unsigned short ROWS , const unsigned short COLUMNS );
+	//void resizeVec( std::vector<std::vector<double> > &vec , const unsigned short ROWS , const unsigned short COLUMNS );
 
 	std::vector<std::vector<double> > get_hares();//returns a vector of vectors with size grid_size_x * grid_size_y with the density of hares
 	std::vector<std::vector<double> > get_pumas();
