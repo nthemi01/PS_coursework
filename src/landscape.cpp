@@ -95,12 +95,14 @@ void landscape::progress()
 
 double landscape::average_hares()
 {
+	return 0;
 	// when average function is called it will return the average value of Hares at that time.
 }
 
 
 double landscape::average_pumas()
 {
+	return 0;
 	// when average function is called it will return the average value of Pumas at that time.
 }
 
