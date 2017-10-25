@@ -21,19 +21,16 @@ pars.k = 0.2;
 pars.l = 0.2;
 pars.dt = 0.4;
 
-//landscape* lscap = new landscape(pars, mapPath,animalPath, animalPath);
-//lscap->printhares();
-
 
 
 landscape lscap(pars,mapPath,animalPath,animalPath);
 
-//for(int i=0;i<1;i++)
-//	lscap.progress();
+// for(int i=0;i<3;i++){
+	// lscap.progress();}
 
 //lscap.printhares();
-  std::cout<<"average hares: "<<lscap.average_hares()<<std::endl;;                                                      
-  std::cout<<"average pumas: "<<lscap.average_pumas()<<std::endl;;                                                      
+std::cout<<"average hares: "<<lscap.average_hares()<<std::endl;;                                                      
+std::cout<<"average pumas: "<<lscap.average_pumas()<<std::endl;;                                                      
 }
 
 

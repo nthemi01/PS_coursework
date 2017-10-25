@@ -4,23 +4,23 @@
 
 landscape::landscape(const Params &pars, const std::string mapPath, const std::string pumaspath = "", const std::string harespath = "")
 {
-
-	//Still To-Do:
-	// Add try, catch blocks for file reading
-	// Tidy code with c in mind - i.e. maybe use more pass by reference, add const etc.
+	//To-Do: Possibly handle failed map loading by using a random map generator.
 
 
 	//Extract size of the landscape
     std::ifstream mapfile;
-    mapfile.open(mapPath.c_str());
+	mapfile.open(mapPath.c_str());
     if (!mapfile.is_open())
     {
-        std::cout<< "Failed to open file: " <<  mapPath << std::endl;
+        std::cout<< "Failed to open map file. Given path: " <<  mapPath << std::endl;
+		throw std::invalid_argument("Invalid map file path");
     }
 	else{
 	mapfile >> grid_size_x >> grid_size_y;
+	
 	//Add space for a ring of water. Note vector initializes to 0 so the ring will be added automatically
 	grid_size_x += 2; grid_size_y += 2;
+	
 	map.resize(grid_size_x, std::vector<double>(grid_size_y,0)); // Initialize the map matrix
 	hares.resize(grid_size_x, std::vector<double>(grid_size_y,0)); // Initialize the hare density matrix
 	pumas.resize(grid_size_x, std::vector<double>(grid_size_y,0)); // Initialize the puma density matrix
@@ -30,46 +30,53 @@ landscape::landscape(const Params &pars, const std::string mapPath, const std::s
 	mapfile.close();
 	}
 	
-	if(!readinfile(mapPath, map))
-		std::cout<< "Failed to open file: " <<  mapPath << std::endl;
-		
-	
+	if(!readinfile(mapPath, map)){
+		std::cout<< "Failed to read in map file. Given path: " <<  mapPath << std::endl;		
+	}
 	
 	std::srand(std::time(NULL)); //Seed random number generator
 	
-	if(pumaspath != "")
-		readinfile(pumaspath, pumas);
+	if(pumaspath != ""){
+		if(!readinfile(pumaspath, pumas)){
+		std::cout << "Failed to read in puma density file. Given path: " <<  pumaspath << std::endl<< "Have Generated a random initial density." << std::endl;;
+		generateRandomDensity(pumas,map);}  //Handle failed density reading
+	}
 	else
 		generateRandomDensity(pumas,map);
-	if(harespath != "")
-		readinfile(harespath, hares);
+	if(harespath != ""){
+		if(!readinfile(harespath, hares)){
+		std::cout << "Failed to read in hare density file. Given path: " <<  harespath << std::endl << "Have Generated a random initial density." << std::endl;
+		generateRandomDensity(hares,map);}
+	}
 	else
 		generateRandomDensity(hares,map);
 						
 	
-	//Console output - To see the map
-	
-	// for(int x=0; x<grid_size_x; x++){
-		// for(int y=0; y<grid_size_y; y++){			
-			// std::cout << map[x][y];
-		// }
-		// std::cout << std::endl;
-	// }	
-	 r = pars.r; a = pars.a; b = pars.b; m = pars.m; k = pars.k; l = pars.l; dt = pars.dt; //Neofytos: I uncommented this to use the variables.
-												//also added the dt =...
-												
-	// std::cout << "r=" << r << " a=" << a << " b=" << b<< " m=" << m<< " k=" << k<< " l=" << l << std::endl;
-	
-	// std::cout << "size of map: " << map.size() << " by " << map[0].size() << std::endl;
-
-	
+	r = pars.r; a = pars.a; b = pars.b; m = pars.m; k = pars.k; l = pars.l; dt = pars.dt; //Neofytos: I uncommented this to use the variables. Conor: Sorry I forgot!
 
 	//filling the N matrix that represents the number of dry neighbors
 	for(int i=1;i<grid_size_x-1;i++)
 		for(int j=1;j<grid_size_y-1;j++)
 			N[i][j]=map[i+1][j]+map[i][j+1]+map[i-1][j]+map[i][j-1];
+		
+		
+		
+	//Console output - To see the map
+	
+	// for(int x=0; x<grid_size_x; x++){
+		// for(int y=0; y<grid_size_y; y++){			
+			// std::cout << pumas[x][y];
+		// }
+		// std::cout << std::endl;
+	// }	
+	
+	// std::cout << "r=" << r << " a=" << a << " b=" << b<< " m=" << m<< " k=" << k<< " l=" << l << std::endl;	
+	// std::cout << "size of map: " << map.size() << " by " << map[0].size() << std::endl;
 
 }
+
+
+landscape::landscape(const Params &pars, const std::string mapPath){landscape(pars, mapPath, "","");}
 
 
 //progress function des the actual computation for both Pumas and Hares
@@ -140,7 +147,7 @@ std::cout<<"hares:\n\n";
 
 for (int i = 0; i < grid_size_x; i++ ) {
       for (int j = 0; j < grid_size_y; j++ ) {
-         std::cout << map[i][j] << " ";
+         std::cout << hares[i][j] << " ";		
       }
       std::cout << std::endl;
    }
