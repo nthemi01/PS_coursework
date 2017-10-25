@@ -98,7 +98,7 @@ void landscape::progress()
 		}	
 
 }
-
+//average_hares returns the average value of hares along the whole grid at the time called.
 double landscape::average_hares()
 {
 double sum=0;
@@ -112,10 +112,11 @@ for (row = hares.begin(); row != hares.end(); row++)
 }
 
 return sum/((grid_size_x-2)*(grid_size_y-2));
-	// when average function is called it will return the average value of Hares at that time.
+
 }
 
 
+//average_pumas returns the average value of pumas along the whole grid at the time called.
 double landscape::average_pumas()
 {
 double sum=0;
@@ -158,12 +159,14 @@ for (int i = 0; i < grid_size_x; i++ ) {
    }
 }
 
+//returns a vector of vectors corresponding to the hares density along the grid
 std::vector<std::vector<double> > landscape::get_hares()
 {
 return hares;
 }
 
 
+//returns a vector of vectors corresponding to the pumas density along the grid
 std::vector<std::vector<double> > landscape::get_pumas()
 {
 return pumas;
