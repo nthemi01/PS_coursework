@@ -28,16 +28,13 @@ pars.dt = 0.4;
 
 landscape lscap(pars,mapPath,animalPath,animalPath);
 
-std::vector<std::vector<double> > animal;
-int grid_size_x=52, grid_size_y=52;
-
-std::stringstream index;
-
-
-lscap.progress();
+for(int i=0;i<1;i++)
+	lscap.progress();
 
 //lscap.printhares();
-                                                        
+  std::cout<<"average hares: "<<lscap.average_hares()<<std::endl;;                                                      
+
+  std::cout<<"average pumas: "<<lscap.average_pumas()<<std::endl;;                                                      
 }
 
 
