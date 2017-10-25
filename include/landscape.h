@@ -37,8 +37,12 @@ private:
 	std::string pumaDpath; // path of density & map files
 	std::string hareDpath;
 	std::string mapPath;
-	
 
+
+	std::vector< std::vector<double> >::iterator row; //2d vector iterators used by the average_hares and average_pumas functions
+	std::vector<double>::iterator col;
+
+	
 public:
 
 	landscape(const struct Params &, const std::string , const std::string, const std::string); //constractor set the right grid size, initiates densities, calculates number of neighbors

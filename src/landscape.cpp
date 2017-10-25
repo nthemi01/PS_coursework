@@ -55,8 +55,9 @@ landscape::landscape(const Params &pars, const std::string mapPath, const std::s
 		// }
 		// std::cout << std::endl;
 	// }	
-	// r = pars.r; a = pars.a; b = pars.b; m = pars.m; k = pars.k; l = pars.l; 
-
+	 r = pars.r; a = pars.a; b = pars.b; m = pars.m; k = pars.k; l = pars.l; dt = pars.dt; //Neofytos: I uncommented this to use the variables.
+												//also added the dt =...
+												
 	// std::cout << "r=" << r << " a=" << a << " b=" << b<< " m=" << m<< " k=" << k<< " l=" << l << std::endl;
 	
 	// std::cout << "size of map: " << map.size() << " by " << map[0].size() << std::endl;
@@ -75,8 +76,8 @@ landscape::landscape(const Params &pars, const std::string mapPath, const std::s
 // and calculates the densities for for the next time step.
 void landscape::progress()
 {
-	pumas_old.swap(pumas);
-	hares_old.swap(hares);
+	pumas_old=pumas;
+	hares_old=hares;
 
 
 	for(int i=1;i<grid_size_x-1;i++)
@@ -88,9 +89,9 @@ void landscape::progress()
 				part1 = hares_old[i-1][j]+hares_old[i+1][j]+hares_old[i][j-1]+hares_old[i][j+1];	
 				part2 = k*(part1 - N[i][j]*hares_old[i][j]);
 				hares[i][j] = hares_old[i][j] + dt*( r*hares_old[i][j] - a*hares_old[i][j]*pumas_old[i][j] + part2);
-
-				//std::cout<<k<<"\t"; 
-
+		
+				//std::cout<<hares[i][j]<<"  ";
+	
 				part1 = pumas_old[i-1][j]+pumas_old[i+1][j]+pumas_old[i][j-1]+pumas_old[i][j+1];	
 				part2 = l*(part1 - N[i][j]*pumas_old[i][j]);			
 				pumas[i][j] = pumas_old[i][j] + dt*( b*hares_old[i][j]*pumas_old[i][j] - m*pumas_old[i][j] + part2);
@@ -100,14 +101,34 @@ void landscape::progress()
 
 double landscape::average_hares()
 {
-	return 0;
+double sum=0;
+
+for (row = hares.begin(); row != hares.end(); row++) 
+{
+	for (col = row->begin(); col != row->end(); col++) 
+	{
+     	sum +=*col;
+	}
+}
+
+return sum/((grid_size_x-2)*(grid_size_y-2));
 	// when average function is called it will return the average value of Hares at that time.
 }
 
 
 double landscape::average_pumas()
 {
-	return 0;
+double sum=0;
+
+for (row = pumas.begin(); row != pumas.end(); row++) 
+{
+	for (col = row->begin(); col != row->end(); col++) 
+	{
+     	sum +=*col;
+	}
+}
+
+return sum/((grid_size_x-2)*(grid_size_y-2));
 	// when average function is called it will return the average value of Pumas at that time.
 }
 
@@ -118,7 +139,7 @@ std::cout<<"hares:\n\n";
 
 for (int i = 0; i < grid_size_x; i++ ) {
       for (int j = 0; j < grid_size_y; j++ ) {
-         std::cout << hares[i][j] << " ";
+         std::cout << map[i][j] << " ";
       }
       std::cout << std::endl;
    }
