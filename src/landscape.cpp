@@ -21,7 +21,7 @@ landscape::landscape(const Params &pars, const std::string mapPath, const std::s
 	//Add space for a ring of water. Note vector initializes to 0 so the ring will be added automatically
 	grid_size_x += 2; grid_size_y += 2;
 	
-	map.resize(grid_size_x, std::vector<double>(grid_size_y,0)); // Initialize the map matrix
+	map.resize(grid_size_x, std::vector<bool>(grid_size_y,0)); // Initialize the map matrix
 	hares.resize(grid_size_x, std::vector<double>(grid_size_y,0)); // Initialize the hare density matrix
 	pumas.resize(grid_size_x, std::vector<double>(grid_size_y,0)); // Initialize the puma density matrix
 	pumas_old.resize(grid_size_x, std::vector<double>(grid_size_y,0)); // Initialize the pumas_old matrix (used by progress)
@@ -179,6 +179,16 @@ std::vector<std::vector<double> > landscape::get_pumas()
 return pumas;
 }
 
+
+std::vector<std::vector<bool> > landscape::get_map()
+{
+return map;
+}
+
+
+
+
+
 //helper functions for constructor
 
 int landscape::readinfile(const std::string path, std::vector<std::vector<double> >& matrix)
@@ -206,7 +216,46 @@ int landscape::readinfile(const std::string path, std::vector<std::vector<double
     }
 }
 
-void landscape::generateRandomDensity(std::vector<std::vector<double> > &matrix, std::vector<std::vector<double> > const &map)
+
+int landscape::readinfile(const std::string path, std::vector<std::vector<bool> >& matrix)
+{
+	int xs = matrix.size(); int ys = matrix[0].size();
+	std::ifstream file;
+    file.open(path.c_str());
+    if (!file.is_open())
+    {
+        std::cout<< "Failed to open file " << path << std::endl;
+		return 0;
+    }
+	else{	
+	int tmp;
+	file >> tmp >> tmp; // Ignore size values
+	
+	for(int x=1; x<(xs-1); x++){        // Ingnore the first and last entries as they are the water ring
+		for(int y=1; y<(ys-1); y++){
+			file >> tmp;
+			matrix[x][y] = tmp;
+		}
+	}
+	file.close();
+	return 1;
+    }
+}
+
+
+//void landscape::generateRandomDensity(std::vector<std::vector<double> > &matrix, std::vector<std::vector<double> > const &map)
+//{
+//	int xs = matrix.size(); int ys = matrix[0].size();
+//	for(int x=0; x<xs; x++){        
+//		for(int y=0; y<ys; y++){
+//			if(map[x][y]==1)
+//			    matrix[x][y] = std::rand()%6;  //assign random density between 0 and 5
+//		}
+//	}
+//}
+
+
+void landscape::generateRandomDensity(std::vector<std::vector<double> > &matrix, std::vector<std::vector<bool> > const &map)
 {
 	int xs = matrix.size(); int ys = matrix[0].size();
 	for(int x=0; x<xs; x++){        
@@ -216,3 +265,4 @@ void landscape::generateRandomDensity(std::vector<std::vector<double> > &matrix,
 		}
 	}
 }
+

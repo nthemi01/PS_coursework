@@ -25,7 +25,7 @@ private:
 	double r, a, b, m, k, l ,dt;  
 	std::vector<std::vector<double> > pumas; //the density matrix of pumas
 	std::vector<std::vector<double> > hares; // the density matrix of hares
-	std::vector<std::vector<double> > map; // map matrix
+	std::vector<std::vector<bool> > map; // map matrix
 
 
 	//std::vector<std::vector<bool> > grid; // 1 represents land, 0 represents water 
@@ -59,12 +59,15 @@ public:
 
 	std::vector<std::vector<double> > get_hares();//returns a vector of vectors with size grid_size_x * grid_size_y with the density of hares
 	std::vector<std::vector<double> > get_pumas();
-
+	std::vector<std::vector<bool> > get_map();
+	
 	//helper functions for constructor
 	int readinfile(const std::string, std::vector<std::vector<double> >&);
-	void generateRandomDensity(std::vector<std::vector<double> > &, std::vector<std::vector<double> > const &);
+	int readinfile(const std::string, std::vector<std::vector<bool> >&);
+	//void generateRandomDensity(std::vector<std::vector<double> > &, std::vector<std::vector<double> > const &);
+	void generateRandomDensity(std::vector<std::vector<double> > &, std::vector<std::vector<bool> > const &);
 
-
+	operator bool() {return false;};
 };
 
 struct Params{double r,a,b,m,k,l,dt;};
