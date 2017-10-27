@@ -6,7 +6,7 @@
 #include <fstream> //for reading in files
 #include <ctime> //for seeding random number generator
 #include <string.h>
-
+#include <stdexcept> //for throw std::invalid_argument
 
 #ifndef LANDSCAPE_H
 #define LANDSCAPE_H
