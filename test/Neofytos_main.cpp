@@ -31,6 +31,11 @@ landscape lscap(pars,mapPath,animalPath,animalPath);
 //lscap.printhares();
 std::cout<<"average hares: "<<lscap.average_hares()<<std::endl;;                                                      
 std::cout<<"average pumas: "<<lscap.average_pumas()<<std::endl;;                                                      
+
+
+std::vector<std::vector<bool> > map = lscap.get_map();
+
+
 }
 
 
