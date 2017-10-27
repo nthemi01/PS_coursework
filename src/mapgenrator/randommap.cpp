@@ -1,13 +1,13 @@
 #include "randommap.h"
 std::vector<std::vector<double>> setmap(int x, int y, double index, const int samples, const int octave){
+
   int modfactor = 1<<octave;
-  x = (x>modfactor)?x:modfactor;
-  x = (y>modfactor)?y:modfactor;
 
   // generate a map of size (xmod, ymod) 
   // they are smallest multiples of 2^octave, greater than x,y
   int xmod = (static_cast<int>(x/modfactor)+2)*modfactor;
   int ymod = (static_cast<int>(y/modfactor)+2)*modfactor;
+
 
   auto map = std::vector<std::vector<double>>(ymod*samples+1,std::vector<double>(xmod*samples+1,0));
   for(int i = octave; i > 0; --i){

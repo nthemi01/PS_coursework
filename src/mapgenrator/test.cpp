@@ -6,7 +6,7 @@
 
 int main(){
 
-  auto map = setmap(24,24,1.7,1);
+  auto map = setmap(40,40,1.7,10,8);
   std::ofstream fout("show.py");
 
   fout<<"import matplotlib.pyplot as plt\n";
