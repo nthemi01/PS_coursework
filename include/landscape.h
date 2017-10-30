@@ -5,14 +5,13 @@
 #include <valarray>
 #include <fstream> //for reading in files
 #include <ctime> //for seeding random number generator
-#include <string.h>
+#include <string>
 #include <stdexcept> //for throw std::invalid_argument
 
 #ifndef LANDSCAPE_H
 #define LANDSCAPE_H
 
 //Info for the rest of the programmers:
-//	Fow now the constructor doesn't accept arguments
 //	To go to the next time step use: progress()
 //	To get the values of hares and pumas use:
 //		get_hares();
@@ -62,10 +61,10 @@ public:
 	std::vector<std::vector<bool> > get_map();
 	
 	//helper functions for constructor
-	int readinfile(const std::string, std::vector<std::vector<double> >&);
-	int readinfile(const std::string, std::vector<std::vector<bool> >&);
-	//void generateRandomDensity(std::vector<std::vector<double> > &, std::vector<std::vector<double> > const &);
-	void generateRandomDensity(std::vector<std::vector<double> > &, std::vector<std::vector<bool> > const &);
+	int ReadInFile(const std::string&, std::vector<std::vector<double> >&);
+	int ReadInFile(const std::string&, std::vector<std::vector<bool> >&);
+	//void GenerateRandomDensity(std::vector<std::vector<double> > &, std::vector<std::vector<double> > const &);
+	void GenerateRandomDensity(std::vector<std::vector<double> > &, std::vector<std::vector<bool> > const &);
 
 	operator bool() {return false;};
 };

@@ -2,21 +2,18 @@
 
 
 
-landscape::landscape(const Params &pars, const std::string mapPath, const std::string pumaspath = "", const std::string harespath = "")
+landscape::landscape(const Params &pars, const std::string kMapPath, const std::string kPumasPath = "", const std::string kHaresPath = "")
 {
-	//To-Do: Possibly handle failed map loading by using a random map generator.
-
-
 	//Extract size of the landscape
-    std::ifstream mapfile;
-	mapfile.open(mapPath.c_str());
-    if (!mapfile.is_open())
+    std::ifstream map_file;
+	map_file.open(kMapPath.c_str());
+    if (!map_file.is_open())
     {
-        std::cout<< "Failed to open map file. Given path: " <<  mapPath << std::endl;
-		throw std::invalid_argument("Invalid map file path");
+        std::cout<< "Failed to open map file. Given kPath: " <<  kMapPath << std::endl;
+		throw std::invalid_argument("Invalid map file kPath");
     }
 	else{
-	mapfile >> grid_size_x >> grid_size_y;
+	map_file >> grid_size_x >> grid_size_y;
 	
 	//Add space for a ring of water. Note vector initializes to 0 so the ring will be added automatically
 	grid_size_x += 2; grid_size_y += 2;
@@ -27,45 +24,45 @@ landscape::landscape(const Params &pars, const std::string mapPath, const std::s
 	pumas_old.resize(grid_size_x, std::vector<double>(grid_size_y,0)); // Initialize the pumas_old matrix (used by progress)
 	hares_old.resize(grid_size_x, std::vector<double>(grid_size_y,0)); // Initialize the hares_old  matrix (used by progess)
 	N.resize(grid_size_x, std::vector<int>(grid_size_y,0)); // Initialize the N  matrix (for counting "dry" neighbors)
-	mapfile.close();
+	map_file.close();
 	}
 	
-	if(!readinfile(mapPath, map)){
-		std::cout<< "Failed to read in map file. Given path: " <<  mapPath << std::endl;		
+	if(!ReadInFile(kMapPath, map)){
+		std::cout<< "Failed to read in map file. Given kPath: " <<  kMapPath << std::endl;		
 	}
 	
 	std::srand(std::time(NULL)); //Seed random number generator
 	
-	if(pumaspath != ""){
-		if(!readinfile(pumaspath, pumas)){
-		std::cout << "Failed to read in puma density file. Given path: " <<  pumaspath << std::endl<< "Have Generated a random initial density." << std::endl;;
-		generateRandomDensity(pumas,map);}  //Handle failed density reading
+	if(kPumasPath != ""){
+		if(!ReadInFile(kPumasPath, pumas)){
+		std::cout << "Failed to read in puma density file. Given kPath: " <<  kPumasPath << std::endl<< "Have Generated a random initial density." << std::endl;;
+		GenerateRandomDensity(pumas,map);}  //Handle failed density reading
 	}
 	else
-		generateRandomDensity(pumas,map);
-	if(harespath != ""){
-		if(!readinfile(harespath, hares)){
-		std::cout << "Failed to read in hare density file. Given path: " <<  harespath << std::endl << "Have Generated a random initial density." << std::endl;
-		generateRandomDensity(hares,map);}
+		GenerateRandomDensity(pumas,map);
+	if(kHaresPath != ""){
+		if(!ReadInFile(kHaresPath, hares)){
+		std::cout << "Failed to read in hare density file. Given kPath: " <<  kHaresPath << std::endl << "Have Generated a random initial density." << std::endl;
+		GenerateRandomDensity(hares,map);}
 	}
 	else
-		generateRandomDensity(hares,map);
+		GenerateRandomDensity(hares,map);
 						
 	
 	r = pars.r; a = pars.a; b = pars.b; m = pars.m; k = pars.k; l = pars.l; dt = pars.dt; //Neofytos: I uncommented this to use the variables. Conor: Sorry I forgot!
 
-	//filling the N matrix that represents the number of dry neighbors
+	// filling the N matrix that represents the number of dry neighbors
 	for(int i=1;i<grid_size_x-1;i++)
 		for(int j=1;j<grid_size_y-1;j++)
 			N[i][j]=map[i+1][j]+map[i][j+1]+map[i-1][j]+map[i][j-1];
 		
 		
 		
-	//Console output - To see the map
+	//Console output - To see the map and params
 	
 	// for(int x=0; x<grid_size_x; x++){
 		// for(int y=0; y<grid_size_y; y++){			
-			// std::cout << pumas[x][y];
+			// std::cout << map[x][y];
 		// }
 		// std::cout << std::endl;
 	// }	
@@ -75,8 +72,8 @@ landscape::landscape(const Params &pars, const std::string mapPath, const std::s
 
 }
 
-
-landscape::landscape(const Params &pars, const std::string mapPath){landscape(pars, mapPath, "","");}
+// If no density files are provided use random densities
+landscape::landscape(const Params &pars, const std::string kMapPath) : landscape(pars, kMapPath, "", "") {}
 
 
 //progress function des the actual computation for both Pumas and Hares
@@ -147,7 +144,8 @@ std::cout<<"hares:\n\n";
 
 for (int i = 0; i < grid_size_x; i++ ) {
       for (int j = 0; j < grid_size_y; j++ ) {
-         std::cout << hares[i][j] << " ";		
+         // std::cout << hares[i][j] << " ";	
+         std::cout << hares[i][j];				 
       }
       std::cout << std::endl;
    }
@@ -160,7 +158,9 @@ std::cout<<"\npumas:\n\n";
 
 for (int i = 0; i < grid_size_x; i++ ) {
       for (int j = 0; j < grid_size_y; j++ ) {
-         std::cout << pumas[i][j] << " ";
+         // std::cout << pumas[i][j] << " ";
+          std::cout << pumas[i][j];				 
+
       }
       std::cout << std::endl;
    }
@@ -191,22 +191,22 @@ return map;
 
 //helper functions for constructor
 
-int landscape::readinfile(const std::string path, std::vector<std::vector<double> >& matrix)
+int landscape::ReadInFile(const std::string &kPath, std::vector<std::vector<double> >& matrix)
 {
-	int xs = matrix.size(); int ys = matrix[0].size();
+	int x_size = matrix.size(); int y_size = matrix[0].size();
 	std::ifstream file;
-    file.open(path.c_str());
+    file.open(kPath.c_str());
     if (!file.is_open())
     {
-        std::cout<< "Failed to open file " << path << std::endl;
+        std::cout<< "Failed to open file " << kPath << std::endl;
 		return 0;
     }
 	else{	
 	int tmp;
 	file >> tmp >> tmp; // Ignore size values
 	
-	for(int x=1; x<(xs-1); x++){        // Ingnore the first and last entries as they are the water ring
-		for(int y=1; y<(ys-1); y++){
+	for(int x=1; x<(x_size-1); x++){        // Ingnore the first and last entries as they are the water ring
+		for(int y=1; y<(y_size-1); y++){
 			file >> tmp;
 			matrix[x][y] = tmp;
 		}
@@ -217,22 +217,24 @@ int landscape::readinfile(const std::string path, std::vector<std::vector<double
 }
 
 
-int landscape::readinfile(const std::string path, std::vector<std::vector<bool> >& matrix)
+// Reads into "matrix" the .dat file fouond in "kPath"
+// Returns 0 if it fails to open the file otherwise returns 1
+int landscape::ReadInFile(const std::string &kPath, std::vector<std::vector<bool> >& matrix)
 {
-	int xs = matrix.size(); int ys = matrix[0].size();
+	int x_size = matrix.size(); int y_size = matrix[0].size();
 	std::ifstream file;
-    file.open(path.c_str());
+    file.open(kPath.c_str());
     if (!file.is_open())
     {
-        std::cout<< "Failed to open file " << path << std::endl;
+        std::cout<< "Failed to open file " << kPath << std::endl;
 		return 0;
     }
 	else{	
 	int tmp;
 	file >> tmp >> tmp; // Ignore size values
 	
-	for(int x=1; x<(xs-1); x++){        // Ingnore the first and last entries as they are the water ring
-		for(int y=1; y<(ys-1); y++){
+	for(int x=1; x<(x_size-1); x++){        // Ingnore the first and last entries as they are the water ring
+		for(int y=1; y<(y_size-1); y++){
 			file >> tmp;
 			matrix[x][y] = tmp;
 		}
@@ -243,23 +245,12 @@ int landscape::readinfile(const std::string path, std::vector<std::vector<bool> 
 }
 
 
-//void landscape::generateRandomDensity(std::vector<std::vector<double> > &matrix, std::vector<std::vector<double> > const &map)
-//{
-//	int xs = matrix.size(); int ys = matrix[0].size();
-//	for(int x=0; x<xs; x++){        
-//		for(int y=0; y<ys; y++){
-//			if(map[x][y]==1)
-//			    matrix[x][y] = std::rand()%6;  //assign random density between 0 and 5
-//		}
-//	}
-//}
-
-
-void landscape::generateRandomDensity(std::vector<std::vector<double> > &matrix, std::vector<std::vector<bool> > const &map)
+// Initializes "matrix" with a random animal density on all land points. The density is an number between 0 and 5.
+void landscape::GenerateRandomDensity(std::vector<std::vector<double> > &matrix, std::vector<std::vector<bool> > const &map)
 {
-	int xs = matrix.size(); int ys = matrix[0].size();
-	for(int x=0; x<xs; x++){        
-		for(int y=0; y<ys; y++){
+	int x_size = matrix.size(); int y_size = matrix[0].size();
+	for(int x=0; x<x_size; x++){        
+		for(int y=0; y<y_size; y++){
 			if(map[x][y]==1)
 			    matrix[x][y] = std::rand()%6;  //assign random density between 0 and 5
 		}
