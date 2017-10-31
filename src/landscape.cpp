@@ -18,12 +18,12 @@ landscape::landscape(const Params &pars, const std::string kMapPath, const std::
 	//Add space for a ring of water. Note vector initializes to 0 so the ring will be added automatically
 	grid_size_x += 2; grid_size_y += 2;
 	
-	map.resize(grid_size_x, std::vector<bool>(grid_size_y,0)); // Initialize the map matrix
+	map.resize(grid_size_x, std::vector<bool>(grid_size_y,0)); // Initialize the map matrix, whicht contains the morphology(true: land, false:water)
 	hares.resize(grid_size_x, std::vector<double>(grid_size_y,0)); // Initialize the hare density matrix
 	pumas.resize(grid_size_x, std::vector<double>(grid_size_y,0)); // Initialize the puma density matrix
-	pumas_old.resize(grid_size_x, std::vector<double>(grid_size_y,0)); // Initialize the pumas_old matrix (used by progress)
-	hares_old.resize(grid_size_x, std::vector<double>(grid_size_y,0)); // Initialize the hares_old  matrix (used by progess)
-	N.resize(grid_size_x, std::vector<int>(grid_size_y,0)); // Initialize the N  matrix (for counting "dry" neighbors)
+	pumas_old.resize(grid_size_x, std::vector<double>(grid_size_y,0)); // Initialize the pumas_old matrix (used by the progress function)
+	hares_old.resize(grid_size_x, std::vector<double>(grid_size_y,0)); // Initialize the hares_old  matrix (used by the progress function)
+	N.resize(grid_size_x, std::vector<int>(grid_size_y,0)); // Initialize the N  matrix (for counting "dry" neighbors, used by the progress function)
 	map_file.close();
 	}
 	
@@ -49,7 +49,7 @@ landscape::landscape(const Params &pars, const std::string kMapPath, const std::
 		GenerateRandomDensity(hares,map);
 						
 	
-	r = pars.r; a = pars.a; b = pars.b; m = pars.m; k = pars.k; l = pars.l; dt = pars.dt; //Neofytos: I uncommented this to use the variables. Conor: Sorry I forgot!
+	r = pars.r; a = pars.a; b = pars.b; m = pars.m; k = pars.k; l = pars.l; dt = pars.dt; 
 
 	// filling the N matrix that represents the number of dry neighbors
 	for(int i=1;i<grid_size_x-1;i++)
@@ -75,9 +75,10 @@ landscape::landscape(const Params &pars, const std::string kMapPath, const std::
 // If no density files are provided use random densities
 landscape::landscape(const Params &pars, const std::string kMapPath) : landscape(pars, kMapPath, "", "") {}
 
-
-//progress function des the actual computation for both Pumas and Hares
-// and calculates the densities for for the next time step.
+/*
+	Progress function does the actual computation for both Pumas and Hares
+ 	and calculates the densities for for the next time step.
+*/
 void landscape::progress()
 {
 	pumas_old=pumas;
@@ -93,16 +94,17 @@ void landscape::progress()
 				part1 = hares_old[i-1][j]+hares_old[i+1][j]+hares_old[i][j-1]+hares_old[i][j+1];	
 				part2 = k*(part1 - N[i][j]*hares_old[i][j]);
 				hares[i][j] = hares_old[i][j] + dt*( r*hares_old[i][j] - a*hares_old[i][j]*pumas_old[i][j] + part2);
-		
-				//std::cout<<hares[i][j]<<"  ";
+				hares[i][j] = abs(hares[i][j]); // In case the value gets negative, we make it positive so it will be physical
 	
 				part1 = pumas_old[i-1][j]+pumas_old[i+1][j]+pumas_old[i][j-1]+pumas_old[i][j+1];	
 				part2 = l*(part1 - N[i][j]*pumas_old[i][j]);			
 				pumas[i][j] = pumas_old[i][j] + dt*( b*hares_old[i][j]*pumas_old[i][j] - m*pumas_old[i][j] + part2);
-		}	
+				pumas[i][j] = abs(pumas[i][j]); // In case the value gets negative, we make it positive so it will be physical
+			}	
 
 }
-//average_hares returns the average value of hares along the whole grid at the time called.
+
+//average_hares returns the average value of hares along the whole grid when called.
 double landscape::average_hares()
 {
 double sum=0;
@@ -120,7 +122,7 @@ return sum/((grid_size_x-2)*(grid_size_y-2));
 }
 
 
-//average_pumas returns the average value of pumas along the whole grid at the time called.
+//average_pumas returns the average value of pumas along the whole grid when  called.
 double landscape::average_pumas()
 {
 double sum=0;
@@ -134,7 +136,6 @@ for (row = pumas.begin(); row != pumas.end(); row++)
 }
 
 return sum/((grid_size_x-2)*(grid_size_y-2));
-	// when average function is called it will return the average value of Pumas at that time.
 }
 
 
@@ -144,7 +145,6 @@ std::cout<<"hares:\n\n";
 
 for (int i = 0; i < grid_size_x; i++ ) {
       for (int j = 0; j < grid_size_y; j++ ) {
-         // std::cout << hares[i][j] << " ";	
          std::cout << hares[i][j];				 
       }
       std::cout << std::endl;
@@ -158,7 +158,6 @@ std::cout<<"\npumas:\n\n";
 
 for (int i = 0; i < grid_size_x; i++ ) {
       for (int j = 0; j < grid_size_y; j++ ) {
-         // std::cout << pumas[i][j] << " ";
           std::cout << pumas[i][j];				 
 
       }
@@ -180,6 +179,7 @@ return pumas;
 }
 
 
+//returns a vector of vectors corresponding to the morphology of the landscape (true:earth, false:water)
 std::vector<std::vector<bool> > landscape::get_map()
 {
 return map;

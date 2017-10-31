@@ -11,12 +11,16 @@
 #ifndef LANDSCAPE_H
 #define LANDSCAPE_H
 
-//Info for the rest of the programmers:
-//	To go to the next time step use: progress()
-//	To get the values of hares and pumas use:
-//		get_hares();
-//		get_pumas();
+/*
+//Usage of the class:
+	Initialize the class with arguments: struct Params ,string  , string , string ...
+					or:  struct Parsms, string ....
+	where struct Params is: ...
 
+	To go to the next time step use: progress()
+	To get the desity values of hares and pumas (in a vector of vectors) use: get_hares() and get_pumas()
+	To get the map  matrix (in a vector of vectors)(binary: true is land, false is water) use: get_map()
+*/
 
 class landscape {
 private:
@@ -24,10 +28,9 @@ private:
 	double r, a, b, m, k, l ,dt;  
 	std::vector<std::vector<double> > pumas; //the density matrix of pumas
 	std::vector<std::vector<double> > hares; // the density matrix of hares
-	std::vector<std::vector<bool> > map; // map matrix
+	std::vector<std::vector<bool> > map; // Morphology matrix (true is land, false is water)
 
 
-	//std::vector<std::vector<bool> > grid; // 1 represents land, 0 represents water 
 	std::vector<std::vector<int> > N; // the number of "dry" neighboring squares
 
 	std::vector<std::vector<double> > pumas_old; //temporary storing the  density matrix of pumas for use from the progress function
