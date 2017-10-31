@@ -16,9 +16,9 @@ void output::savefig(std::vector<std::vector<double>> map,
     fout << "255\n";
     for (auto& line : map) {
       for (auto& pixel : line) {
-        double red   = -12 * (pixel - 0.75) * (pixel - 0.75) + 1;
-        double green = -12 * (pixel - 0.5)  * (pixel - 0.5)  + 1;
-        double blue  = -12 * (pixel - 0.25) * (pixel - 0.25) + 1;
+        double red   = -3 * (pixel - 0.75) * (pixel - 0.75) + 1;
+        double green = -3 * (pixel - 0.25) * (pixel - 0.25) + 1;
+        double blue  = 0; //-12 * (pixel - 0.25) * (pixel - 0.25) + 1;
         red = red > 0 ? red : 0;
         green = green > 0 ? green : 0;
         blue = blue > 0 ? blue : 0;
@@ -66,9 +66,9 @@ void output::savefig(std::vector<std::vector<double>> map,
               ++pixel, ++terrain) {
         int pixel_R, pixel_G, pixel_B;
         if (*terrain) {
-          double red   = -12 * (*pixel - 0.75) * (*pixel - 0.75) + 1;
-          double green = -12 * (*pixel - 0.5)  * (*pixel - 0.5)  + 1;
-          double blue  = -12 * (*pixel - 0.25) * (*pixel - 0.25) + 1;
+          double red   = -3 * (*pixel - 0.75) * (*pixel - 0.75) + 1;
+          double green = -3 * (*pixel - 0.25)* (*pixel - 0.25)  + 1;
+          double blue  = 0;//-12 * (*pixel - 0.25) * (*pixel - 0.25) + 1;
           red = red > 0 ? red : 0;
           green = green > 0 ? green : 0;
           blue = blue > 0 ? blue : 0;
@@ -76,9 +76,9 @@ void output::savefig(std::vector<std::vector<double>> map,
           pixel_G = static_cast<int>(green * 256);
           pixel_B = static_cast<int>(blue * 256);
         } else {
-          pixel_R = 255;
-          pixel_G = 255;
-          pixel_B = 255;
+          pixel_R = 10;
+          pixel_G = 77;
+          pixel_B = 204;
         }
         fout << pixel_R << ' ';
         fout << pixel_G << ' ';
