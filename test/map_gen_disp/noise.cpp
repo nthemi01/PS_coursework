@@ -41,7 +41,7 @@ std::vector<double> noise::discrete_random_series(int size) {
 */
 
 std::vector<std::function<double(double)>> noise::cubic_spline_functions
-    (std::vector<double>& rdlist, const double step) {
+    (const std::vector<double>& rdlist, const double step) {
   const int size = rdlist.size() - 1;
   // init diag elements
   std::vector<double> diag_main(size+1, 4*step);

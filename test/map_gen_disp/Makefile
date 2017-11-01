@@ -1,13 +1,15 @@
 CC = g++
 CCFLAGS = -std=c++11\
 
+# X11 directory varies on different machine
+
 CIMGFLAGS =\
 		  -O2\
-		  -L/usr/X11/lib\ # X11 directory varies on different machine
+		  -L/usr/X11/lib\
 		  -lm\
 		  -lpthread\
 		  -lX11\
-		  -I/usr/X11/include # X11 directory varies on different machine
+		  -I/usr/X11/include
 OBJ = show_image_example.o noise.o randommap.o disdensity.o
 
 
