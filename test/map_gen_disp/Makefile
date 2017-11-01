@@ -3,7 +3,6 @@ CCFLAGS = -std=c++11
 
 CIMGFLAGS =\
 		  -O2\
-		  -lpthread\
 		  -L/usr/X11/lib\
 		  -lm\
 		  -lpthread\
