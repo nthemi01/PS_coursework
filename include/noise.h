@@ -1,3 +1,19 @@
+/*
+ * This module is to generate coherent noise 1D series or 2D map.
+ * Here are brief introduction to the algorithm:
+ *   1D series:
+ *     1. Generate 1D array filled by random numbers;
+ *     2. Apply cubic spline interpolation algorithm on the random series, 
+ *         and get the parameters of cubic functions
+ *     3. Use the spline functions to fill the gap between random numbers.
+ *
+ *   2D map:
+ *     1. Generate a series of 1D cohenrent noise series along x-axis, 
+ *         then along y-axis, there are discrete random series;
+ *     2. Apply interpolation algorithm on the series along y-axis;
+ *     3. Fill the empty band between coherent noise series along x-axis 
+ *         by cubic spline funcitons.
+*/
 #ifndef NOISE_H
 #define NOISE_H
 
@@ -9,7 +25,7 @@
 namespace noise{
   double cubic_func(double x, const double param0, const double param1, const double param2, const double param3);
   // input:
-  //   x: independent varibale
+  //   x: input varibale
   //   param0 - param3: coefficients associated with x to the i th
   // return the value of the cubic polynomial function
   
