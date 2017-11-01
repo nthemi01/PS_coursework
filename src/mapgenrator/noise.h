@@ -19,7 +19,7 @@ namespace noise{
   //   
   // return a series of random numbers in length of size+1
 
-  std::vector<std::function<double(double)>> cubic_spline_functions(std::vector<double>& rdlist, const double step=1.0);
+  std::vector<std::function<double(double)>> cubic_spline_functions(const std::vector<double>& rdlist, const double step=1.0);
   // input:
   //   rdlist: random number series
   //   step: defined interval between two numbers in the random number series
