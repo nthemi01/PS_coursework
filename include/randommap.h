@@ -2,9 +2,9 @@
 #define RANDOMMAP_H
 
 #include <vector>
-#include "include/vector_arithmetic.hpp"
-#include "include/vector_maxmin.hpp"
-#include "include/noise.h"
+#include "../include/vector_arithmetic.hpp"
+#include "../include/vector_maxmin.hpp"
+#include "../include/noise.h"
 
 std::vector<std::vector<double>> map_gen(int x, int y, double index = 1.7, const int samples = 10, const int octave = 4);
 

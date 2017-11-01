@@ -3,9 +3,9 @@
 #include <string>
 #include <fstream>
 #include <vector>
-#include "include/CImg.h"
-#include "include/vector_arithmetic.hpp"
-#include "include/vector_maxmin.hpp"
+#include "../include/CImg.h"
+#include "../include/vector_arithmetic.hpp"
+#include "../include/vector_maxmin.hpp"
 namespace output{
   cimg_library::CImg<unsigned int> display(std::vector<std::vector<double>> density, bool savefig = false, const std::string filename = "tmp.ppm");
   // input:

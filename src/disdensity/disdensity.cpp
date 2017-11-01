@@ -1,6 +1,6 @@
 // Copyright [2017] <Mengxuan Zhu>
 
-#include "include/disdensity.h"
+#include "../../include/disdensity.h"
 
 cimg_library::CImg<unsigned int>  output::display(
         std::vector<std::vector<double>> density,
