@@ -1,10 +1,6 @@
 // Copyright [2017] <Mengxuan Zhu>
 
 #include "disdensity.h"
-#include "vector_arithmetic.hpp"
-#include "vector_maxmin.hpp"
-#include <fstream>
-#include <vector>
 
 void output::savefig(std::vector<std::vector<double>> density,
         const std::string filename, bool color_toggle) {
