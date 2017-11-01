@@ -16,6 +16,7 @@ namespace noise{
   std::vector<double> discrete_random_series(int size);
   // input:
   //   size: the number of regions for following interpolation
+  //   
   // return a series of random numbers in length of size+1
 
   std::vector<std::function<double(double)>> cubic_spline_functions(std::vector<double>& rdlist, const double step=1.0);

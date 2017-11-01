@@ -6,15 +6,17 @@
 #include <fstream>
 #include <vector>
 
-void output::savefig(std::vector<std::vector<double>> map,
-        const std::string filename, bool color) {
+void output::savefig(std::vector<std::vector<double>> density,
+        const std::string filename, bool color_toggle) {
   std::ofstream fout(filename);
 
-  if (color) {
+  auto norm_density = (density-min2d(density))/max2d(density);
+
+  if (color_toggle) {
     fout << "P3";
-    fout << map[0].size() << ' ' << map.size() << '\n';
+    fout << norm_density[0].size() << ' ' << norm_density.size() << '\n';
     fout << "255\n";
-    for (auto& line : map) {
+    for (auto& line : norm_density) {
       for (auto& pixel : line) {
         double red   = -3 * (pixel - 0.75) * (pixel - 0.75) + 1;
         double green = -3 * (pixel - 0.25) * (pixel - 0.25) + 1;
@@ -33,9 +35,9 @@ void output::savefig(std::vector<std::vector<double>> map,
     }
   } else {
     fout << "P2\n";
-    fout << map[0].size() << ' ' << map.size() << '\n';
+    fout << norm_density[0].size() << ' ' << norm_density.size() << '\n';
     fout << "255\n";
-    for (auto& line : map) {
+    for (auto& line : norm_density) {
       for (auto& pixel : line) {
         int pixel_grayscale = static_cast<int>(pixel*256);
         fout << pixel_grayscale << ' ';
@@ -47,18 +49,19 @@ void output::savefig(std::vector<std::vector<double>> map,
   fout.close();
 }
 
-void output::savefig(std::vector<std::vector<double>> map,
-        std::vector<std::vector<bool>> mask,
-        const std::string filename, bool color) {
+void output::savefig(std::vector<std::vector<double>> density,
+        std::vector<std::vector<bool>> map,
+        const std::string filename, bool color_toggle) {
   std::ofstream fout(filename);
+  auto norm_density = (density-min2d(density))/max2d(density);
 
-  if (color) {
+  if (color_toggle) {
     fout << "P3";
-    fout << map[0].size() << ' ' << map.size() << '\n';
+    fout << norm_density[0].size() << ' ' << norm_density.size() << '\n';
     fout << "255\n";
-    auto line1 = map.begin();
-    auto line2 = mask.begin();
-    for ( ;line1 != map.end() && line2 != mask.end();
+    auto line1 = norm_density.begin();
+    auto line2 = map.begin();
+    for ( ;line1 != norm_density.end() && line2 != map.end();
             ++line1, ++line2) {
       auto pixel = line1->begin();
       auto terrain = line2->begin();
@@ -88,9 +91,9 @@ void output::savefig(std::vector<std::vector<double>> map,
     }
   } else {
     fout << "P2\n";
-    fout << map[0].size() << ' ' << map.size() << '\n';
+    fout << norm_density[0].size() << ' ' << norm_density.size() << '\n';
     fout << "255\n";
-    for (auto& line : map) {
+    for (auto& line : norm_density) {
       for (auto& pixel : line) {
         int pixel_grayscale = static_cast<int>(pixel*256);
         fout << pixel_grayscale << ' ';
