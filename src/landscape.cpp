@@ -138,7 +138,7 @@ for (row = pumas.begin(); row != pumas.end(); row++)
 return sum/((grid_size_x-2)*(grid_size_y-2));
 }
 
-
+/*
 void landscape::printhares()
 {
 std::cout<<"hares:\n\n";
@@ -150,8 +150,8 @@ for (int i = 0; i < grid_size_x; i++ ) {
       std::cout << std::endl;
    }
 }
-
-
+*/
+/*
 void landscape::printpumas()
 {
 std::cout<<"\npumas:\n\n";
@@ -164,6 +164,7 @@ for (int i = 0; i < grid_size_x; i++ ) {
       std::cout << std::endl;
    }
 }
+*/
 
 //returns a vector of vectors corresponding to the hares density along the grid
 std::vector<std::vector<double> > landscape::get_hares()
