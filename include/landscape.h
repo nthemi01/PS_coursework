@@ -60,6 +60,10 @@ public:
 	std::vector<std::vector<double> > get_hares();//returns a vector of vectors with size grid_size_x * grid_size_y with the density of hares
 	std::vector<std::vector<double> > get_pumas();
 	std::vector<std::vector<bool> > get_map();
+
+	void printhares();
+	void printpumas();
+	void print_all_variables();
 	
 	//helper functions for constructor
 	int ReadInFile(const std::string&, std::vector<std::vector<double> >&);

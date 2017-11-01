@@ -51,24 +51,12 @@ landscape::landscape(const Params &pars, const std::string kMapPath, const std::
 	
 	r = pars.r; a = pars.a; b = pars.b; m = pars.m; k = pars.k; l = pars.l; dt = pars.dt; 
 
+
 	// filling the N matrix that represents the number of dry neighbors
 	for(int i=1;i<grid_size_x-1;i++)
 		for(int j=1;j<grid_size_y-1;j++)
 			N[i][j]=map[i+1][j]+map[i][j+1]+map[i-1][j]+map[i][j-1];
 		
-		
-		
-	//Console output - To see the map and params
-	
-	// for(int x=0; x<grid_size_x; x++){
-		// for(int y=0; y<grid_size_y; y++){			
-			// std::cout << map[x][y];
-		// }
-		// std::cout << std::endl;
-	// }	
-	
-	// std::cout << "r=" << r << " a=" << a << " b=" << b<< " m=" << m<< " k=" << k<< " l=" << l << std::endl;	
-	// std::cout << "size of map: " << map.size() << " by " << map[0].size() << std::endl;
 
 }
 
@@ -92,12 +80,12 @@ void landscape::progress()
 				part1 = hares_old[i-1][j]+hares_old[i+1][j]+hares_old[i][j-1]+hares_old[i][j+1];	
 				part2 = k*(part1 - N[i][j]*hares_old[i][j]);
 				hares[i][j] = hares_old[i][j] + dt*( r*hares_old[i][j] - a*hares_old[i][j]*pumas_old[i][j] + part2);
-				hares[i][j] = abs(hares[i][j]); // In case the value gets negative, we make it positive so it will be physical
+				//hares[i][j] = abs(hares[i][j]); // In case the value gets negative, we make it positive so it will be physical
 	
 				part1 = pumas_old[i-1][j]+pumas_old[i+1][j]+pumas_old[i][j-1]+pumas_old[i][j+1];	
 				part2 = l*(part1 - N[i][j]*pumas_old[i][j]);			
 				pumas[i][j] = pumas_old[i][j] + dt*( b*hares_old[i][j]*pumas_old[i][j] - m*pumas_old[i][j] + part2);
-				pumas[i][j] = abs(pumas[i][j]); // In case the value gets negative, we make it positive so it will be physical
+				//pumas[i][j] = abs(pumas[i][j]); // In case the value gets negative, we make it positive so it will be physical
 			}	
 
 }
@@ -136,33 +124,33 @@ for (row = pumas.begin(); row != pumas.end(); row++)
 return sum/((grid_size_x-2)*(grid_size_y-2));
 }
 
-/*
+
 void landscape::printhares()
 {
 std::cout<<"hares:\n\n";
 
 for (int i = 0; i < grid_size_x; i++ ) {
       for (int j = 0; j < grid_size_y; j++ ) {
-         std::cout << hares[i][j];				 
+	std::cout << hares[i][j]<<" ";				 
       }
       std::cout << std::endl;
    }
 }
-*/
-/*
+
+
 void landscape::printpumas()
 {
 std::cout<<"\npumas:\n\n";
 
 for (int i = 0; i < grid_size_x; i++ ) {
       for (int j = 0; j < grid_size_y; j++ ) {
-          std::cout << pumas[i][j];				 
+	std::cout << pumas[i][j]<<" ";				 
 
       }
       std::cout << std::endl;
    }
 }
-*/
+
 
 //returns a vector of vectors corresponding to the hares density along the grid
 std::vector<std::vector<double> > landscape::get_hares()
@@ -184,9 +172,11 @@ std::vector<std::vector<bool> > landscape::get_map()
 return map;
 }
 
-
-
-
+void landscape::print_all_variables()
+{
+std::cout << "r=" << r << " a=" << a << " b=" << b<< " m=" << m<< " k=" << k<< " l=" << l<<"dt="<<dt << std::endl;	
+std::cout << "size of map: " << map.size() << " by " << map[0].size() << std::endl;
+}
 
 //helper functions for constructor
 
