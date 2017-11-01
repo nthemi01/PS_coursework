@@ -20,4 +20,4 @@ show_image_example: $(OBJ)
 	$(CC) -c $(CCFLAGS) $(CIMGFLAGS) -o $@ $<
 
 clean:
-	rm *.o test
+	rm *.o show_image_example *.ppm
