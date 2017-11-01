@@ -10,14 +10,20 @@ CIMGFLAGS =\
 		  -lpthread\
 		  -lX11\
 		  -I/usr/X11/include
-OBJ = show_image_example.o noise.o randommap.o disdensity.o
+IMSHOW_OBJ = show_image_example.o noise.o randommap.o disdensity.o
+MAPGEN_OBJ = map_gen_example.o noise.o randommap.o disdensity.o
 
+all:show_image_example map_gen_example
 
-show_image_example: $(OBJ)
-	$(CC) $(CCFLAGS) $(CIMGFLAGS) -o $@ $(OBJ)
+show_image_example: $(IMSHOW_OBJ)
+	$(CC) $(CCFLAGS) $(CIMGFLAGS) -o $@ $(IMSHOW_OBJ)
+
+map_gen_example: $(MAPGEN_OBJ)
+	$(CC) $(CCFLAGS) $(CIMGFLAGS) -o $@ $(MAPGEN_OBJ)
 
 %.o: %.cpp
 	$(CC) -c $(CCFLAGS) $(CIMGFLAGS) -o $@ $<
 
 clean:
-	rm *.o show_image_example *.ppm
+	rm *.o *.ppm *.dat
+	rm show_image_example map_gen_example
