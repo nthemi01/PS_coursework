@@ -72,8 +72,6 @@ landscape::landscape(const Params &pars, const std::string kMapPath, const std::
 
 }
 
-// If no density files are provided use random densities
-landscape::landscape(const Params &pars, const std::string kMapPath) : landscape(pars, kMapPath, "", "") {}
 
 /*
 	Progress function does the actual computation for both Pumas and Hares

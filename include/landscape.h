@@ -48,7 +48,6 @@ private:
 public:
 
 	landscape(const struct Params &, const std::string , const std::string, const std::string); 
-	landscape(const Params &, const std::string);
 	//constractor set the right grid size, initiates densities, calculates number of neighbors
 	
 	void progress(); // calculate the density values of hares and pumas for the next time step
