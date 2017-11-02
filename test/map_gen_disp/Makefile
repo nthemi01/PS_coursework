@@ -22,10 +22,10 @@ MAPGEN_OBJ = map_gen_example.o noise.o randommap.o disdensity.o
 all:show_image_example map_gen_example
 
 show_image_example: $(IMSHOW_OBJ)
-	$(CC) $(CCFLAGS) $(CIMGFLAGS) $(LIB) -o $@ $^
+	$(CC) $(CCFLAGS) $(CIMGFLAGS) $(LIB) -O3 -o $@ $^
 
 map_gen_example: $(MAPGEN_OBJ)
-	$(CC) $(CCFLAGS) $(CIMGFLAGS) $(LIB) -o $@ $^
+	$(CC) $(CCFLAGS) $(CIMGFLAGS) $(LIB) -O3 -o $@ $^
 
 %.o: %.cpp
 	$(CC) -c $(CCFLAGS) $(CIMGFLAGS) -o $@ $<

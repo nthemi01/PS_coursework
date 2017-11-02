@@ -16,8 +16,8 @@ using namespace cimg_library;
 int main(){
 
   // set parameters
-  int window_size_x = 550, window_size_y = 450;
-  int map_size_x = 60, map_size_y = 80, sample = 5;
+  int window_size_x = 400, window_size_y = 400;
+  int map_size_x = 40, map_size_y = 40, sample = 10;
   int img_size_x = map_size_x*sample, img_size_y = map_size_y*sample;
 
   // init windows
@@ -60,7 +60,7 @@ int main(){
     // display the iter num at upleft corner
     output::display(density).
         draw_text(2, 2, "iter = %d", black, 0, 1,
-                disp_right.width()/20, iter).
+                window_size_x/10, iter).
         display(disp_right);
   }
 
