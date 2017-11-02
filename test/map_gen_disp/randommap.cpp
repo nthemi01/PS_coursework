@@ -1,6 +1,7 @@
 // Copyright [2017] <Mengxuan Zhu>
 
 #include "./randommap.h"
+
 std::vector<std::vector<double>> map_gen(int x, int y, double index,
         const int samples, const int octave) {
   int modfactor = 1 << octave;

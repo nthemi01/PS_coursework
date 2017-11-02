@@ -1,5 +1,6 @@
 #ifndef DISDENSITY_H
 #define DISDENSITY_H
+
 #include <string>
 #include <fstream>
 #include <vector>
