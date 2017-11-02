@@ -1,20 +1,15 @@
 #include "../include/landscape.h"
 
 
-// landscape constructor
-// INPUTS:  Constant Stucture Params that contains the problem parameters - r,a,b,m,k,l,dt
-//          Constant String contianing the path to the Map data file
-//          Constant String contianing the path to the Map data file
-//          Constant String contianing the path to the Map data file
-// OUTPUTS: N/A 
-//          Initialises the class landscape
+// landscape constructor - Initialises the class landscape
+// INPUTS:  @pars Constant Stucture Params that contains the problem parameters - r,a,b,m,k,l,dt
+//          @kMapPath Constant String contianing the path to the Map data file
+//          @kPumasPath Constant String contianing the path to the Map data file
+//          @kHaresPath Constant String contianing the path to the Map data file
+// OUTPUTS: N/A
+          
 landscape::landscape(const Params &pars, const std::string kMapPath, const std::string kPumasPath, const std::string kHaresPath)
 {
-    //TO-DO:
-    // Check for bad input i.e. birth rate must be positive
-    // Add comments
-    // Finish tests
-    
     //Extract size of the landscape
     std::ifstream map_file;
     map_file.open(kMapPath.c_str());
@@ -96,16 +91,59 @@ landscape::landscape(const Params &pars, const std::string kMapPath, const std::
     }
     else
         m = pars.m;
-    
-    k = pars.k; l = pars.l; dt = pars.dt; 
+    if(pars.k < 0)
+    {
+        std::cout << "The diffusion rate for hares, k, should be non-negative." << std::endl;
+        std::cout << "Value of a gievn was: " << pars.k << std::endl;
+        std::cout << "Have set a to the default value of 0.2" << std::endl;
+        k = 0.2;
+    }
+    else
+        k = pars.k;
+    if(pars.l < 0)
+    {
+        std::cout << "The diffusion rate for pumas, l, should be non-negative." << std::endl;
+        std::cout << "Value of a gievn was: " << pars.l << std::endl;
+        std::cout << "Have set a to the default value of 0.2" << std::endl;
+        l = 0.2;
+    }
+    else
+        l = pars.l;
+    if(pars.dt <= 0)
+    {
+        std::cout << "The time step, t, should be positive." << std::endl;
+        std::cout << "Value of a gievn was: " << pars.dt << std::endl;
+        std::cout << "Have set a to the default value of 0.4" << std::endl;
+        dt = 0.4;
+    }
+    else
+        dt = pars.dt; 
 
     // filling the N matrix that represents the number of dry neighbors
     for(int i=1;i<grid_size_x-1;i++)
         for(int j=1;j<grid_size_y-1;j++)
             N[i][j]=map[i+1][j]+map[i][j+1]+map[i-1][j]+map[i][j-1];
-        
-        
-        
+    
+    // Check that densities on the water are zero
+    for(int i=0;i<grid_size_x;i++){
+        for(int j=0;j<grid_size_y;j++)
+        {
+            if(!map[i][j])
+            {
+                if(pumas[i][j]!=0)
+                {
+                    std::cout << "Warning: puma density was non-zero on a water point. Reset to 0." << std::endl;
+                    pumas[i][j]=0;
+                }
+                if(hares[i][j]!=0)
+                {    
+                    std::cout << "Warning: puma density was non-zero on a water point. Reset to 0." << std::endl;
+                    hares[i][j]=0;
+                }
+            }
+        }
+    }
+            
     // Console output - To see the map and params
     
     // for(int x=0; x<grid_size_x; x++){
@@ -212,33 +250,33 @@ for (int i = 0; i < grid_size_x; i++ ) {
 }
 
 
-//returns a vector of vectors corresponding to the hares density along the grid
+// returns a vector of vectors corresponding to the hares density along the grid
 std::vector<std::vector<double> > landscape::get_hares()
 {
 return hares;
 }
 
 
-//returns a vector of vectors corresponding to the pumas density along the grid
+// returns a vector of vectors corresponding to the pumas density along the grid
 std::vector<std::vector<double> > landscape::get_pumas()
 {
 return pumas;
 }
 
 
-//returns a vector of vectors corresponding to the morphology of the landscape (true:earth, false:water)
-std::vector<std::vector<bool> > landscape::get_map()
-{
-return map;
-}
+// returns a vector of vectors corresponding to the morphology of the landscape (true:earth, false:water)
+// std::vector<std::vector<bool> > landscape::get_map()
+// {
+// return map;
+// }
 
 
 
 //returns a vector of vectors corresponding to the number of dry neighbors each square has. Only used for testing
-std::vector<std::vector<int> > landscape::get_neighbors()
-{
-return N;
-}
+// std::vector<std::vector<int> > landscape::get_neighbors()
+// {
+// return N;
+// }
 
 //prints on screen all the variables. Useful for debugging
 void landscape::print_all_variables()
@@ -247,9 +285,10 @@ std::cout << "r=" << r << " a=" << a << " b=" << b<< " m=" << m<< " k=" << k<< "
 std::cout << "size of map: " << map.size() << " by " << map[0].size() << std::endl;
 }
 
-//helper functions for constructor
-// Reads into "matrix" the .dat file fouond in "kPath"
-// Returns 0 if it fails to open the file otherwise returns 1
+// Helper function for the constructor
+// INPUTS:  @kPath Constant String that contains the file path loactaing the file to be read in
+//          @matrix Vecotor of Vectors representing the matrix to read the data into
+// OUTPUTS: 0 or 1 depending on if the file was read in successuflly or not - 0 fail, 1 worked
 
 int landscape::ReadInFile(const std::string &kPath, std::vector<std::vector<double> >& matrix)
 {
@@ -282,11 +321,10 @@ int landscape::ReadInFile(const std::string &kPath, std::vector<std::vector<doub
 
 
 // Helper function for the constructor
-// INPUTS:  Constant String that contains the file path loactaing the file to be read in
-//          Vecotor of Vectors representing the matrix to read the data into
+// INPUTS:  @kPath Constant String that contains the file path loactaing the file to be read in
+//          @matrix Vecotor of Vectors representing the matrix to read the data into
 // OUTPUTS: 0 or 1 depending on if the file was read in successuflly or not - 0 fail, 1 worked
-//Reads into "matrix" the .dat file fouond in "kPath"
-// Returns 0 if it fails to open the file otherwise returns 1
+
 int landscape::ReadInFile(const std::string &kPath, std::vector<std::vector<bool> >& matrix)
 {
     std::ifstream file;
@@ -316,6 +354,7 @@ int landscape::ReadInFile(const std::string &kPath, std::vector<std::vector<bool
     }
 }
 
+// MENGXUAN PLEASE CHANGE TO YOUR CODE SO I CAN UPDATE THE CONSTRUCTOR
 
 // Initializes "matrix" with a random animal density on all land points. The density is an number between 0 and 5.
 void landscape::GenerateRandomDensity(std::vector<std::vector<double> > &matrix, std::vector<std::vector<bool> > const &map)
