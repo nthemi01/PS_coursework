@@ -1,26 +1,28 @@
 #ifndef DISDENSITY_H
 #define DISDENSITY_H
-
 #include <string>
 #include <fstream>
 #include <vector>
-#include "../include/CImg.h"
-#include "../include/vector_arithmetic.hpp"
-#include "../include/vector_maxmin.hpp"
-namespace output{
-  cimg_library::CImg<unsigned int> display(std::vector<std::vector<double>> density, bool savefig = false, const std::string filename = "tmp.ppm");
-  // input:
-  //   density: density map of either hares or pumas
-  //   savefig: toggle to save density to a ppm file
-  //   filename: filename of the ppm file
-  // return a cimg_library::CImg<unsigned> object for showing on screen
-  cimg_library::CImg<unsigned int> display(std::vector<std::vector<double>> density, std::vector<std::vector<bool>> map, bool savefig = false, const std::string filename = "tmp.ppm");
-  // input:
-  //   density: density map of either hares or pumas
-  //   map: terrain map
-  //   savefig: toggle to save density to a ppm file
-  //   filename: filename of the ppm file
-  // return a cimg_library::CImg<> object for showing on screen
+#include "CImg.h"
+#include "vector_arithmetic.hpp"
+#include "vector_maxmin.hpp"
 
+namespace output{
+  cimg_library::CImg<unsigned int> get_img(std::vector<std::vector<double>> density, bool savefig = false, const std::string filename = "tmp.ppm");
+  cimg_library::CImg<unsigned int> get_img(std::vector<std::vector<double>> density, std::vector<std::vector<bool>> map, bool savefig = false, const std::string filename = "tmp.ppm");
+
+  class screen {
+    private:
+      std::vector<std::vector<bool>> map;
+      unsigned int window_size_x, window_size_y;
+      cimg_library::CImgDisplay disp_left, disp_right;
+      cimg_library::CImg<unsigned int> img_left, img_right;
+
+    public:
+      screen(unsigned int window_size_x, unsigned int window_size_y, const char* title_left = 0, const char* title_right = 0);
+      void assign(cimg_library::CImg<unsigned int> img_left, cimg_library::CImg<unsigned int> img_right);
+      void show(unsigned int iter);
+      bool notend();
+  };
 }
 #endif

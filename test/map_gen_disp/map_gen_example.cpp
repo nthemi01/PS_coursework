@@ -28,8 +28,8 @@ int main(){
     mask.push_back(maskline);
   }
 
-  auto dump = output::display(density, true, "test1.ppm");
-  dump = output::display(density, mask, true, "test2.ppm");
+  auto dump = output::get_img(density, true, "test1.ppm");
+  dump = output::get_img(density, mask, true, "test2.ppm");
 
   std::ofstream fout("test.dat");
   fout << "40 40\n" << mask;
