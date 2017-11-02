@@ -50,11 +50,17 @@ namespace noise{
   // return a coherent noise series in length of size*samples+1
 
   std::vector<double> coherent_series(unsigned int size, unsigned int samples=20);
+  // input:
+  //   size: number of gaps between psuedorandom numbers
+  //   samples: number of interpolation points in each gap
   // combine the steps above
   // return a coherent noise series in length of size*samples+1
   
   std::vector<std::vector<double>> coherent_map(unsigned int size1, unsigned int size2, unsigned int sample1=20, unsigned int sample2=20);
-  // return a 2D transposed coherent noise map in size of (size2*samples2+1,size1*samples1+1)
+  // input:
+  //   size1, size2: number of gaps between psuedorandom numbers along two directions
+  //   sample1, sample2: number of interpolation points in each gap along two directions
+  // return a 2D TRANSPOSED coherent noise map in size of (size2*samples2+1,size1*samples1+1)
 };
 
 #endif
