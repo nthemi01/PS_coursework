@@ -16,13 +16,16 @@ using cimg_library::CImg;
 int main(){
 
   // set parameters
-  int window_size_x = 400, window_size_y = 400;
+  int window_size_x = 200, window_size_y = 200;
   int map_size_x = 40, map_size_y = 40, sample = 10;
 
   // init windows
-  output::screen windows(window_size_x, window_size_y, "left", "right");
+  output::screen windows(window_size_x, window_size_y,
+          "left title", "right title");
+  // gen 2d map
   auto density = map_gen(map_size_x,map_size_y,1.7,sample,4);
 
+  // just for my own test
   std::vector<std::vector<double>> half(map_size_y*sample,
             std::vector<double>(map_size_x*sample,0.5));
 
@@ -32,9 +35,13 @@ int main(){
     auto evo = (map_gen(map_size_x,map_size_y,1.0,sample,2)-half)/ 20;
     density = density + evo;
     density = (density-min2d(density))/max2d(density);
-    auto img_test = output::get_img(density);
 
+    auto img_test = output::get_img(density);
+    // get_img(density, map, savefig_toggle, filename) // last two are optional
+    // get_img(density, savefig_toggle, filename)
     windows.assign(img_test, img_test);
+    // assign()
+
     windows.show(iter);
   }
 
