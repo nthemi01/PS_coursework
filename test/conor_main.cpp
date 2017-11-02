@@ -12,18 +12,8 @@ const std::string kMapPath = "small.dat";
 const std::string kInitialDensityPath = "smallDensity.dat";
 
 
-Params pars;
-pars.r = 0.8;
-pars.a = 0.04;
-pars.b = 0.02;
-pars.m = 0.06;
-pars.k = 0.2;
-pars.l = 0.2;
-pars.dt = 0.4;
-
-
+Params pars; pars.r = 0.8; pars.a = 0.04; pars.b = 0.02; pars.m = 0.06; pars.k = 0.2;
+pars.l = 0.2; pars.dt = 0.4;
 
 landscape land(pars,kMapPath,kInitialDensityPath,kInitialDensityPath);
-
-
 }

@@ -56,8 +56,8 @@ public:
     void save_densities(std::string filename_puma, std::string filename_hare, bool color_toggle); //prints to the screen the density matrix
     void print_densities();
 
-    // std::vector<std::vector<double> > get_hares();//returns a vector of vectors with size grid_size_x * grid_size_y with the density of hares
-    // std::vector<std::vector<double> > get_pumas();
+    std::vector<std::vector<double> > get_hares();//returns a vector of vectors with size grid_size_x * grid_size_y with the density of hares
+    std::vector<std::vector<double> > get_pumas();
     // std::vector<std::vector<bool> > get_map();
     void printhares();
 	void printpumas();

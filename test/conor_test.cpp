@@ -62,16 +62,26 @@ TEST(ConstructorTestSuite, ReadInFileTest3)
     }   
 }
 
+// Test: wrong parameters are handled
 TEST(ConstructorTestSuite, WrongParamsTest1)
 {
     const std::string kMapPath = "small.dat"; //50 by 50
 
-    Params pars; pars.r = -1; pars.a = 0.04; pars.b = 0.02; pars.m = 0.06; pars.k = 0.2;
-    pars.l = 0.2; pars.dt = 0.4;
+    Params pars; pars.r = -1; pars.a = 0.04; pars.b = -0.2; pars.m = 0.06; pars.k = 0.2;
+    pars.l = 0.2; pars.dt = 0.0;
     
     landscape land(pars,kMapPath);
     
-    EXPECT_EQ(land.r,0.08)
+}
+
+TEST(ConstructorTestSuite, WrongDensitiesTest1)
+{
+    const std::string kMapPath = "small.dat"; //50 by 50
+
+    Params pars; pars.r = 0.8; pars.a = 0.04; pars.b = 0.02; pars.m = 0.06; pars.k = 0.2;
+    pars.l = 0.2; pars.dt = 0.4;
+    
+    landscape land(pars,kMapPath);
 }
 
 
