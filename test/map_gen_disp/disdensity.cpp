@@ -83,7 +83,7 @@ cimg_library::CImg<unsigned int> output::get_img(
       unsigned int pixel_R, pixel_G, pixel_B;
       if (*terrain) {
         double red   = -3 * (*pixel - 0.75) * (*pixel - 0.75) + 1;
-        double green = -3 * (*pixel - 0.25)* (*pixel - 0.25)  + 1;
+        double green = -3 * (*pixel - 0.25) * (*pixel - 0.25)  + 1;
         double blue  = 0;
         red = red > 0 ? red : 0;
         green = green > 0 ? green : 0;

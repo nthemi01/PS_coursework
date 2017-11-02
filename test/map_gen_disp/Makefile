@@ -19,6 +19,8 @@ GTESTFLAG = -lgtest\
 
 IMSHOW_OBJ = show_image_example.o noise.o randommap.o disdensity.o
 MAPGEN_OBJ = map_gen_example.o noise.o randommap.o disdensity.o
+CALC_OBJ = caldensity.o landscape.o disdensity.o randommap.o noise.o
+
 
 all:show_image_example map_gen_example
 
@@ -38,6 +40,12 @@ show_image_test:$(IMSHOW_OBJ)
 
 map_gen_test:$(MAPGEN_OBJ)
 	$(CC) $(CCFLAGS) $(CIMGFLAGS) $(LIB) $(GTESTFLAG) -o $@ $^
+
+landscape.o:../../src/landscape.cpp
+	$(CC) -c $(CCFLAGS) $(CIMGFLAGS) -o $@ $<
+
+calc:$(CALC_OBJ)
+	$(CC) $(CCFLAGS) $(CIMGFLAGS) $(LIB) -DDEBUG_OUT -O3 -o $@ $^
 
 clean:
 	rm *.o *.ppm *.dat show_image_example map_gen_example show_image_test map_gen_test
