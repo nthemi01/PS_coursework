@@ -11,7 +11,6 @@
 #endif
 
 using std::vector;
-using namespace cimg_library;
 
 int main(){
 
@@ -32,7 +31,7 @@ int main(){
   dump = output::get_img(density, mask, true, "test2.ppm");
 
   std::ofstream fout("test.dat");
-  fout << "40 40\n" << mask;
+  fout << "400 400 " << mask;
   fout << std::flush;
   fout.close();
 

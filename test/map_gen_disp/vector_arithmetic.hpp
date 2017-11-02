@@ -45,7 +45,7 @@ std::ostream& operator<<(std::ostream& s, const std::vector<T>& v) {
   for (const auto& e : v) {
       s << e << ' ';
   }
-  return s << '\n';
+  return s;
 }
 
 template<typename T>
