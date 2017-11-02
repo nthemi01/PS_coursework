@@ -60,6 +60,9 @@ public:
 	std::vector<std::vector<double> > get_hares();//returns a vector of vectors with size grid_size_x * grid_size_y with the density of hares
 	std::vector<std::vector<double> > get_pumas();
 	std::vector<std::vector<bool> > get_map();
+	std::vector<std::vector<int> > get_neighbors();
+
+
 
 	void printhares();
 	void printpumas();
