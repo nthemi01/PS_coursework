@@ -126,27 +126,28 @@ landscape::landscape(const Params &pars, const std::string kMapPath, const std::
 */
 void landscape::progress()
 {
-    pumas_old=pumas;
-    hares_old=hares;
+
+	pumas_old=pumas;
+	hares_old=hares;
 
 
-    for(int i=1;i<grid_size_x-1;i++)
-        for(int j=1;j<grid_size_y-1;j++)
-            if(map[i][j])
-            {
-                double part1,part2;
+	for(int i=1;i<grid_size_x-1;i++)
+		for(int j=1;j<grid_size_y-1;j++)
+			if(map[i][j])
+			{
+				double part1,part2;
 
-                part1 = hares_old[i-1][j]+hares_old[i+1][j]+hares_old[i][j-1]+hares_old[i][j+1];    
-                part2 = k*(part1 - N[i][j]*hares_old[i][j]);
-                hares[i][j] = hares_old[i][j] + dt*( r*hares_old[i][j] - a*hares_old[i][j]*pumas_old[i][j] + part2);
-                hares[i][j] = abs(hares[i][j]); // In case the value gets negative, we make it positive so it will be physical
-    
-                part1 = pumas_old[i-1][j]+pumas_old[i+1][j]+pumas_old[i][j-1]+pumas_old[i][j+1];    
-                part2 = l*(part1 - N[i][j]*pumas_old[i][j]);            
-                pumas[i][j] = pumas_old[i][j] + dt*( b*hares_old[i][j]*pumas_old[i][j] - m*pumas_old[i][j] + part2);
-                pumas[i][j] = abs(pumas[i][j]); // In case the value gets negative, we make it positive so it will be physical
-            }   
-
+				part1 = hares_old[i-1][j]+hares_old[i+1][j]+hares_old[i][j-1]+hares_old[i][j+1];	
+				part2 = k*(part1 - N[i][j]*hares_old[i][j]);
+				hares[i][j] = hares_old[i][j] + dt*( r*hares_old[i][j] - a*hares_old[i][j]*pumas_old[i][j] + part2);
+				hares[i][j] = fabs(hares[i][j]); 
+				// By taking the absolute value we make sure we never have negative density.
+	
+				part1 = pumas_old[i-1][j]+pumas_old[i+1][j]+pumas_old[i][j-1]+pumas_old[i][j+1];	
+				part2 = l*(part1 - N[i][j]*pumas_old[i][j]);			
+				pumas[i][j] = pumas_old[i][j] + dt*( b*hares_old[i][j]*pumas_old[i][j] - m*pumas_old[i][j] + part2);
+				pumas[i][j] = fabs(pumas[i][j]);
+			}	
 }
 
 //average_hares returns the average value of hares along the whole grid when called.
@@ -184,31 +185,32 @@ return sum/((grid_size_x-2)*(grid_size_y-2));
 }
 
 
-// void landscape::printhares()
-// {
-// std::cout<<"hares:\n\n";
+void landscape::printhares()
+{
+std::cout<<"hares:\n\n";
 
-// for (int i = 0; i < grid_size_x; i++ ) {
-      // for (int j = 0; j < grid_size_y; j++ ) {
-         // std::cout << hares[i][j];                
-      // }
-      // std::cout << std::endl;
-   // }
-// }
+for (int i = 0; i < grid_size_x; i++ ) {
+      for (int j = 0; j < grid_size_y; j++ ) {
+	std::cout << hares[i][j]<<" ";				 
+      }
+      std::cout << std::endl;
+   }
+}
 
 
-// void landscape::printpumas()
-// {
-// std::cout<<"\npumas:\n\n";
 
-// for (int i = 0; i < grid_size_x; i++ ) {
-      // for (int j = 0; j < grid_size_y; j++ ) {
-          // std::cout << pumas[i][j];               
 
-      // }
-      // std::cout << std::endl;
-   // }
-// }
+void landscape::printpumas()
+{
+std::cout<<"pumas:\n\n";
+for (int i = 0; i < grid_size_x; i++ ) {
+      for (int j = 0; j < grid_size_y; j++ ) {
+	std::cout << pumas[i][j]<<" ";				 
+      }
+      std::cout << std::endl;
+   }
+}
+
 
 //returns a vector of vectors corresponding to the hares density along the grid
 std::vector<std::vector<double> > landscape::get_hares()
@@ -232,7 +234,18 @@ return map;
 
 
 
+//returns a vector of vectors corresponding to the number of dry neighbors each square has. Only used for testing
+std::vector<std::vector<int> > landscape::get_neighbors()
+{
+return N;
+}
 
+//prints on screen all the variables. Useful for debugging
+void landscape::print_all_variables()
+{
+std::cout << "r=" << r << " a=" << a << " b=" << b<< " m=" << m<< " k=" << k<< " l=" << l<<"dt="<<dt << std::endl;	
+std::cout << "size of map: " << map.size() << " by " << map[0].size() << std::endl;
+}
 
 //helper functions for constructor
 // Reads into "matrix" the .dat file fouond in "kPath"

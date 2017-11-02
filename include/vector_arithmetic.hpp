@@ -1,4 +1,4 @@
-#fndef VECTOR_ARITHMETIC_H
+#ifndef VECTOR_ARITHMETIC_H
 #define VECTOR_ARITHMETIC_H
 
 #include <vector>

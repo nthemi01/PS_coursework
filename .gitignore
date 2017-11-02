@@ -1,6 +1,7 @@
-
-test/map_gen_disp/colorbar.ppm
-test/map_gen_disp/noise.o
 *.o
-test/map_gen_disp/test
 *.ppm
+*.swp
+.DS_Store
+test/map_gen_disp/show_image_example
+test/map_gen_disp/map_gen_example
+test/map_gen_disp/CImg.h

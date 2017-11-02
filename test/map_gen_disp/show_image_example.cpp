@@ -6,14 +6,20 @@
 #include "disdensity.h"
 #include "CImg.h"
 
+#ifdef GTEST
+#include "gtest/gtest.h"
+#endif
+
 using std::vector;
-using namespace cimg_library;
+using cimg_library::CImg;
 
 int main(){
+  // set parameters
+  int window_size_x = 300, window_size_y = 200;
+  int map_size_x = 60, map_size_y = 40, sample = 10;
 
-/*
- * test saving a masked map
-  auto map = map_gen(40,40,1.7,10,4);
+  auto map = map_gen(map_size_x,map_size_y,1.7,sample,4);
+
   vector<vector<bool>> mask;
 
   for (auto& line : map) {
@@ -24,50 +30,30 @@ int main(){
     mask.push_back(maskline);
   }
 
-  auto density = setmap(40,40,1.7,10,4);
-  auto dump = output::display(density, true, "test1.ppm");
-  dump = output::display(density, mask, true, "test2.ppm");
-*/
-
-
-  // set parameters
-  int window_size_x = 300, window_size_y = 400;
-  int map_size_x = 60, map_size_y = 80, sample = 10;
-  int img_size_x = map_size_x*sample, img_size_y = map_size_y*sample;
-
   // init windows
-  CImgDisplay disp_left(window_size_x,window_size_y,
-          "colorscale map",0,false,true);
-  CImgDisplay disp_right(window_size_x,window_size_y,
-          "grayscale map",0,false,true);
-  disp_left.move(
-          (CImgDisplay::screen_width() - disp_right.width() - disp_left.width())/2,
-          (CImgDisplay::screen_height() - disp_right.height())/2);
-  disp_right.move(
-          disp_left.window_x() + 8 + disp_left.window_width(),
-          disp_left.window_y());
-
-
-  // generate a map for test
+  output::screen windows(window_size_x, window_size_y,
+          "left title", "right title");
+  // gen 2d map
   auto density = map_gen(map_size_x,map_size_y,1.7,sample,4);
-  for (int iter = 0 ;
-          !disp_right.is_closed() && !disp_left.is_closed() &&
-          !disp_right.is_keyQ() && !disp_right.is_keyESC() &&
-          !disp_left.is_keyQ() && !disp_left.is_keyESC(); ++iter) {
-    // set evolution varible
-    std::vector<std::vector<double>> half(map_size_y*sample,
+
+  // just for my own test
+  std::vector<std::vector<double>> half(map_size_y*sample,
             std::vector<double>(map_size_x*sample,0.5));
-    auto evo = (map_gen(map_size_x,map_size_y,1.0,sample,1)-half)/ 5;
-    if (iter%20==0)
-      // display density on disp_left
-      // refresh rate: per 20 iters
-      output::display(density).display(disp_left);
+
+  for (unsigned int iter = 0; windows.notend(); ++iter) {
     // evolve and normalize
+    // this can be modified to other update rules
+    auto evo = (map_gen(map_size_x,map_size_y,1.0,sample,2)-half)/ 20;
     density = density + evo;
     density = (density-min2d(density))/max2d(density);
-    // display density on disp_right
-    // refresh rate: per iter
-    output::display(density).display(disp_right);
+
+    auto img_test = output::get_img(density,mask);
+    // get_img(density, map, savefig_toggle, filename) // last two are optional
+    // get_img(density, savefig_toggle, filename)
+    windows.assign(img_test, img_test);
+    // assign()
+
+    windows.show(iter);
   }
 
   return 0;

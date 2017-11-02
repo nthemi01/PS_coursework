@@ -8,7 +8,7 @@ double noise::cubic_func(double x,
   return param0+param1*x+param2*x*x+param3*x*x*x;
 }
 
-std::vector<double> noise::discrete_random_series(int size) {
+std::vector<double> noise::discrete_random_series(unsigned int size) {
   // set random number generator
   static std::random_device rd;
   static std::minstd_rand gen(rd());
@@ -42,7 +42,7 @@ std::vector<double> noise::discrete_random_series(int size) {
 
 std::vector<std::function<double(double)>> noise::cubic_spline_functions
     (const std::vector<double>& rdlist, const double step) {
-  const int size = rdlist.size() - 1;
+  const unsigned int size = rdlist.size() - 1;
   // init diag elements
   std::vector<double> diag_main(size+1, 4*step);
   *diag_main.begin() = 1;
@@ -70,7 +70,7 @@ std::vector<std::function<double(double)>> noise::cubic_spline_functions
   std::vector<double> y_prime(ypp);
   up_prime[0] = diag_up[0] / diag_main[0];
   y_prime[0] = ypp[0] / diag_main[0];
-  for (int i = 1; i < size; ++i) {
+  for (unsigned int i = 1; i < size; ++i) {
     up_prime[i] = diag_up[i] / (diag_main[i]-diag_down[i]*up_prime[i-1]);
     y_prime[i] = (ypp[i]-diag_down[i]*y_prime[i-1])
         / (diag_main[i]-diag_down[i]*up_prime[i-1]);
@@ -108,10 +108,10 @@ std::vector<std::function<double(double)>> noise::cubic_spline_functions
   // calc values of interpolational points
 std::vector<double> noise::coherent_series(
         std::vector<std::function<double(double)>> splines_function,
-        int samples, const double step) {
+        int unsigned samples, const double step) {
   const int size = splines_function.size();
   std::vector<double> result(size * samples);
-  for (int i = 0; i < size*samples; ++i) {
+  for (unsigned int i = 0; i < size*samples; ++i) {
     result[i] = splines_function[static_cast<int>(i/samples)]
         ((i%samples)*step/samples);
   }
@@ -120,13 +120,14 @@ std::vector<double> noise::coherent_series(
   return result;
 }
 
-std::vector<double> noise::coherent_series(int size, int samples) {
+std::vector<double> noise::coherent_series(unsigned int size,
+        unsigned int samples) {
   auto rdlist = (noise::discrete_random_series(size));
   return noise::coherent_series(noise::cubic_spline_functions(rdlist), samples);
 }
 
-std::vector<std::vector<double>> noise::coherent_map(const int size1,
-        const int size2, const int sample1, const int sample2) {
+std::vector<std::vector<double>> noise::coherent_map(const unsigned int size1,
+        const unsigned int size2, const unsigned int sample1, const unsigned int sample2) {
   std::vector<std::vector<double>> semi_coherent_noise_2d(size2+1,
           std::vector<double>(size1*sample1+1));
   // coherent along axis 2, discrete along axis 1
@@ -140,13 +141,13 @@ std::vector<std::vector<double>> noise::coherent_map(const int size1,
   // transpose the map
   std::vector<std::vector<double>> semi_coherent_noise_2dT(
           size1*sample1+1, std::vector<double>(size2+1));
-  for (int i = 0; i < size1*sample1+1; ++i)
-    for (int j = 0; j < size2+1; ++j)
+  for (unsigned int i = 0; i < size1*sample1+1; ++i)
+    for (unsigned int j = 0; j < size2+1; ++j)
         semi_coherent_noise_2dT[i][j] = semi_coherent_noise_2d[j][i];
 
   // calc spline functions along axis 2
   std::vector<std::vector<double>> coherent_noise_2d;
-  for (int i = 0; i < size1*sample1+1; ++i) {
+  for (unsigned int i = 0; i < size1*sample1+1; ++i) {
     auto dummy_coherent_noise = noise::coherent_series
         (noise::cubic_spline_functions
          (semi_coherent_noise_2dT[i]), sample2);
