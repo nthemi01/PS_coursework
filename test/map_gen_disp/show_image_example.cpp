@@ -18,8 +18,6 @@ int main(){
   // set parameters
   int window_size_x = 400, window_size_y = 400;
   int map_size_x = 40, map_size_y = 40, sample = 10;
-  int img_size_x = map_size_x*sample, img_size_y = map_size_y*sample;
-
 
   // init windows
   output::screen windows(window_size_x, window_size_y, "left", "right");
