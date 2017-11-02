@@ -15,8 +15,9 @@ using std::vector;
 int main(){
 
   // test saving a masked map
-  auto map = map_gen(40,40,1.7,10,4);
-  auto density = map_gen(40,40,1.7,10,4);
+  const unsigned int xx = 60, yy = 40, samples = 10;
+  auto map = map_gen(xx,yy,1.7,samples,4);
+  auto density = map_gen(xx,yy,1.7,samples,4);
   vector<vector<bool>> mask;
 
   for (auto& line : map) {
@@ -31,7 +32,7 @@ int main(){
   dump = output::get_img(density, mask, true, "test2.ppm");
 
   std::ofstream fout("test.dat");
-  fout << "400 400 " << mask;
+  fout << xx << ' ' << yy << '\n' << mask;
   fout << std::flush;
   fout.close();
 

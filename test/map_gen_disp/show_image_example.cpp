@@ -16,8 +16,8 @@ using cimg_library::CImg;
 int main(){
 
   // set parameters
-  int window_size_x = 200, window_size_y = 200;
-  int map_size_x = 40, map_size_y = 40, sample = 10;
+  int window_size_x = 300, window_size_y = 200;
+  int map_size_x = 60, map_size_y = 40, sample = 10;
 
   // init windows
   output::screen windows(window_size_x, window_size_y,

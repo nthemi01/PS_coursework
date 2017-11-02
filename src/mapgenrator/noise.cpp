@@ -1,6 +1,6 @@
 // Copyright [2017] <Mengxuan Zhu>
 
-#include "./noise.h"
+#include "noise.h"
 
 double noise::cubic_func(double x,
         const double param0, const double param1, const double param2,
@@ -42,7 +42,7 @@ std::vector<double> noise::discrete_random_series(unsigned int size) {
 
 std::vector<std::function<double(double)>> noise::cubic_spline_functions
     (const std::vector<double>& rdlist, const double step) {
-  const int size = rdlist.size() - 1;
+  const unsigned int size = rdlist.size() - 1;
   // init diag elements
   std::vector<double> diag_main(size+1, 4*step);
   *diag_main.begin() = 1;
@@ -70,7 +70,7 @@ std::vector<std::function<double(double)>> noise::cubic_spline_functions
   std::vector<double> y_prime(ypp);
   up_prime[0] = diag_up[0] / diag_main[0];
   y_prime[0] = ypp[0] / diag_main[0];
-  for (int i = 1; i < size; ++i) {
+  for (unsigned int i = 1; i < size; ++i) {
     up_prime[i] = diag_up[i] / (diag_main[i]-diag_down[i]*up_prime[i-1]);
     y_prime[i] = (ypp[i]-diag_down[i]*y_prime[i-1])
         / (diag_main[i]-diag_down[i]*up_prime[i-1]);
