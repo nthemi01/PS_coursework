@@ -6,7 +6,7 @@
 #include "vector_maxmin.hpp"
 #include "noise.h"
 
-std::vector<std::vector<double>> map_gen(int x, int y, double index = 1.7, const int samples = 10, const int octave = 4);
+std::vector<std::vector<double>> map_gen(unsigned int x, unsigned int y, double index = 1.7, const unsigned int samples = 10, const unsigned int octave = 4);
 
 // input:
 //   x,y : the size of output map
