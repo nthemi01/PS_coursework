@@ -4,6 +4,7 @@ CCFLAGS = -std=c++11\
 		  -L../../lib
 
 # X11 directory varies on different machine
+# sometimes they are inside the default include and lib directory
 CIMGFLAGS =\
 		  -L/usr/X11/lib\
 		  -I/usr/X11/include

@@ -58,7 +58,7 @@ int main(){
 
     // display density on disp_right per iter
     // display the iter num at upleft corner
-    output::display(density).
+    output::display(density, mask).
         draw_text(2, 2, "iter = %d", black, 0, 1,
                 window_size_x/10, iter).
         display(disp_right);
