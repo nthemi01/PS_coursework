@@ -4,3 +4,4 @@
 .DS_Store
 test/map_gen_disp/show_image_example
 test/map_gen_disp/map_gen_example
+test/map_gen_disp/CImg.h
