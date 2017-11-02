@@ -1,8 +1,9 @@
 // Copyright [2017] <Mengxuan Zhu>
 
-#include "../../include/randommap.h"
-std::vector<std::vector<double>> map_gen(int x, int y, double index,
-        const int samples, const int octave) {
+#include "./randommap.h"
+
+std::vector<std::vector<double>> map_gen(unsigned int x, unsigned int y,
+        double index, const unsigned int samples, const unsigned int octave) {
   int modfactor = 1 << octave;
 
   // generate a map of size (xmod, ymod)
@@ -12,8 +13,8 @@ std::vector<std::vector<double>> map_gen(int x, int y, double index,
 
   auto map = std::vector<std::vector<double>>(ymod*samples+1,
           std::vector<double>(xmod*samples+1, 0));
-  for (int i = octave; i > 0; --i) {
-    int tmp_factor = 1 << (i-1);
+  for (unsigned int i = octave; i > 0; --i) {
+    unsigned int tmp_factor = 1 << (i-1);
     map = map + noise::coherent_map(
             ymod/tmp_factor,
             xmod/tmp_factor,
@@ -23,12 +24,12 @@ std::vector<std::vector<double>> map_gen(int x, int y, double index,
   }
 
   // reshape the map to the size (x,y)
-  int xres = (xmod - x)*samples;
-  int yres = (ymod - y)*samples;
-  for (int i = 0; i <= yres; ++i)
+  unsigned int xres = (xmod - x)*samples;
+  unsigned int yres = (ymod - y)*samples;
+  for (unsigned int i = 0; i <= yres; ++i)
     map.pop_back();
   for (auto& yelem : map)
-    for (int i = 0; i <= xres; ++i)
+    for (unsigned int i = 0; i <= xres; ++i)
       yelem.pop_back();
 
   map = (map-min2d(map))/max2d(map);
