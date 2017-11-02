@@ -1,16 +1,3 @@
-/*
- * This function is to gennerate a random map by coherent noise module.
- *
- * To directly use the 2D coherent noise map will not give a sensable map, so
- *  we use the sum of noise maps in different frequencies. The low-freq map
- *  provides the macro terrain with a large coefficient, and the high-freq map
- *  provides the micro roughness with a small coeffcient.
- * The octave controls how many components contributes to the final map, and 
- *  the highest freq is 2 to the octave-th power times of the lowest freq. With
- *  the freq's increasing, the coefficient decreases exponentially.
- *
-*/
-
 #ifndef RANDOMMAP_H
 #define RANDOMMAP_H
 

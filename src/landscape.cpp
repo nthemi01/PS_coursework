@@ -17,7 +17,7 @@ landscape::landscape(const Params &pars, const std::string kMapPath, const std::
 	
 	//Add space for a ring of water. Note vector initializes to 0 so the ring will be added automatically
 	grid_size_x += 2; grid_size_y += 2;
-	
+	printf ("The Size: %d , %d\n",grid_size_x,grid_size_y);
 	map.resize(grid_size_x, std::vector<bool>(grid_size_y,0)); // Initialize the map matrix, whicht contains the morphology(true: land, false:water)
 	hares.resize(grid_size_x, std::vector<double>(grid_size_y,0)); // Initialize the hare density matrix
 	pumas.resize(grid_size_x, std::vector<double>(grid_size_y,0)); // Initialize the puma density matrix

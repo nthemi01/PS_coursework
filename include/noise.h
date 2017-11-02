@@ -1,20 +1,3 @@
-/*
- * This module is to generate coherent noise 1D series or 2D map.
- * Here are brief introduction to the algorithm:
- *   1D series:
- *     1. Generate 1D array filled by random numbers;
- *     2. Apply cubic spline interpolation algorithm on the random series, 
- *         and get the parameters of cubic functions
- *     3. Use the spline functions to fill the gap between random numbers.
- *
- *   2D map:
- *     1. Generate a series of 1D cohenrent noise series along x-axis, 
- *         then along y-axis, there are discrete random series;
- *     2. Apply interpolation algorithm on the series along y-axis;
- *     3. Fill the empty band between coherent noise series along x-axis 
- *         by cubic spline funcitons.
-*/
-
 #ifndef NOISE_H
 #define NOISE_H
 
@@ -50,18 +33,11 @@ namespace noise{
   // return a coherent noise series in length of size*samples+1
 
   std::vector<double> coherent_series(unsigned int size, unsigned int samples=20);
-  // input:
-  //   size: number of gaps between psuedorandom numbers
-  //   samples: number of interpolation points in each gap
   // combine the steps above
   // return a coherent noise series in length of size*samples+1
   
   std::vector<std::vector<double>> coherent_map(unsigned int size1, unsigned int size2, unsigned int sample1=20, unsigned int sample2=20);
-  // input:
-  //   size1, size2: number of gaps between psuedorandom numbers along two directions
-  //   sample1, sample2: number of interpolation points in each gap along two directions
-  // return a 2D TRANSPOSED coherent noise map in size of (size2*samples2+1,size1*samples1+1)
+  // return a 2D transposed coherent noise map in size of (size2*samples2+1,size1*samples1+1)
 };
 
 #endif
-
