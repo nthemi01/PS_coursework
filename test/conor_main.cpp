@@ -8,8 +8,8 @@
 
 int main()
 {
-const std::string kMapPath = "../lib/small.dat";
-const std::string kInitialDensityPath = "../lib/smallDensity.dat";
+const std::string kMapPath = "small.dat";
+const std::string kInitialDensityPath = "smallDensity.dat";
 
 
 Params pars;
@@ -23,13 +23,7 @@ pars.dt = 0.4;
 
 
 
-landscape land(pars,kMapPath);
+landscape land(pars,kMapPath,kInitialDensityPath,kInitialDensityPath);
 
-land.printhares();
-land.printpumas();
 
 }
-
-
-
-
