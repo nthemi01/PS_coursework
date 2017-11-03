@@ -1,10 +1,10 @@
 #include <string>
 #include <fstream>
-#include "../include/landscape.h"
 #include <vector>
 #include <iostream>
-#include "disdensity.h"
 #include <sys/timeb.h>
+#include "landscape.h"
+#include "disdensity.h"
 
 using namespace std;
 using std::vector;
@@ -13,12 +13,12 @@ using cimg_library::CImg;
 typedef long long TIME_T;
 
 struct CmdParam {
-  int loops,isshow,interval;
-  string sMapfile, sCfgfile, sPumafile, sHarefile, sPpmfolder="./output/"; 
+  int loops,is_show,interval;
+  string map_file, cfg_file, puma_file, hare_file, ppm_folder="./output/"; 
   Params para;
 };
 
-int ReadConfigfile(const string sCfgfile, CmdParam &para, int &vector);
+int ReadConfigfile(const string , CmdParam &, int &);
 
 void TrimString (string &input) {
     int pos;
@@ -59,26 +59,27 @@ int SetParameter(CmdParam &param, int &vector, string key, string value) {
                     if ( !ReadConfigfile(value , param, vector))	return 0;   
                 break;
             case 1 :
-                param.sMapfile = value;
+                param.map_file = value;
                 break;
             case 2 :
-                param.sPumafile = value;
+                param.puma_file = value;
                 break;
              case 3 :
-                param.sHarefile = value; 
+                param.hare_file = value; 
                 break;
              case 4 :
                 param.loops = atoi(value.c_str());
                 break;
              case 5 :
-                param.isshow = atoi(value.c_str());
+                param.is_show = atoi(value.c_str());
                 break;
              case 6 :
                 param.interval = atoi(value.c_str());
                 break;
              case 7 :
-                param.sPpmfolder = value;
-                if (param.sPpmfolder[param.sPpmfolder.size()-1] != '/') param.sPpmfolder = param.sPpmfolder + "/";
+                param.ppm_folder = value;
+                if (param.ppm_folder[param.ppm_folder.size()-1] != '/') 
+                    param.ppm_folder = param.ppm_folder + "/";
                 break;
              case 8 :
                 param.para.r = atof(value.c_str());
@@ -111,12 +112,12 @@ int SetParameter(CmdParam &param, int &vector, string key, string value) {
 }
 
 
-int ReadConfigfile(const string sCfgfile, CmdParam &para, int &vector) {
+int ReadConfigfile(const string cfg_file, CmdParam &para, int &vector) {
     ifstream file;
 #ifdef DEBUG_OUT
-	printf("\tReadconfigfile:\t %s\n",sCfgfile.c_str());
+	printf("\tReadconfigfile:\t %s\n",cfg_file.c_str());
 #endif
-    file.open(sCfgfile.c_str());
+    file.open(cfg_file.c_str());
     if (!file.is_open()) {
         return 0;
     }
@@ -131,7 +132,7 @@ int ReadConfigfile(const string sCfgfile, CmdParam &para, int &vector) {
                 TrimString(svalue);
                 if (skey != "-cfgfile" && skey != "cfgfile") {
 #ifdef DEBUG_OUT
-				    printf("\t");
+		    printf("\t");
 #endif              
                     if (!SetParameter(para, vector, skey, svalue)) return 0;
                 }
@@ -148,7 +149,7 @@ int main(int argc , char **argv) {
     string err_msg ;
     string str_para,str_value;
 
-    struct timeb tstart,tend;
+    struct timeb t_start,t_end;
 
     string usage = ""; 
     usage = usage + "Usage: caldensity -cfgfile <filename> -mapfile <filename> -loops <looptimes> -show <0/1> -interval <intervaltimes> \\\n"+
@@ -197,26 +198,6 @@ int main(int argc , char **argv) {
 
     if ((vector & 0x7F72) != 0x7F72) err_msg = err_msg + "Not all the required parameters are configued.";
 #ifdef DEBUG_OUT
-    string sinfo = "************************************************************************\n";  
-    sinfo = sinfo + "  -mapfile=%s The name of the land map file\n" +
-                    "  -pumafile =%sThe name of the file of puma's initialize density\n" +
-                    "  -harefile=%s The name of the file of hare's initialize density\n" +
-                    "  -loops=%d total_loop_times\n" +
-                    "  -show=%d 0/1 1-display_changes_of_density 0-don't display\n" +
-                    "  -interval=%d interval_times_for_output_information\n" +
-                    "  -r=%f birth_rate_of_hares\n" +
-                    "  -a=%f predation_rate_of_pumas\n" +
-                    "  -b =%f birth_rate_of_pumas\n" +
-                    "  -m=%f puma_mortality_rate\n" +
-                    "  -k=%f diffusion_rate_for_hares\n" +
-                    "  -l=%f diffusion_rate_for_pumas\n" +
-                    "  -dt=%f interval\n" +
-                    "***********************************************************************\n";
-    printf (sinfo.c_str(),cmdPara.sMapfile.c_str(), cmdPara.sPumafile.c_str(),
-			cmdPara.sHarefile.c_str(),cmdPara.loops,cmdPara.isshow,cmdPara.interval,cmdPara.para.r,cmdPara.para.a,
-			cmdPara.para.b,cmdPara.para.m,cmdPara.para.k,cmdPara.para.l,cmdPara.para.dt);
-#endif
-#ifdef DEBUG_OUT
     printf("Main : err_msg is %s\nMain ：Vector is %x\n",err_msg.c_str(),vector); 
 #endif
     if ( !err_msg.empty() ) {
@@ -227,7 +208,7 @@ int main(int argc , char **argv) {
 #ifdef DEBUG_OUT
 	printf("Main : Calculate the density\n"); 
 #endif
-        landscape land(cmdPara.para, cmdPara.sMapfile, cmdPara.sPumafile, cmdPara.sHarefile);
+        landscape land(cmdPara.para, cmdPara.map_file, cmdPara.puma_file, cmdPara.hare_file);
         int win_size_x,win_size_y;
             
         char *size_x = getenv("DENSITY_WIN_SIZE_X");
@@ -240,14 +221,14 @@ int main(int argc , char **argv) {
 #ifdef DEBUG_OUT
 	printf("Main : Windows displayed\n"); 
 #endif
-        if (cmdPara.isshow) pwindow = new output::screen(win_size_x, win_size_y, "Density of Pumas","Density of Hares");
-        ftime (&tstart);
+        if (cmdPara.is_show) pwindow = new output::screen(win_size_x, win_size_y, "Density of Pumas","Density of Hares");
+        ftime (&t_start);
         for (int index = 0;index < cmdPara.loops; index++) {
             land.progress();
             if (index % cmdPara.interval == 0 || index == cmdPara.loops-1) {
-                sprintf(out_name, "%sPumaDensity_%04d.ppm", cmdPara.sPpmfolder.c_str(),out_count);
+                sprintf(out_name, "%sPumaDensity_%04d.ppm", cmdPara.ppm_folder.c_str(),out_count);
                 auto dump = output::get_img(land.get_pumas(),true,string(out_name));
-                sprintf(out_name, "%sHareDensity_%04d.ppm", cmdPara.sPpmfolder.c_str(),out_count);
+                sprintf(out_name, "%sHareDensity_%04d.ppm", cmdPara.ppm_folder.c_str(),out_count);
                 dump = output::get_img(land.get_hares(),true,string(out_name));
                 
                 double average =  land.average_pumas();
@@ -257,7 +238,7 @@ int main(int argc , char **argv) {
 
                 out_count++;
             }
-            if (cmdPara.isshow) {
+            if (cmdPara.is_show) {
                 auto img_pumas = output::get_img(land.get_pumas());
                 auto img_hares = output::get_img(land.get_hares());
 
@@ -265,11 +246,9 @@ int main(int argc , char **argv) {
                pwindow->show(index);
            }
         }
-        ftime (&tend);
-        TIME_T t1=(TIME_T)tstart.time*1000+tstart.millitm;
-    printf("t1=%lld\n",t1);
-        TIME_T t2=(TIME_T)tend.time*1000+tend.millitm;
-    printf("t2=%lld\n",t2);
+        ftime (&t_end);
+        TIME_T t1=(TIME_T)t_start.time*1000+t_start.millitm;
+        TIME_T t2=(TIME_T)t_end.time*1000+t_end.millitm;
         int ti=t2-t1;
         std::cout << "The total time is " << ti << "ms" << std::endl;
 	return 1;
