@@ -4,7 +4,7 @@
 #include <iostream>     // std::cout
 #include <sstream>      // std::stringstream
 
-
+//Check that the map and densities are read correctly from input files
 TEST(landscape, initial_densities)
 {
 	const std::string kMapPath = "test_map1.dat";
@@ -49,7 +49,7 @@ TEST(landscape, initial_densities)
 		}
 }
 
-
+//Check that the array that counts "dry" neighbors is computed correctly
 TEST(landscape,neighbors)
 {
 	const std::string kMapPath = "test_map1.dat";
@@ -85,6 +85,7 @@ TEST(landscape,neighbors)
 		}
 }
 
+//Check that hares and pumas have the correct values after 1 iterration
 TEST(landscape, single_progress)
 {
 	const std::string kMapPath = "test_map1.dat";
@@ -139,6 +140,7 @@ TEST(landscape, single_progress)
 }
 
 
+//Check that hares and pumas have the correct values after 10 iterrations
 TEST(landscape, 10_progress)
 {
 	const std::string kMapPath = "test_map1.dat";
@@ -180,9 +182,6 @@ TEST(landscape, 10_progress)
 							{0, 22.4783, 25.8482, 0, 0, 33.8322, 0}, 
 							{0, 0, 0, 0, 0, 0, 0}}; 
 
-
-
-
 	
 	for(int i=0;i<7;i++)
 		for(int j=0;j<7;j++)
@@ -196,6 +195,38 @@ TEST(landscape, 10_progress)
 
 
 
+
+//Check that the average value of hares and pumas is correct  after 20 iterrations
+TEST(landscape, averages)
+{
+	const std::string kMapPath = "test_map1.dat";
+	const std::string kHaresPath = "test_hares1.dat";
+	const std::string kPumasPath = "test_pumas1.dat";
+	Params pars;
+	pars.r = 0.8;
+	pars.a = 0.04;
+	pars.b = 0.02;
+	pars.m = 0.06;
+	pars.k = 0.2;
+	pars.l = 0.2;
+	pars.dt = 0.4;
+	landscape land(pars,kMapPath,kPumasPath,kHaresPath);
+
+	for(int k=0;k<20;k++)
+		land.progress();
+
+	double test_hares = land.average_hares();
+	double test_pumas = land.average_pumas();
+
+	//Values  were calculated using a different method (wolfram Mathematica)
+	double real_pumas = 72.8913;
+	double real_hares = 1.26808;	
+
+			//Double numbers after 10 iterations diverge slightly between c++ code and wolfram Mathemtica,
+			//so we use delta = 1e-4 tou account for that
+			ASSERT_NEAR (test_pumas,real_pumas,0.0001);
+			ASSERT_NEAR (test_hares,real_hares,0.0001);
+}
 
 int main(int argc,char **argv)
 {
