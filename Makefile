@@ -35,51 +35,85 @@ OBJS = $(OBJDIR)/caldensity.o\
 	   $(OBJDIR)/disdensity.o\
 	   $(OBJDIR)/randommap.o\
 	   $(OBJDIR)/noise.o
+SRC := $(wildcard $(TESTDIR)/*.cpp)
+DIR:=$(notdir $(SRC))
+OBJ:=$(patsubst %.cpp,%.o,$(DIR) )
+EXEC:=$(patsubst %.cpp,%,$(DIR))
 
 all:product
+	@echo ------------------------------------------------------
+	@echo         Compiling work finished
+	@echo ------------------------------------------------------
 
 product:$(BINDIR)/caldensity
-	@echo Product program compile done.
-
+	@echo ------------------------------------------------------
+	@echo Production program generated.
 $(BINDIR)/caldensity: $(OBJS)
-	$(CC) $(CCFLAGS) $(LIB) -O3 -o $@ $^
-		cp $(PS_PROJ_HOME)/cfg/* $(BINDIR)
+	@echo ------------------------------------------------------
+	@echo Compiling $@ 
+	@echo from $^......
+	@$(CC) $(CCFLAGS) $(LIB) -O3 -o $@ $^
 
 $(OBJDIR)/caldensity.o: $(SRCDIR)/caldensity.cpp
-	$(CC) -c $(CCFLAGS) $(LIB) $(CIMGINC) -o $@ $<
+	@echo ------------------------------------------------------
+	@echo Compiling $@
+	@echo from $^......
+	@$(CC) -c $(CCFLAGS) $(LIB) $(CIMGINC) -o $@ $<
 
 $(OBJDIR)/landscape.o: $(SRCDIR)/landscape.cpp $(INCLUDEDIR)/landscape.h
-	$(CC) -c $(CCFLAGS) $(LIB)  -o $@ $<
+	@echo ------------------------------------------------------
+	@echo Compiling $@
+	@echo from $^......
+	@$(CC) -c $(CCFLAGS) $(LIB)  -o $@ $<
 
 $(OBJDIR)/disdensity.o: $(SRCDIR)/disdensity.cpp $(INCLUDEDIR)/disdensity.h
-	$(CC) -c $(CCFLAGS) $(LIB) $(CIMGINC) -o $@ $<
+	@echo ------------------------------------------------------
+	@echo Compiling $@
+	@echo from $^......
+	@$(CC) -c $(CCFLAGS) $(LIB) $(CIMGINC) -o $@ $<
 
 $(OBJDIR)/%.o: $(SRCDIR)/mapgenrator/%.cpp  $(INCLUDEDIR)/%.h
-	$(CC) -c $(CCFLAGS) $(LIB)  -o $@ $<
+	@echo ------------------------------------------------------
+	@echo Compiling $@
+	@echo from $<......
+	@$(CC) -c $(CCFLAGS) $(LIB) -o $@ $<
 
-test: $(TESTBINDIR)/%.o $(OBJDIR)/landscape.o
-	echo Cleaning the testbin folder... ...
-	rm -f $(TESTBINDIR)/*
-	echo Compiling test files... ... 
-	$(CC) -c $(CCFLAGS) $(LIB) $(TESTDIR)/*.cpp
-	$(CC) $(CCFLAGS) $(LIB) $(GTESTFLAG) -o $(TESTBINDIR)/%.out $(TESTBINDIR)/%.o $(OBJDIR)/landscape.o
-		rm $(TESTBINDIR)/*.o
-#$(TESTBINDIR)/%.o : $(TESTDIR)/%.cpp
+
+.PHONY: test
+test:product
+	@echo ------------------------------------------------------
+	@echo Unitest files compiling......
+	@for name in $(EXEC) ;\
+	do \
+		$(CC) -c $(CCFLAGS) $(LIB) $(TESTDIR)/$$name.cpp 1>/dev/null;\
+		$(CC) $(CCFLAGS) $(LIB) $(GTESTFLAG) -o $$name.out $$name.o $(OBJDIR)/landscape.o $(OBJDIR)/noise.o $(OBJDIR)/randommap.o 1>/dev/null; \
+	done
+	@rm -f *.o 
+	@mv *.out $(TESTBINDIR)/*.
+	@echo done!
+	@echo ------------------------------------------------------
+	
 
 .PHONY: clean
-clean : product
-	rm -f $(OBJDIR)/* 
-	rm -f $(BINDIR)/* 
-	rm -f $(TESTBINDIR)/* 
-	echo done!
+clean : 
+	@echo ------------------------------------------------------
+	@echo System cleaning......
+	@rm -f $(OBJDIR)/* 
+	@rm -f $(BINDIR)/* 
+	@rm -f $(TESTBINDIR)/* 
+	@echo done!
+	@echo ------------------------------------------------------
 
 .PHONY: install
 install: product 
-	rm -r -f  $(INSTDIR) 2>/dev/null
-	mkdir $(INSTDIR) 
-	mkdir $(INSTDIR)/bin
-	mkdir $(INSTDIR)/cfg
-	cp $(BINDIR)/* $(INSTDIR)/bin
-	cp $(PS_PROJ_HOME)/cfg/* $(INSTDIR)/cfg
-	echo done!
+	@echo ------------------------------------------------------
+	@echo System installing......
+	@rm -r -f $(INSTDIR)
+	@-mkdir $(INSTDIR) 
+	@-mkdir $(INSTDIR)/bin
+	@-mkdir $(INSTDIR)/cfg
+	@cp $(BINDIR)/* $(INSTDIR)/bin
+	@cp $(PS_PROJ_HOME)/cfg/* $(INSTDIR)/cfg
+	@echo done! System is at $(HOME)/PScourse1 
+	@echo ------------------------------------------------------
 
