@@ -1,6 +1,7 @@
 // Copyright [2017] <Mengxuan Zhu>
 
-#include "randommap.h"
+#include "../../include/randommap.h"
+#include "../../include/noise.h"
 
 std::vector<std::vector<double>> map_gen(unsigned int x, unsigned int y,
         double index, const unsigned int samples, const unsigned int octave) {
