@@ -373,11 +373,16 @@ void landscape::GenerateRandomDensity(std::vector<std::vector<double> > &matrix,
     // remove superfluous edges
     int yyres = yy*samples - x_size;
     int xxres = xx*samples - y_size;
-    for (int i = 0; i <= yyres; ++i)
+    for (int i = 0; i < yyres; ++i)
         density.pop_back();
     for (auto& yelem : density)
-        for (int i = 0; i <= xxres; ++i)
-            density.pop_back();
+        for (int i = 0; i < xxres; ++i)
+            yelem.pop_back();
+
+    for (int i = 0; i < x_size; ++i)
+        for (int j = 0; j < y_size; ++j)
+            density[i][j] = map[i][j]?density[i][j]:0;
+
     matrix = density;
 }
 
