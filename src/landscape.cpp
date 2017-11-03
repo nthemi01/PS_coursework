@@ -61,6 +61,7 @@ landscape::landscape(const Params &pars, const std::string kMapPath, const std::
         std::cout << "Value of r gievn was: " << pars.r << std::endl;
         std::cout << "Have set r to the default value of 0.08" << std::endl;
         r = 0.08;
+        throw  std::invalid_argument("The birth rate of Hares, r, should be non-negative.");
     }
     else
         r = pars.r;
@@ -70,6 +71,7 @@ landscape::landscape(const Params &pars, const std::string kMapPath, const std::
         std::cout << "Value of a gievn was: " << pars.a << std::endl;
         std::cout << "Have set a to the default value of 0.04" << std::endl;
         a = 0.04;
+        throw  std::invalid_argument("The predation rate, a, should be non-negative.");
     }
     else
         a = pars.a;
@@ -79,42 +81,47 @@ landscape::landscape(const Params &pars, const std::string kMapPath, const std::
         std::cout << "Value of b gievn was: " << pars.b << std::endl;
         std::cout << "Have set b to the default value of 0.02" << std::endl;
         b = 0.02;
+        throw  std::invalid_argument("The birth rate of Pumas, b, should be non-negative.");
     }
     else
         b = pars.b;
     if(pars.m < 0)
     {
         std::cout << "The mortality rate of pumas, m, should be non-negative." << std::endl;
-        std::cout << "Value of a gievn was: " << pars.m << std::endl;
-        std::cout << "Have set a to the default value of 0.06" << std::endl;
+        std::cout << "Value of m gievn was: " << pars.m << std::endl;
+        std::cout << "Have set m to the default value of 0.06" << std::endl;
         m = 0.06;
+        throw  std::invalid_argument("The mortality rate of pumas, m, should be non-negative.");
     }
     else
         m = pars.m;
     if(pars.k < 0)
     {
         std::cout << "The diffusion rate for hares, k, should be non-negative." << std::endl;
-        std::cout << "Value of a gievn was: " << pars.k << std::endl;
-        std::cout << "Have set a to the default value of 0.2" << std::endl;
+        std::cout << "Value of k gievn was: " << pars.k << std::endl;
+        std::cout << "Have set k to the default value of 0.2" << std::endl;
         k = 0.2;
+        throw  std::invalid_argument("The diffusion rate for hares, k, should be non-negative.");
     }
     else
         k = pars.k;
     if(pars.l < 0)
     {
         std::cout << "The diffusion rate for pumas, l, should be non-negative." << std::endl;
-        std::cout << "Value of a gievn was: " << pars.l << std::endl;
-        std::cout << "Have set a to the default value of 0.2" << std::endl;
+        std::cout << "Value of l gievn was: " << pars.l << std::endl;
+        std::cout << "Have set l to the default value of 0.2" << std::endl;
         l = 0.2;
+        throw  std::invalid_argument("The diffusion rate for pumas, l, should be non-negative.");
     }
     else
         l = pars.l;
     if(pars.dt <= 0)
     {
-        std::cout << "The time step, t, should be positive." << std::endl;
-        std::cout << "Value of a gievn was: " << pars.dt << std::endl;
-        std::cout << "Have set a to the default value of 0.4" << std::endl;
+        std::cout << "The time step, dt, should be positive." << std::endl;
+        std::cout << "Value of dt gievn was: " << pars.dt << std::endl;
+        std::cout << "Have set dt to the default value of 0.4" << std::endl;
         dt = 0.4;
+        throw  std::invalid_argument("The time step, dt, should be positive.");
     }
     else
         dt = pars.dt; 
@@ -122,7 +129,8 @@ landscape::landscape(const Params &pars, const std::string kMapPath, const std::
     // filling the N matrix that represents the number of dry neighbors
     for(int i=1;i<grid_size_x-1;i++)
         for(int j=1;j<grid_size_y-1;j++)
-            N[i][j]=map[i+1][j]+map[i][j+1]+map[i-1][j]+map[i][j-1];
+		if(1==map[i][j])
+            		N[i][j]=map[i+1][j]+map[i][j+1]+map[i-1][j]+map[i][j-1];
     
     // Check that densities on the water are zero
     for(int i=0;i<grid_size_x;i++){
@@ -272,11 +280,11 @@ return pumas;
 
 
 
-//returns a vector of vectors corresponding to the number of dry neighbors each square has. Only used for testing
-// std::vector<std::vector<int> > landscape::get_neighbors()
-// {
-// return N;
-// }
+//returns a vector of vectors corresponding to the number of dry neighbors each square has. Only used for the gtest
+ std::vector<std::vector<int> > landscape::get_neighbors()
+ {
+ return N;
+ }
 
 //prints on screen all the variables. Useful for debugging
 void landscape::print_all_variables()
