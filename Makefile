@@ -39,7 +39,7 @@ OBJS = $(OBJDIR)/caldensity.o\
 all:product
 
 product:$(BINDIR)/caldensity
-	echo Product program compile done.
+	@echo Product program compile done.
 
 $(BINDIR)/caldensity: $(OBJS)
 	$(CC) $(CCFLAGS) $(LIB) -O3 -o $@ $^

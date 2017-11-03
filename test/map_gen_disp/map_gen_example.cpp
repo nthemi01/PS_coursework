@@ -15,15 +15,15 @@ using std::vector;
 int main(){
 
   // test saving a masked map
-  const unsigned int xx = 40, yy = 40, samples = 10;
+  const unsigned int xx = 5, yy = 5, samples = 4;
   auto map = map_gen(xx,yy,1.7,samples,4);
-  auto density = map_gen(xx,yy,1.7,samples,4);
+  auto density = map_gen(xx,yy,0.8,samples,4);
   vector<vector<bool>> mask;
 
   for (auto& line : map) {
     vector<bool> maskline;
     for (auto& pixel : line) {
-      maskline.push_back(pixel>0.2);
+      maskline.push_back(pixel>0.1);
     }
     mask.push_back(maskline);
   }
