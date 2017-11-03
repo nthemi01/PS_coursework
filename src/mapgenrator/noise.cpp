@@ -1,6 +1,6 @@
 // Copyright [2017] <Mengxuan Zhu>
 
-#include "noise.h"
+#include "../../include/noise.h"
 
 double noise::cubic_func(double x,
         const double param0, const double param1, const double param2,
