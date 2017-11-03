@@ -3,7 +3,7 @@ CC = g++
 SRCDIR = $(PS_PROJ_HOME)/src
 
 TESTDIR = $(PS_PROJ_HOME)/test
-				  
+
 INSTDIR = $(HOME)/PScourse1
 
 OBJDIR = $(PS_PROJ_HOME)/build/obj
@@ -28,7 +28,10 @@ LIB = \
 
 OBJS = $(OBJDIR)/*.o  
 
-all:product test
+all:product test envset
+
+envset:
+	export PS_PROJ_HOME .
 
 product:$(BINDIR)/caldensity
 	echo Product program compile done.
@@ -45,13 +48,17 @@ $(OBJDIR)/landscape.o: $(SRCDIR)/landscape.cpp $(INCLUDEDIR)/landscape.h
 $(OBJDIR)/disdensity.o: $(SRCDIR)/disdensity.cpp $(INCLUDEDIR)/disdensity.h
 	$(CC) -c $(CCFLAGS) $(LIB)  -o $@ $<
 
-		
+$(OBJDIR)/%.o: $(SRCDIR)/mapgenrator/%.cpp  $(INCLUDEDIR)/%.h
+	$(CC) -c $(CCFLAGS) $(LIB)  -o $@ $<
+
+.PHONY: clean
 clean:
 	rm $(OBJDIR)/*
 	rm $(BINDIR)/*
 	rm $(TESTBINDIR)/*
 	echo done!
 
+.PHONY: install
 install: 
 	rm -r $(INSTDIR) 2 > /dev/null
 	mkdir $(INSTDIR)
