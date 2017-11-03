@@ -188,7 +188,7 @@ void landscape::progress()
 		hares[i][j] = hares_old[i][j] + dt*( r*hares_old[i][j] - a*hares_old[i][j]*pumas_old[i][j] + part2);
 		if(hares[i][j]<0.001)
     		    hares[i][j] = 0.001;
-		    // If hares get very small all negative we give it a small positive value in order to be physical.
+		    // If hares get very small or negative we give it a small positive value in order to be physical.
 	
 		part1 = pumas_old[i-1][j]+pumas_old[i+1][j]+pumas_old[i][j-1]+pumas_old[i][j+1];	
 		part2 = l*(part1 - N[i][j]*pumas_old[i][j]);			
