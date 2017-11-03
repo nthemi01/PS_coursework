@@ -35,6 +35,10 @@ OBJS = $(OBJDIR)/caldensity.o\
 	   $(OBJDIR)/disdensity.o\
 	   $(OBJDIR)/randommap.o\
 	   $(OBJDIR)/noise.o
+SRC := $(wildcard $(TESTDIR)/*.cpp)
+DIR:=$(notdir $(SRC))
+OBJ:=$(patsubst %.cpp,%.o,$(DIR) )
+EXEC:=$(patsubst %.cpp,%,$(DIR))
 
 all:product
 
@@ -57,14 +61,16 @@ $(OBJDIR)/disdensity.o: $(SRCDIR)/disdensity.cpp $(INCLUDEDIR)/disdensity.h
 $(OBJDIR)/%.o: $(SRCDIR)/mapgenrator/%.cpp  $(INCLUDEDIR)/%.h
 	$(CC) -c $(CCFLAGS) $(LIB)  -o $@ $<
 
-test: $(TESTBINDIR)/%.o $(OBJDIR)/landscape.o
-	echo Cleaning the testbin folder... ...
-	rm -f $(TESTBINDIR)/*
-	echo Compiling test files... ... 
-	$(CC) -c $(CCFLAGS) $(LIB) $(TESTDIR)/*.cpp
-	$(CC) $(CCFLAGS) $(LIB) $(GTESTFLAG) -o $(TESTBINDIR)/%.out $(TESTBINDIR)/%.o $(OBJDIR)/landscape.o
-		rm $(TESTBINDIR)/*.o
-#$(TESTBINDIR)/%.o : $(TESTDIR)/%.cpp
+
+.PHONY: test
+test:product
+	for name in $(EXEC) ;\
+	do \
+		$(CC) -c $(CCFLAGS) $(LIB) $(TESTDIR)/$$name.cpp;\
+		$(CC) $(CCFLAGS) $(LIB) $(GTESTFLAG) -o $$name $$name.o $(OBJDIR)/landscape.o $(OBJDIR)/noise.o $(OBJDIR)/randommap.o;\
+	done
+	rm $(TESTBINDIR)/*.o
+	echo Hello
 
 .PHONY: clean
 clean : product
