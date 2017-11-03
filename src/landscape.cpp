@@ -189,24 +189,24 @@ void landscape::progress()
 
     for(int i=1;i<grid_size_x-1;i++)
         for(int j=1;j<grid_size_y-1;j++)
-	    if(map[i][j])
-	    {
-	        double part1,part2;
+        if(map[i][j])
+        {
+            double part1,part2;
 
-		part1 = hares_old[i-1][j]+hares_old[i+1][j]+hares_old[i][j-1]+hares_old[i][j+1];	
-		part2 = k*(part1 - N[i][j]*hares_old[i][j]);
-		hares[i][j] = hares_old[i][j] + dt*( r*hares_old[i][j] - a*hares_old[i][j]*pumas_old[i][j] + part2);
-		if(hares[i][j]<0.001)
-    		    hares[i][j] = 0.001;
-		    // If hares get very small or negative we give it a small positive value in order to be physical.
-	
-		part1 = pumas_old[i-1][j]+pumas_old[i+1][j]+pumas_old[i][j-1]+pumas_old[i][j+1];	
-		part2 = l*(part1 - N[i][j]*pumas_old[i][j]);			
-		pumas[i][j] = pumas_old[i][j] + dt*( b*hares_old[i][j]*pumas_old[i][j] - m*pumas_old[i][j] + part2);
-		if(pumas[i][j]<0.001)
-		    pumas[i][j] = 0.001;
-		
-	    }	
+            part1 = hares_old[i-1][j]+hares_old[i+1][j]+hares_old[i][j-1]+hares_old[i][j+1];
+            part2 = k*(part1 - N[i][j]*hares_old[i][j]);
+            hares[i][j] = hares_old[i][j] + dt*( r*hares_old[i][j] - a*hares_old[i][j]*pumas_old[i][j] + part2);
+            if(hares[i][j]<1e-7)
+                    hares[i][j] = 1e-7;
+            // If hares get very small or negative we give it a small positive value in order to be physical.
+
+            part1 = pumas_old[i-1][j]+pumas_old[i+1][j]+pumas_old[i][j-1]+pumas_old[i][j+1];
+            part2 = l*(part1 - N[i][j]*pumas_old[i][j]);
+            pumas[i][j] = pumas_old[i][j] + dt*( b*hares_old[i][j]*pumas_old[i][j] - m*pumas_old[i][j] + part2);
+            if(pumas[i][j]<1e-7)
+                pumas[i][j] = 1e-7;
+
+        }
 }
 
 //average_hares returns the average value of hares along the whole grid when called.
