@@ -220,7 +220,7 @@ TEST(landscape, averages)
 
 	//Values  were calculated using a different method (wolfram Mathematica)
 	double real_pumas = 72.8913;
-	double real_hares = 1.26808;	
+	double real_hares = 0.9653;	
 
 			//Double numbers after 10 iterations diverge slightly between c++ code and wolfram Mathemtica,
 			//so we use delta = 1e-4 tou account for that
