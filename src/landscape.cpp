@@ -208,9 +208,9 @@ for (row = hares.begin(); row != hares.end(); row++)
         sum +=*col;
     }
 }
-
-return sum/((grid_size_x-2)*(grid_size_y-2));
-
+double average= sum/((grid_size_x-2)*(grid_size_y-2));
+if (average < 0.0001) average=0;
+return average;
 }
 
 
@@ -227,7 +227,9 @@ for (row = pumas.begin(); row != pumas.end(); row++)
     }
 }
 
-return sum/((grid_size_x-2)*(grid_size_y-2));
+double average= sum/((grid_size_x-2)*(grid_size_y-2));
+if (average < 0.0001) average=0;
+return average;
 }
 
 
