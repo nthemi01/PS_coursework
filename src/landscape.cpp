@@ -122,7 +122,8 @@ landscape::landscape(const Params &pars, const std::string kMapPath, const std::
     // filling the N matrix that represents the number of dry neighbors
     for(int i=1;i<grid_size_x-1;i++)
         for(int j=1;j<grid_size_y-1;j++)
-            N[i][j]=map[i+1][j]+map[i][j+1]+map[i-1][j]+map[i][j-1];
+		if(1==map[i][j])
+            		N[i][j]=map[i+1][j]+map[i][j+1]+map[i-1][j]+map[i][j-1];
     
     // Check that densities on the water are zero
     for(int i=0;i<grid_size_x;i++){
@@ -272,11 +273,11 @@ return pumas;
 
 
 
-//returns a vector of vectors corresponding to the number of dry neighbors each square has. Only used for testing
-// std::vector<std::vector<int> > landscape::get_neighbors()
-// {
-// return N;
-// }
+//returns a vector of vectors corresponding to the number of dry neighbors each square has. Only used for the gtest
+ std::vector<std::vector<int> > landscape::get_neighbors()
+ {
+ return N;
+ }
 
 //prints on screen all the variables. Useful for debugging
 void landscape::print_all_variables()

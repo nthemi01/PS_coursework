@@ -105,7 +105,7 @@ TEST(landscape, progress)
 
 
 
-TEST(landscape, neighbors)
+TEST(landscape,neighbors)
 {
 	const std::string kMapPath = "test_map1.dat";
 	const std::string kHaresPath = "test_hares1.dat";
@@ -139,7 +139,6 @@ TEST(landscape, neighbors)
 			ASSERT_EQ(real_neighbors[i][j],test_neighbors[i][j]);
 		}
 }
-
 
 
 
