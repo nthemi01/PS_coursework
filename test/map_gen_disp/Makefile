@@ -51,8 +51,11 @@ landscape.o:$(SRC_DIR)/landscape.cpp
 #caldensity.o:$(SRC_DIR)/caldensity.cpp
 #		$(CC) -c $(CCFLAGS) $(CIMGFLAGS) -o $@ $<
 
-test: map_gen_test.cpp noise.o randommap.o
+test: map_gen_test.o noise.o randommap.o
 	$(CC) $(CCFLAGS) $(INC) $(LIB) $(GTEST) -o $@ $^
+
+map_gen_test.o:map_gen_test.cpp
+	$(CC) -c $(CCFLAGS) $(INC) $(CIMGINC) -o $@ $<
 
 
 .PHONY:clean
