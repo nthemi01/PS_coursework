@@ -29,12 +29,6 @@ TEST(mapgenTestSuite, WhiteNoiseSizeCheck){
     EXPECT_EQ(map[0].size(), 30);
 }
 
-TEST(mapgenTestSuite, ZeroOctaveSizeCheck){
-    vector<vector<double>> map = map_gen(30,20,1.0,10,0);
-    EXPECT_EQ(map.size(), 200);
-    EXPECT_EQ(map[0].size(), 300);
-}
-
 TEST(mapgenTestSuite, ZeroOctaveThrowCheck){
     EXPECT_ANY_THROW(map_gen(30,20,1.0,10,0));
 }
