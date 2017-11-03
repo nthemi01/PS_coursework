@@ -5,6 +5,10 @@
 
 std::vector<std::vector<double>> map_gen(unsigned int x, unsigned int y,
         double index, const unsigned int samples, const unsigned int octave) {
+  if (samples == 0)
+    throw "samples must be greater than 0\n";
+  if (octave == 0)
+    throw "octave must be greater than 0\n"
   int modfactor = 1 << octave;
 
   // generate a map of size (xmod, ymod)

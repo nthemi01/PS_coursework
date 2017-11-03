@@ -1,6 +1,7 @@
 #include "../../include/randommap.h"
 #include "gtest/gtest.h"
 #include <vector>
+#include <cmath>
 
 using std::vector;
 
@@ -28,17 +29,19 @@ TEST(mapgenTestSuite, WhiteNoiseSizeCheck){
     EXPECT_EQ(map[0].size(), 30);
 }
 
-TEST(mapgenTestSuite, ZeroSampleSizeCheck){
-    vector<vector<double>> map = map_gen(30,20,1.0,0,4);
-    FAIL();
-}
-
 TEST(mapgenTestSuite, ZeroOctaveSizeCheck){
-    vector<vector<double>> map = map_gen(30,20,1.0,1,0);
-    FAIL();
+    vector<vector<double>> map = map_gen(30,20,1.0,10,0);
+    EXPECT_EQ(map.size(), 200);
+    EXPECT_EQ(map[0].size(), 300);
 }
 
+TEST(mapgenTestSuite, ZeroOctaveThrowCheck){
+    EXPECT_THROW(map_gen(30,20,1.0,10,0),"octave must be greater than 0\n");
+}
 
+TEST(mapgenTestSuite, ZeroSampleThrowCheck){
+    EXPECT_THROW(map_gen(30,20,1.0,0,4),"samples must be greater than 0\n");
+}
 
 int main(int argc,char **argv)
 {
