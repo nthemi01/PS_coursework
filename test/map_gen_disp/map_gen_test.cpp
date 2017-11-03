@@ -1,4 +1,4 @@
-#include "randommap.h"
+#include "../../include/randommap.h"
 #include "gtest/gtest.h"
 #include <vector>
 
