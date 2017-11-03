@@ -152,18 +152,18 @@ landscape::landscape(const Params &pars, const std::string kMapPath, const std::
         }
     }
             
-    // Console output - To see the map and params
+    // Console output - To see the map and params    
+    #ifdef DEBUG
+    for(int x=0; x<grid_size_x; x++){
+        for(int y=0; y<grid_size_y; y++){            
+            std::cout << map[x][y];
+        }
+        std::cout << std::endl;
+    }    
     
-    // for(int x=0; x<grid_size_x; x++){
-        // for(int y=0; y<grid_size_y; y++){            
-            // std::cout << map[x][y];
-        // }
-        // std::cout << std::endl;
-    // }    
-    
-    // std::cout << "r=" << r << " a=" << a << " b=" << b<< " m=" << m<< " k=" << k<< " l=" << l << std::endl;  
-    // std::cout << "size of map: " << map.size() << " by " << map[0].size() << std::endl;
-
+    std::cout << "r=" << r << " a=" << a << " b=" << b<< " m=" << m<< " k=" << k<< " l=" << l << std::endl;  
+    std::cout << "size of map: " << map.size() << " by " << map[0].size() << std::endl;
+    #endif
 }
 
 /*
@@ -208,9 +208,9 @@ for (row = hares.begin(); row != hares.end(); row++)
         sum +=*col;
     }
 }
-
-return sum/((grid_size_x-2)*(grid_size_y-2));
-
+double average= sum/((grid_size_x-2)*(grid_size_y-2));
+if (average < 0.0001) average=0;
+return average;
 }
 
 
@@ -227,7 +227,9 @@ for (row = pumas.begin(); row != pumas.end(); row++)
     }
 }
 
-return sum/((grid_size_x-2)*(grid_size_y-2));
+double average= sum/((grid_size_x-2)*(grid_size_y-2));
+if (average < 0.0001) average=0;
+return average;
 }
 
 
@@ -362,17 +364,32 @@ int landscape::ReadInFile(const std::string &kPath, std::vector<std::vector<bool
     }
 }
 
-// MENGXUAN PLEASE CHANGE TO YOUR CODE SO I CAN UPDATE THE CONSTRUCTOR
-
-// Initializes "matrix" with a random animal density on all land points. The density is an number between 0 and 5.
 void landscape::GenerateRandomDensity(std::vector<std::vector<double> > &matrix, std::vector<std::vector<bool> > const &map)
 {
-    int grid_size_x = matrix.size(); int grid_size_y = matrix[0].size();
-    for(int x=0; x<grid_size_x; x++){        
-        for(int y=0; y<grid_size_y; y++){
-            if(map[x][y]==1)
-                matrix[x][y] = std::rand()%6;  //assign random density between 0 and 5
-        }
-    }
+    int x_size = matrix.size(); int y_size = matrix[0].size(); int samples = 10;
+    int yy = static_cast<int>(x_size/samples + 1);
+    int xx = static_cast<int>(y_size/samples + 1);
+    auto density = map_gen(xx,yy,1.7,samples,4) * 5;
+    // remove superfluous edges
+    int yyres = yy*samples - x_size;
+    int xxres = xx*samples - y_size;
+    for (int i = 0; i <= yyres; ++i)
+        density.pop_back();
+    for (auto& yelem : density)
+        for (int i = 0; i <= xxres; ++i)
+            density.pop_back();
+    matrix = density;
 }
+
+// Initializes "matrix" with a random animal density on all land points. The density is an number between 0 and 5.
+// void landscape::GenerateRandomDensity(std::vector<std::vector<double> > &matrix, std::vector<std::vector<bool> > const &map)
+// {
+    // int grid_size_x = matrix.size(); int grid_size_y = matrix[0].size();
+    // for(int x=0; x<grid_size_x; x++){        
+        // for(int y=0; y<grid_size_y; y++){
+            // if(map[x][y]==1)
+                // matrix[x][y] = std::rand()%6;  //assign random density between 0 and 5
+        // }
+    // }
+// }
 
