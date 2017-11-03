@@ -239,8 +239,8 @@ int main(int argc , char **argv) {
                 out_count++;
             }
             if (cmdPara.is_show) {
-                auto img_pumas = output::get_img(land.get_pumas());
-                auto img_hares = output::get_img(land.get_hares());
+                auto img_pumas = output::get_img(land.get_pumas(),land.get_map());
+                auto img_hares = output::get_img(land.get_hares(),land.get_map());
 
                pwindow->assign(img_pumas, img_hares);
                pwindow->show(index);
