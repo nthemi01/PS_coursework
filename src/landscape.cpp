@@ -162,9 +162,9 @@ landscape::landscape(const Params &pars, const std::string kMapPath, const std::
     // }    
     std::ofstream csv_file;
     csv_file.open("densityLarge.dat");
-    csv_file << grid_size_x << grid_size_y << std::endl;
-    for(int x=0; x<grid_size_x; x++){
-        for(int y=0; y<grid_size_y; y++){            
+    csv_file << grid_size_x << " " << grid_size_y << std::endl;
+    for(int x=1; x<(grid_size_x-1); x++){
+        for(int y=1; y<(grid_size_y-1); y++){            
             csv_file << pumas[x][y] << " ";
         }
         csv_file << std::endl;
