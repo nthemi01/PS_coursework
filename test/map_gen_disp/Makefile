@@ -1,13 +1,15 @@
 CC = g++
 CCFLAGS = -std=c++11\
-		  -I../../include\
+
 
 SRC_DIR = ../../src
 
 # X11 directory varies on different machine
 # sometimes they are inside the default include and lib directory
-CIMGFLAGS =\
+CIMGINC =\
 		  -I/usr/X11/include
+INC =\
+	 -I../../include
 
 LIB = \
 	  -L../../lib\
@@ -16,32 +18,32 @@ LIB = \
 	  -lX11\
 	  -lpthread
 
-#GTESTFLAG = -lgtest\
-#			-DGTEST
+GTEST = -lgtest
 
 IMSHOW_OBJ = show_image_example.o noise.o randommap.o disdensity.o
 MAPGEN_OBJ = map_gen_example.o noise.o randommap.o disdensity.o
-#CALC_OBJ = caldensity.o landscape.o disdensity.o randommap.o noise.o
 
-all:show_image_example map_gen_example
+EXEC = show_image_example map_gen_example
+
+all: $(EXEC)
 
 show_image_example: $(IMSHOW_OBJ)
-	$(CC) $(CCFLAGS) $(CIMGFLAGS) $(LIB) -O3 -o $@ $^
+	$(CC) $(CCFLAGS) $(LIB) -O3 -o $@ $^
 
 map_gen_example: $(MAPGEN_OBJ)
-	$(CC) $(CCFLAGS) $(CIMGFLAGS) $(LIB) -O3 -o $@ $^
+	$(CC) $(CCFLAGS) $(LIB) -O3 -o $@ $^
 
 %.o:%.cpp
-	$(CC) -c $(CCFLAGS) $(CIMGFLAGS) -o $@ $<
+	$(CC) -c $(CCFLAGS) $(INC) $(CIMGINC) -o $@ $<
 
 %.o: $(SRC_DIR)/mapgenrator/%.cpp
-	$(CC) -c $(CCFLAGS) -o $@ $<
+	$(CC) -c $(CCFLAGS) $(INC) -o $@ $<
 
-%.o: $(SRC_DIR)/disdensity/%.cpp
-	$(CC) -c $(CCFLAGS) $(CIMGFLAGS) -o $@ $<
+disdensity.o: $(SRC_DIR)/disdensity.cpp
+	$(CC) -c $(CCFLAGS) $(INC) $(CIMGINC) -o $@ $<
 
 landscape.o:$(SRC_DIR)/landscape.cpp
-	$(CC) -c $(CCFLAGS) $(CIMGFLAGS) -o $@ $<
+	$(CC) -c $(CCFLAGS) $(INC) $(CIMGINC) -o $@ $<
 
 #calc:$(CALC_OBJ)
 #	$(CC) $(CCFLAGS) $(CIMGFLAGS) $(LIB) -DDEBUG_OUT -O3 -o $@ $^
@@ -49,5 +51,10 @@ landscape.o:$(SRC_DIR)/landscape.cpp
 #caldensity.o:$(SRC_DIR)/caldensity.cpp
 #		$(CC) -c $(CCFLAGS) $(CIMGFLAGS) -o $@ $<
 
+test: map_gen_test.cpp noise.o randommap.o
+	$(CC) $(CCFLAGS) $(INC) $(LIB) $(GTEST) -o $@ $^
+
+
+.PHONY:clean
 clean:
-	rm *.o *.ppm *.dat show_image_example map_gen_example show_image_test map_gen_test
+	rm *.o *.ppm *.dat show_image_example map_gen_example
