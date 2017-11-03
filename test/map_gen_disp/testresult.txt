@@ -1,0 +1,20 @@
+[==========] Running 6 tests from 1 test case.
+[----------] Global test environment set-up.
+[----------] 6 tests from mapgenTestSuite
+[ RUN      ] mapgenTestSuite.NormalSizeCheck
+[       OK ] mapgenTestSuite.NormalSizeCheck (239 ms)
+[ RUN      ] mapgenTestSuite.NarrowSizeCheck1
+[       OK ] mapgenTestSuite.NarrowSizeCheck1 (106 ms)
+[ RUN      ] mapgenTestSuite.NarrowSizeCheck2
+[       OK ] mapgenTestSuite.NarrowSizeCheck2 (105 ms)
+[ RUN      ] mapgenTestSuite.WhiteNoiseSizeCheck
+[       OK ] mapgenTestSuite.WhiteNoiseSizeCheck (8 ms)
+[ RUN      ] mapgenTestSuite.ZeroOctaveThrowCheck
+[       OK ] mapgenTestSuite.ZeroOctaveThrowCheck (0 ms)
+[ RUN      ] mapgenTestSuite.ZeroSampleThrowCheck
+[       OK ] mapgenTestSuite.ZeroSampleThrowCheck (0 ms)
+[----------] 6 tests from mapgenTestSuite (458 ms total)
+
+[----------] Global test environment tear-down
+[==========] 6 tests from 1 test case ran. (458 ms total)
+[  PASSED  ] 6 tests.
