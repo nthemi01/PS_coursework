@@ -13,7 +13,7 @@ using cimg_library::CImg;
 
 struct CmdParam {
   int loops,isshow,interval;
-  string sMapfile, sCfgfile, sPumafile, sHarefile; 
+  string sMapfile, sCfgfile, sPumafile, sHarefile, sPpmfolder="./output/"; 
   Params para;
 };
 
@@ -34,8 +34,8 @@ int SetVector(int &vector, int index) {
 
 int SetParameter(CmdParam &param, int &vector, string key, string value) {
     int index;
-    string slist[] = {"-cfgfile","-mapfile","-pumafile","-harefile","-loops","-show","-interval","-r","-a","-m","-b","-k","-l","-dt"};
-    string slist_cfg[] = {"cfgfile","mapfile","pumafile","harefile","loops","show","interval","r","a","m","b","k","l","dt"};
+    string slist[] = {"-cfgfile","-mapfile","-pumafile","-harefile","-loops","-show","-interval","-ppmfolder","-r","-a","-m","-b","-k","-l","-dt"};
+    string slist_cfg[] = {"cfgfile","mapfile","pumafile","harefile","loops","show","interval","ppmfolder","r","a","m","b","k","l","dt"};
 #ifdef DEBUG_OUT
     printf( "\tSetParameter:\t key=%s,", key.c_str());
 	printf( "value=%s\n",value.c_str());
@@ -74,6 +74,10 @@ int SetParameter(CmdParam &param, int &vector, string key, string value) {
                 break;
              case 6 :
                 param.interval = atoi(value.c_str());
+                break;
+             case 7 :
+                param.sPpmfolder = value;
+                if (param.sPpmfolder[param.sPpmfolder-1] != '/') param.sPpmfolder = param.sPpmfolder + "/";
                 break;
              case 7 :
                 param.para.r = atof(value.c_str());
@@ -147,22 +151,22 @@ int main(int argc , char **argv) {
     usage = usage + "Usage: caldensity -cfgfile <filename> -mapfile <filename> -loops <looptimes> -show <0/1> -interval <intervaltimes> \\\n"+
                     "       -r <value> -a <value> -m <value>  -k <value>  -l <value>  -dt <value>\n\n" +
                   "The detailed parameter description:\n" + 
-                  "File path and name:\n" +
-                  "  -mapfile The name of the land map file\n" +
-                  "  -cfgfile The name of the config file\n" +
-                  "  -pumafile The name of the file of puma's initialize density\n" +
-                  "  -harefile The name of the file of hare's initialize density\n" +
-                  "Key parameters and switches:\n" +
-                  "  -loops total_loop_times\n" +
-                  "  -show 0/1 1-display_changes_of_density 0-don't display\n" +
-                  "  -interval interval_times_for_output_information\n" +
-                  "  -r birth_rate_of_hares\n" +
-                  "  -a predation_rate_of_pumas\n" +
-                  "  -b birth_rate_of_pumas\n" +
-                  "  -m puma_mortality_rate\n" +
-                  "  -k diffusion_rate_for_hares\n" +
-                  "  -l diffusion_rate_for_pumas\n" +
-                  "  -dt interval\n\n" +
+                  "  File path and name:\n" +
+                  "  -mapfile\tthe name of the land map file\n" +
+                  "  -cfgfile\tthe name of the config file\n" +
+                  "  -pumafile\tthe name of the file of puma's initialize density\n" +
+                  "  -harefile\tthe name of the file of hare's initialize density\n" +
+                  "  Key parameters and switches:\n" +
+                  "  -loops\tthe total loop times\n" +
+                  "  -show\t 0/1 1-display_changes_of_density 0-don't display\n" +
+                  "  -interval\tthe interval times for output\n" +
+                  "  -r\tthe birth rate of hares\n" +
+                  "  -a\tthe predation rate of pumas\n" +
+                  "  -b\tthe birth rate of pumas\n" +
+                  "  -m\tthe puma mortality rate\n" +
+                  "  -k\tthe diffusion rate for hares\n" +
+                  "  -l\tthe diffusion rates for pumas\n" +
+                  "  -dt\tthe size of the time step \n\n" +
                   "Notice: 1.The -pumafile and -harefile is optional, system will randomly generate density if these parameters missed.\n"+
                   "        2.The parameters can be configed in file or inputed in command, command line have higher priority.\n";
     int index = 1;
@@ -171,28 +175,27 @@ int main(int argc , char **argv) {
         if ( (index+1) < argc ) {
             str_value = string(argv[++index]);
 #ifdef DEBUG_OUT
-			printf("Main : Key is %s,value is %s \n",str_para.c_str(),str_value.c_str());
+            printf("Main : Key is %s,value is %s \n",str_para.c_str(),str_value.c_str());
 #endif
 #ifdef DEBUG_OUT
-			printf("Main : Now vector is %x\n",vector);
+            printf("Main : Now vector is %x\n",vector);
 #endif
             if (!SetParameter(cmdPara, vector, str_para, str_value)) { 
-				err_msg = "Some of your parameter is incorrect!";
-				break;
-			}
-			else index++;
+                err_msg = "Some of your parameter is incorrect!";
+                break;
+            }
+            else index++;
         }
         else {
             err_msg = "Parameter is invalid!";
-			break;
-		}
+            break;
+        }
     }
-	
-    if ((vector & 0x3FF2) != 0x3FF2) err_msg = err_msg + "Not all the required parameters are configued.";
+
+    if ((vector & 0x7F72) != 0x7F72) err_msg = err_msg + "Not all the required parameters are configued.";
 #ifdef DEBUG_OUT
     string sinfo = "************************************************************************\n";  
-    sinfo = sinfo +
-                    "  -mapfile=%s The name of the land map file\n" +
+    sinfo = sinfo + "  -mapfile=%s The name of the land map file\n" +
                     "  -pumafile =%sThe name of the file of puma's initialize density\n" +
                     "  -harefile=%s The name of the file of hare's initialize density\n" +
                     "  -loops=%d total_loop_times\n" +
@@ -204,18 +207,18 @@ int main(int argc , char **argv) {
                     "  -m=%f puma_mortality_rate\n" +
                     "  -k=%f diffusion_rate_for_hares\n" +
                     "  -l=%f diffusion_rate_for_pumas\n" +
-                    "  -dt=%f interval\n\n" +
-					"***********************************************************************\n";
+                    "  -dt=%f interval\n" +
+                    "***********************************************************************\n";
     printf (sinfo.c_str(),cmdPara.sMapfile.c_str(), cmdPara.sPumafile.c_str(),
 			cmdPara.sHarefile.c_str(),cmdPara.loops,cmdPara.isshow,cmdPara.interval,cmdPara.para.r,cmdPara.para.a,
 			cmdPara.para.b,cmdPara.para.m,cmdPara.para.k,cmdPara.para.l,cmdPara.para.dt);
 #endif
 #ifdef DEBUG_OUT
-	    printf("Main : err_msg is %s\nMain ：Vector is %x\n",err_msg.c_str(),vector); 
+    printf("Main : err_msg is %s\nMain ：Vector is %x\n",err_msg.c_str(),vector); 
 #endif
     if ( !err_msg.empty() ) {
-		std::cout << err_msg << "\n\n" << usage << std::endl;
-	    return 0; 
+	std::cout << err_msg << "\n\n" << usage << std::endl;
+        return 0; 
     }
     else {
 #ifdef DEBUG_OUT
@@ -230,9 +233,18 @@ int main(int argc , char **argv) {
         win_size_y = (size_y == NULL) ? 400:atoi(size_y);
         output::screen windows(win_size_x, win_size_y, "Density of Pumas","Density of Hares");
 
+        int out_count = 1;
+        char out_name[512];
+
         for (int index = 0;index < cmdPara.loops; index++) {
             land.progress();
-           
+            if (index % interval == 0 || index == cmdPara,loops-1) {
+                sprintf(out_name, "%sPumaDensity_%04d.ppm", cmdPara.sPpmfolder.c_str(),out_count);
+                auto dump = output::get_img(land.get_pumas(),true,string(out_name));
+                sprintf(out_name, "%sHareDensity_%04d.ppm", cmdPara.sPpmfolder.c_str(),out_count);
+                auto dump = output::get_img(land.get_hares(),true,string(out_name));
+                out_count++;
+            }
             if (cmdPara.isshow) {
                 auto img_pumas = output::get_img(land.get_pumas());
                 auto img_hares = output::get_img(land.get_hares());
