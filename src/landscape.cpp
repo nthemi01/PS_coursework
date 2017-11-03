@@ -173,27 +173,30 @@ landscape::landscape(const Params &pars, const std::string kMapPath, const std::
 void landscape::progress()
 {
 
-	pumas_old=pumas;
-	hares_old=hares;
+    pumas_old=pumas;
+    hares_old=hares;
 
 
-	for(int i=1;i<grid_size_x-1;i++)
-		for(int j=1;j<grid_size_y-1;j++)
-			if(map[i][j])
-			{
-				double part1,part2;
+    for(int i=1;i<grid_size_x-1;i++)
+        for(int j=1;j<grid_size_y-1;j++)
+	    if(map[i][j])
+	    {
+	        double part1,part2;
 
-				part1 = hares_old[i-1][j]+hares_old[i+1][j]+hares_old[i][j-1]+hares_old[i][j+1];	
-				part2 = k*(part1 - N[i][j]*hares_old[i][j]);
-				hares[i][j] = hares_old[i][j] + dt*( r*hares_old[i][j] - a*hares_old[i][j]*pumas_old[i][j] + part2);
-				hares[i][j] = fabs(hares[i][j]); 
-				// By taking the absolute value we make sure we never have negative density.
+		part1 = hares_old[i-1][j]+hares_old[i+1][j]+hares_old[i][j-1]+hares_old[i][j+1];	
+		part2 = k*(part1 - N[i][j]*hares_old[i][j]);
+		hares[i][j] = hares_old[i][j] + dt*( r*hares_old[i][j] - a*hares_old[i][j]*pumas_old[i][j] + part2);
+		if(hares[i][j]<0.001)
+    		    hares[i][j] = 0.001;
+		    // If hares get very small all negative we give it a small positive value in order to be physical.
 	
-				part1 = pumas_old[i-1][j]+pumas_old[i+1][j]+pumas_old[i][j-1]+pumas_old[i][j+1];	
-				part2 = l*(part1 - N[i][j]*pumas_old[i][j]);			
-				pumas[i][j] = pumas_old[i][j] + dt*( b*hares_old[i][j]*pumas_old[i][j] - m*pumas_old[i][j] + part2);
-				pumas[i][j] = fabs(pumas[i][j]);
-			}	
+		part1 = pumas_old[i-1][j]+pumas_old[i+1][j]+pumas_old[i][j-1]+pumas_old[i][j+1];	
+		part2 = l*(part1 - N[i][j]*pumas_old[i][j]);			
+		pumas[i][j] = pumas_old[i][j] + dt*( b*hares_old[i][j]*pumas_old[i][j] - m*pumas_old[i][j] + part2);
+		if(pumas[i][j]<0.001)
+		    pumas[i][j] = 0.001;
+		
+	    }	
 }
 
 //average_hares returns the average value of hares along the whole grid when called.
@@ -209,7 +212,6 @@ for (row = hares.begin(); row != hares.end(); row++)
     }
 }
 double average= sum/((grid_size_x-2)*(grid_size_y-2));
-if (average < 0.0001) average=0;
 return average;
 }
 
@@ -228,7 +230,6 @@ for (row = pumas.begin(); row != pumas.end(); row++)
 }
 
 double average= sum/((grid_size_x-2)*(grid_size_y-2));
-if (average < 0.0001) average=0;
 return average;
 }
 
