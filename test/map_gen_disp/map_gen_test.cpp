@@ -36,11 +36,11 @@ TEST(mapgenTestSuite, ZeroOctaveSizeCheck){
 }
 
 TEST(mapgenTestSuite, ZeroOctaveThrowCheck){
-    EXPECT_THROW(map_gen(30,20,1.0,10,0),"octave must be greater than 0\n");
+    EXPECT_ANY_THROW(map_gen(30,20,1.0,10,0));
 }
 
 TEST(mapgenTestSuite, ZeroSampleThrowCheck){
-    EXPECT_THROW(map_gen(30,20,1.0,0,4),"samples must be greater than 0\n");
+    EXPECT_ANY_THROW(map_gen(30,20,1.0,0,4));
 }
 
 int main(int argc,char **argv)
