@@ -1,4 +1,4 @@
-#include "../include/landscape.h"
+#include "landscape.h"
 
 
 // @breif landscape constructor - Initialises the class landscape
