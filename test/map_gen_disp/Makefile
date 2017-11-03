@@ -18,7 +18,6 @@ LIB = \
 	  -lX11\
 	  -lpthread
 
-GTEST = -lgtest
 
 IMSHOW_OBJ = show_image_example.o noise.o randommap.o disdensity.o
 MAPGEN_OBJ = map_gen_example.o noise.o randommap.o disdensity.o
@@ -51,14 +50,6 @@ calc:$(CALC_OBJ)
 
 caldensity.o:$(SRC_DIR)/caldensity.cpp
 		$(CC) -c $(CCFLAGS) $(CIMGINC) $(INC) -o $@ $<
-
-test: map_gen_test.o noise.o randommap.o
-	$(CC) $(CCFLAGS) $(INC) $(LIB) $(GTEST) -o $@ $^
-
-map_gen_test.o:map_gen_test.cpp
-	$(CC) -c $(CCFLAGS) $(INC) $(CIMGINC) -o $@ $<
-
-
 
 
 .PHONY:clean
