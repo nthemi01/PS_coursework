@@ -286,10 +286,10 @@ return pumas;
 
 
 // returns a vector of vectors corresponding to the morphology of the landscape (true:earth, false:water)
-// std::vector<std::vector<bool> > landscape::get_map()
-// {
-// return map;
-// }
+ std::vector<std::vector<bool> > landscape::get_map()
+ {
+ return map;
+ }
 
 
 
