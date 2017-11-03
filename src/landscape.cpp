@@ -152,18 +152,18 @@ landscape::landscape(const Params &pars, const std::string kMapPath, const std::
         }
     }
             
-    // Console output - To see the map and params
+    // Console output - To see the map and params    
+    #ifdef DEBUG
+    for(int x=0; x<grid_size_x; x++){
+        for(int y=0; y<grid_size_y; y++){            
+            std::cout << map[x][y];
+        }
+        std::cout << std::endl;
+    }    
     
-    // for(int x=0; x<grid_size_x; x++){
-        // for(int y=0; y<grid_size_y; y++){            
-            // std::cout << map[x][y];
-        // }
-        // std::cout << std::endl;
-    // }    
-    
-    // std::cout << "r=" << r << " a=" << a << " b=" << b<< " m=" << m<< " k=" << k<< " l=" << l << std::endl;  
-    // std::cout << "size of map: " << map.size() << " by " << map[0].size() << std::endl;
-
+    std::cout << "r=" << r << " a=" << a << " b=" << b<< " m=" << m<< " k=" << k<< " l=" << l << std::endl;  
+    std::cout << "size of map: " << map.size() << " by " << map[0].size() << std::endl;
+    #endif
 }
 
 /*
