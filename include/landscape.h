@@ -7,8 +7,8 @@
 #include <ctime> //for seeding random number generator
 #include <string>
 #include <stdexcept> //for throw std::invalid_argument
-#include "randommap.h" //for new random map
-#include "vector_arithmetic.hpp" //for new random map 
+// #include "randommap.h" //for new random map
+// #include "vector_arithmetic.hpp" //for new random map 
 
 #ifndef LANDSCAPE_H
 #define LANDSCAPE_H
