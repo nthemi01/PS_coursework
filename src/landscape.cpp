@@ -1,11 +1,11 @@
 #include "../include/landscape.h"
 
 
-// landscape constructor - Initialises the class landscape
-// INPUTS:  @pars Constant Stucture Params that contains the problem parameters - r,a,b,m,k,l,dt
-//          @kMapPath Constant String contianing the path to the Map data file
-//          @kPumasPath Constant String contianing the path to the Map data file
-//          @kHaresPath Constant String contianing the path to the Map data file
+// @breif landscape constructor - Initialises the class landscape
+// INPUTS:  @param pars Constant Stucture Params that contains the problem parameters - r,a,b,m,k,l,dt
+//          @param kMapPath Constant String contianing the path to the Map data file
+//          @param kPumasPath Constant String contianing the path to the Map data file
+//          @param kHaresPath Constant String contianing the path to the Map data file
 // OUTPUTS: N/A
           
 landscape::landscape(const Params &pars, const std::string kMapPath, const std::string kPumasPath, const std::string kHaresPath)
@@ -129,7 +129,7 @@ landscape::landscape(const Params &pars, const std::string kMapPath, const std::
     // filling the N matrix that represents the number of dry neighbors
     for(int i=1;i<grid_size_x-1;i++)
         for(int j=1;j<grid_size_y-1;j++)
-		if(1==map[i][j])
+            if(1==map[i][j])
             		N[i][j]=map[i+1][j]+map[i][j+1]+map[i-1][j]+map[i][j-1];
     
     // Check that densities on the water are zero
@@ -154,12 +154,22 @@ landscape::landscape(const Params &pars, const std::string kMapPath, const std::
             
     // Console output - To see the map and params    
     #ifdef DEBUG
+    // for(int x=0; x<grid_size_x; x++){
+        // for(int y=0; y<grid_size_y; y++){            
+            // std::cout << pumas[x][y] << " ";
+        // }
+        // std::cout << std::endl;
+    // }    
+    std::ofstream csv_file;
+    csv_file.open("densityLarge.dat");
+    csv_file << grid_size_x << grid_size_y << std::endl;
     for(int x=0; x<grid_size_x; x++){
         for(int y=0; y<grid_size_y; y++){            
-            std::cout << map[x][y];
+            csv_file << pumas[x][y] << " ";
         }
-        std::cout << std::endl;
+        csv_file << std::endl;
     }    
+    csv_file.close();   
     
     std::cout << "r=" << r << " a=" << a << " b=" << b<< " m=" << m<< " k=" << k<< " l=" << l << std::endl;  
     std::cout << "size of map: " << map.size() << " by " << map[0].size() << std::endl;
@@ -319,8 +329,8 @@ int landscape::ReadInFile(const std::string &kPath, std::vector<std::vector<doub
         throw std::invalid_argument("ReadInFile failed because the file was not the same size as the Map file");
     
     double tmp;
-    for(int x=1; x<(grid_size_x-1); x++){        // Ingnore the first and last entries as they are the water ring
-        for(int y=1; y<(grid_size_y-1); y++){
+    for(int y=1; y<(grid_size_y-1); y++){
+        for(int x=1; x<(grid_size_x-1); x++){        // Ingnore the first and last entries as they are the water ring
             file >> tmp;
             matrix[x][y] = tmp;
         }
@@ -353,11 +363,12 @@ int landscape::ReadInFile(const std::string &kPath, std::vector<std::vector<bool
     if(ySize != grid_size_y-2)
         throw std::invalid_argument("ReadInFile failed because the file was not the same size as the Map file");
     
-    bool tmp;
-    for(int x=1; x<(grid_size_x-1); x++){        // Ingnore the first and last entries as they are the water ring
-        for(int y=1; y<(grid_size_y-1); y++){
+    int tmp;
+    for(int y=1; y<(grid_size_y-1); y++){
+        for(int x=1; x<(grid_size_x-1); x++){        // Ingnore the first and last entries as they are the water ring
             file >> tmp;
-            matrix[x][y] = tmp;
+            matrix[x][y] = (bool)tmp;
+            
         }
     }
     file.close();
@@ -365,32 +376,28 @@ int landscape::ReadInFile(const std::string &kPath, std::vector<std::vector<bool
     }
 }
 
-// void landscape::GenerateRandomDensity(std::vector<std::vector<double> > &matrix, std::vector<std::vector<bool> > const &map)
-// {
-    // int x_size = matrix.size(); int y_size = matrix[0].size(); int samples = 10;
-    // int yy = static_cast<int>(x_size/samples + 1);
-    // int xx = static_cast<int>(y_size/samples + 1);
-    // auto density = map_gen(xx,yy,1.7,samples,4) * 5;
-    // remove superfluous edges
-    // int yyres = yy*samples - x_size;
-    // int xxres = xx*samples - y_size;
-    // for (int i = 0; i <= yyres; ++i)
-        // density.pop_back();
-    // for (auto& yelem : density)
-        // for (int i = 0; i <= xxres; ++i)
-            // density.pop_back();
-    // matrix = density;
-// }
-
 // Initializes "matrix" with a random animal density on all land points. The density is an number between 0 and 5.
+// INPUTS:  @param matrix the matrix to hold the new random densities
+//          @param map the map file corresponding to the landscape
 void landscape::GenerateRandomDensity(std::vector<std::vector<double> > &matrix, std::vector<std::vector<bool> > const &map)
 {
-    int grid_size_x = matrix.size(); int grid_size_y = matrix[0].size();
-    for(int x=0; x<grid_size_x; x++){        
-        for(int y=0; y<grid_size_y; y++){
-            if(map[x][y]==1)
-                matrix[x][y] = std::rand()%6;  //assign random density between 0 and 5
-        }
-    }
+    int x_size = matrix.size(); int y_size = matrix[0].size(); int samples = 10;
+    int yy = static_cast<int>(x_size/samples + 1);
+    int xx = static_cast<int>(y_size/samples + 1);
+    auto density = map_gen(xx,yy,1.7,samples,4) * 5;
+    // remove superfluous edges
+    int yyres = yy*samples - x_size;
+    int xxres = xx*samples - y_size;
+    for (int i = 0; i < yyres; ++i)
+        density.pop_back();
+    for (auto& yelem : density)
+        for (int i = 0; i < xxres; ++i)
+            yelem.pop_back();
+
+    for (int i = 0; i < x_size; ++i)
+        for (int j = 0; j < y_size; ++j)
+            density[i][j] = map[i][j]?density[i][j]:0;
+        
+    matrix = density;
 }
 
