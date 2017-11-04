@@ -86,13 +86,26 @@ test:product
 	@for name in $(EXEC) ;\
 	do \
 		$(CC) -c $(CCFLAGS) $(LIB) $(TESTDIR)/$$name.cpp 1>/dev/null;\
-		$(CC) $(CCFLAGS) $(LIB) $(GTESTFLAG) -o $$name.out $$name.o $(OBJDIR)/landscape.o $(OBJDIR)/noise.o $(OBJDIR)/randommap.o 1>/dev/null; \
+		$(CC) $$name.o $(OBJDIR)/landscape.o $(OBJDIR)/noise.o $(OBJDIR)/randommap.o $(CCFLAGS) $(LIB) $(GTESTFLAG) -o $$name.out  1>/dev/null; \
 	done
 	@rm -f *.o 
-	@mv *.out $(TESTBINDIR)/*.
+	@mv *.out $(TESTBINDIR)/
+	@cp ./test/*.dat $(TESTBINDIR)/
 	@echo done!
 	@echo ------------------------------------------------------
-	
+	@echo
+	@echo  Executing unitests......
+	@echo 
+	@echo //////////////////////////////////////////////////////
+	@for files in `ls $(TESTBINDIR)` ;\
+	do \
+	  if [ "$${files##*.}" = "out" ] ; \
+	  then  \
+	    ./$(TESTBINDIR)/$$files ; \
+	  fi \
+	done
+	@echo ------------------------------------------------------
+
 
 .PHONY: clean
 clean : 

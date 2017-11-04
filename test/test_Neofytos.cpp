@@ -1,5 +1,5 @@
 #include "gtest/gtest.h"
-#include "../include/landscape.h"
+#include "landscape.h"
 #include <string>       // std::string
 #include <iostream>     // std::cout
 #include <sstream>      // std::stringstream
