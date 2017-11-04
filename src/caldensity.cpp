@@ -18,7 +18,7 @@ struct CmdParam {
   Params para;
 };
 
-int ReadConfigfile(const string , CmdParam &, int &);
+int ReadConfigfile(const string , CmdParam &, int &, string &);
 
 void TrimString (string &input) {
     int pos;
@@ -45,7 +45,7 @@ void ReplaceEnv(string &str, const string &env ) {
             str.replace(pos,s.length(),val);     
 }
 
-int SetParameter(CmdParam &param, int &vector, string key, string value) {
+int SetParameter(CmdParam &param, int &vector, string key, string value, string &str_err) {
     int index;
     string slist[] = {"-cfgfile","-mapfile","-pumafile","-harefile","-loops","-show","-interval","-ppmfolder","-r","-a","-m","-b","-k","-l","-dt"};
     string slist_cfg[] = {"cfgfile","mapfile","pumafile","harefile","loops","show","interval","ppmfolder","r","a","m","b","k","l","dt"};
@@ -65,62 +65,78 @@ int SetParameter(CmdParam &param, int &vector, string key, string value) {
 #ifdef DEBUG_OUT
         printf("\tSetParameter:\t Set vector to %x \n",vector);
 #endif
+        str_err = key ;
         switch (index) {
             case 0 :
                 if (value != "") {
                     ReplaceEnv(value, string("HOME"));
-                    if ( !ReadConfigfile(value , param, vector))	return 0;   
+                    if ( !ReadConfigfile(value , param, vector, str_err))
+                         return 0 ;   
                 }
                 break;
             case 1 :
                 ReplaceEnv(value, string("HOME"));
-                param.map_file = value;
+                if (value != "" )  param.map_file = value;
+                else return 0 ;
                 break;
             case 2 :
                 ReplaceEnv(value, string("HOME"));
-                param.puma_file = value;
+                if (value != "" ) param.puma_file = value;
+                else return 0 ;
                 break;
-             case 3 :
+            case 3 :
                 ReplaceEnv(value, string("HOME"));
-                param.hare_file = value; 
+                if (value != "" ) param.hare_file = value; 
+                else return 0 ;
                 break;
-             case 4 :
+            case 4 :
                 param.loops = atoi(value.c_str());
+                if (param.loops <= 0)	return 0;
                 break;
-             case 5 :
+            case 5 :
                 param.is_show = atoi(value.c_str());
-                break;
-             case 6 :
+                if (param.is_show != 0 && param.is_show != 1)	return 0;
+               break;
+            case 6 :
                 param.interval = atoi(value.c_str());
+                if (param.interval <= 0)	return 0;
                 break;
-             case 7 :
+            case 7 :
                 ReplaceEnv(value, string("HOME"));
                 param.ppm_folder = value;
                 if (param.ppm_folder[param.ppm_folder.size()-1] != '/') 
                     param.ppm_folder = param.ppm_folder + "/";
+                if (value == "" )   return 0 ;
                 break;
-             case 8 :
+            case 8 :
                 param.para.r = atof(value.c_str());
+                if (param.para.r <= 0)    return 0 ;
                 break;
-             case 9 :
+            case 9 :
                  param.para.a = atof(value.c_str());
-                 break;
-             case 10 :
+                 if (param.para.a <= 0)    return 0 ;
+                break;
+            case 10 :
                  param.para.m = atof(value.c_str());
+                 if (param.para.m <= 0)    return 0 ;
                  break;
-             case 11 : 
+            case 11 : 
                  param.para.b = atof(value.c_str());
-                 break;             
-             case 12 :
+                 if (param.para.b <= 0)    return 0 ;
+                break;             
+            case 12 :
                  param.para.k = atof(value.c_str());
+                 if (param.para.k <= 0)    return 0 ;
                  break;
-             case 13 :
+            case 13 :
                  param.para.l = atof(value.c_str());
-                 break;
-             case 14 :
+                 if (param.para.l <= 0)    return 0 ;
+                break;
+            case 14 :
                  param.para.dt = atof(value.c_str());
+                 if (param.para.dt <= 0)    return 0 ;
                  break;
-             default :
+            default :
                  return 0;
         }
 #ifdef DEBUG_OUT
@@ -130,7 +146,7 @@ int SetParameter(CmdParam &param, int &vector, string key, string value) {
 }
 
 
-int ReadConfigfile(const string cfg_file, CmdParam &para, int &vector) {
+int ReadConfigfile(const string cfg_file, CmdParam &para, int &vector, string &str_err) {
     ifstream file;
 #ifdef DEBUG_OUT
 	printf("\tReadconfigfile:\t %s\n",cfg_file.c_str());
@@ -152,7 +168,8 @@ int ReadConfigfile(const string cfg_file, CmdParam &para, int &vector) {
 #ifdef DEBUG_OUT
 		    printf("\t");
 #endif              
-                    if (!SetParameter(para, vector, skey, svalue)) return 0;
+                    if (!SetParameter(para, vector, skey, svalue, str_err)) 
+                        return 0;
                 }
             }
         }
@@ -206,16 +223,25 @@ int main(int argc , char **argv) {
     int index = 1;
     if (argc == 1) {
         string str_msg = "";
-        string str;
+        string str, str_error;
         str_msg = str_msg + 
              "\n    No parameter is configured, if you have installed the program by 'make install',\n"+
                 "    would you like to use the default config file located at $HOME/PScourse1/cfg ?\n"+
                 "    (Y/y = agree to use) : ";
 	cout << str_msg;
         cin >> str;
+
+        string str_cfg =  string("-cfgfile");
+        string str_cvalue = string("$HOME/PScourse1/cfg/config.ini");
         if (str == "Y" || str== "y") {
-            if (!SetParameter(cmdPara, vector, string("-cfgfile"), string("$HOME/PScourse1/cfg/config.ini"))) 
-                err_msg = "\n\n  Error : Can't open default config file.";
+            if (!SetParameter(cmdPara, vector, str_cfg, str_cvalue, str_error)) {
+                if ( str_error.empty() )
+                    err_msg = "\n\n  Error : Can't open default config file.";
+                else {
+                    err_msg = "\n  Error : Parameter ";
+                    err_msg = err_msg + str_error + " are incorrect.";
+                }
+            }
         }
     }
 
@@ -229,14 +255,17 @@ int main(int argc , char **argv) {
 #ifdef DEBUG_OUT
             printf("Main : Now vector is %x\n",vector);
 #endif
-            if (!SetParameter(cmdPara, vector, str_para, str_value)) { 
-                err_msg = "\n  Error : Some of your parameters are incorrect!";
+            string str_err;
+            if (!SetParameter(cmdPara, vector, str_para, str_value, str_err)) { 
+                err_msg = "\n  Error : Parameter ";
+                err_msg = err_msg + str_err + " are incorrect.";
                 break;
             }
             else index++;
         }
         else {
-            err_msg = "\n  Error : a parameter should have a value!";
+            err_msg = "\n  Error : Parameter ";
+            err_msg = err_msg + str_para + " should have a value.";
             break;
         }
     }
