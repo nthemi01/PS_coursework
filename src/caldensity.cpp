@@ -33,6 +33,18 @@ int SetVector(int &vector, int index) {
     vector = vector | (1 << index);
 }
 
+void ReplaceEnv(string &str, const string &env ) {
+    string val;
+    char *pchar = getenv(env.c_str());
+    if (pchar == NULL) val = "";
+    else val = string(pchar);
+    string s = "$";
+    s = s + env;
+    string::size_type pos(0);     
+    if(( pos=str.find(s,pos)) != string::npos )
+            str.replace(pos,s.length(),val);     
+}
+
 int SetParameter(CmdParam &param, int &vector, string key, string value) {
     int index;
     string slist[] = {"-cfgfile","-mapfile","-pumafile","-harefile","-loops","-show","-interval","-ppmfolder","-r","-a","-m","-b","-k","-l","-dt"};
@@ -55,16 +67,21 @@ int SetParameter(CmdParam &param, int &vector, string key, string value) {
 #endif
         switch (index) {
             case 0 :
-                if (value != "")
+                if (value != "") {
+                    ReplaceEnv(value, string("HOME"));
                     if ( !ReadConfigfile(value , param, vector))	return 0;   
+                }
                 break;
             case 1 :
+                ReplaceEnv(value, string("HOME"));
                 param.map_file = value;
                 break;
             case 2 :
+                ReplaceEnv(value, string("HOME"));
                 param.puma_file = value;
                 break;
              case 3 :
+                ReplaceEnv(value, string("HOME"));
                 param.hare_file = value; 
                 break;
              case 4 :
@@ -77,6 +94,7 @@ int SetParameter(CmdParam &param, int &vector, string key, string value) {
                 param.interval = atoi(value.c_str());
                 break;
              case 7 :
+                ReplaceEnv(value, string("HOME"));
                 param.ppm_folder = value;
                 if (param.ppm_folder[param.ppm_folder.size()-1] != '/') 
                     param.ppm_folder = param.ppm_folder + "/";
@@ -142,6 +160,7 @@ int ReadConfigfile(const string cfg_file, CmdParam &para, int &vector) {
     }
 }          
 
+
 int main(int argc , char **argv) {
 
     CmdParam cmdPara;
@@ -185,6 +204,21 @@ int main(int argc , char **argv) {
                   "--------------------------------------------------------------------------------------\n";
 
     int index = 1;
+    if (argc == 1) {
+        string str_msg = "";
+        string str;
+        str_msg = str_msg + 
+             "\n    No parameter is configured, if you have installed the program by 'make install',\n"+
+                "    would you like to use the default config file located at $HOME/PScourse1/cfg ?\n"+
+                "    (Y/y = agree to use) : ";
+	cout << str_msg;
+        cin >> str;
+        if (str == "Y" || str== "y") {
+            if (!SetParameter(cmdPara, vector, string("-cfgfile"), string("$HOME/PScourse1/cfg/config.ini"))) 
+                err_msg = "\n\n  Error : Can't open default config file.";
+        }
+    }
+
     while (index < argc) {
         str_para = string(argv[index]);
         if ( (index+1) < argc ) {
@@ -196,18 +230,18 @@ int main(int argc , char **argv) {
             printf("Main : Now vector is %x\n",vector);
 #endif
             if (!SetParameter(cmdPara, vector, str_para, str_value)) { 
-                err_msg = "\nSome of your parameter is incorrect!";
+                err_msg = "\n  Error : Some of your parameters are incorrect!";
                 break;
             }
             else index++;
         }
         else {
-            err_msg = "\nParameter is invalid!";
+            err_msg = "\n  Error : a parameter should have a value!";
             break;
         }
     }
 
-    if ((vector & 0x7FF2) != 0x7FF2) err_msg = err_msg + "\nNot all the required parameters are configued.";
+    if ((vector & 0x7FF2) != 0x7FF2) err_msg = err_msg + "\n          Not all the required parameters are configued.";
 #ifdef DEBUG_OUT
     printf("Main : err_msg is %s\nMain ：Vector is %x\n",err_msg.c_str(),vector); 
 #endif
@@ -243,9 +277,9 @@ int main(int argc , char **argv) {
                 dump = output::get_img(land.get_hares(),true,string(out_name));
                 
                 double average =  land.average_pumas();
-                std::cout << "The average value of puma's density is " << average  << " at No." << index << " loop." << std::endl;
+                std::cout << "Ineration " << index << "\t: Average value of puma's density - " << average << std::endl;
                 average =  land.average_hares();
-                std::cout << "The average value of hare's density is " << average << " at No." << index << " loop." << std::endl;
+                std::cout << "Ineration " << index << "\t: Average value of hare's density - " << average << std::endl;
 
                 out_count++;
             }

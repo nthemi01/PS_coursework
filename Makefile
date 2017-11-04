@@ -89,8 +89,8 @@ test:product
 		$(CC) $$name.o $(OBJDIR)/landscape.o $(OBJDIR)/noise.o $(OBJDIR)/randommap.o $(CCFLAGS) $(LIB) $(GTESTFLAG) -o $$name.out  1>/dev/null; \
 	done
 	@rm -f *.o
-	@mkdir $(TESTBINDIR)
-	@mv *.out $(TESTBINDIR)/
+	@-mkdir $(TESTBINDIR) 2>/dev/null
+	@-mv *.out $(TESTBINDIR)/
 	@cp ./test/*.dat $(TESTBINDIR)/
 	@echo done!
 	@echo ------------------------------------------------------
@@ -125,6 +125,7 @@ install: product
 	@rm -r -f $(INSTDIR)
 	@-mkdir $(INSTDIR) 
 	@-mkdir $(INSTDIR)/bin
+	@-mkdir $(INSTDIR)/ppm_output
 	@-mkdir $(INSTDIR)/cfg
 	@cp $(BINDIR)/* $(INSTDIR)/bin
 	@cp $(PS_PROJ_HOME)/cfg/* $(INSTDIR)/cfg
