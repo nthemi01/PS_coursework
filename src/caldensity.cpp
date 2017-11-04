@@ -152,27 +152,38 @@ int main(int argc , char **argv) {
     struct timeb t_start,t_end;
 
     string usage = ""; 
-    usage = usage + "Usage: caldensity -cfgfile <filename> -mapfile <filename> -loops <looptimes> -show <0/1> -interval <intervaltimes> \\\n"+
-                    "       -r <value> -a <value> -m <value>  -k <value>  -l <value>  -dt <value>\n\n" +
-                  "The detailed parameter description:\n" + 
-                  "  File path and name:\n" +
-                  "  -mapfile\tthe name of the land map file\n" +
-                  "  -cfgfile\tthe name of the config file\n" +
-                  "  -pumafile\tthe name of the file of puma's initialize density\n" +
-                  "  -harefile\tthe name of the file of hare's initialize density\n" +
-                  "  Key parameters and switches:\n" +
-                  "  -loops\tthe total loop times\n" +
-                  "  -show\t 0/1 1-display_changes_of_density 0-don't display\n" +
-                  "  -interval\tthe interval times for output\n" +
-                  "  -r\tthe birth rate of hares\n" +
-                  "  -a\tthe predation rate of pumas\n" +
-                  "  -b\tthe birth rate of pumas\n" +
-                  "  -m\tthe puma mortality rate\n" +
-                  "  -k\tthe diffusion rate for hares\n" +
-                  "  -l\tthe diffusion rates for pumas\n" +
-                  "  -dt\tthe size of the time step \n\n" +
-                  "Notice: 1.The -pumafile and -harefile is optional, system will randomly generate density if these parameters missed.\n"+
-                  "        2.The parameters can be configed in file or inputed in command, command line have higher priority.\n";
+    usage = usage +
+                  "--------------------------------------------------------------------------------------\n"+
+                  "| Usage: caldensity -cfgfile <filename> -mapfile <filename> -ppmfolder <folderPath>  |\n" +
+                  "|                  -pumafile <filename> -harefile <filename>                         |\n"+
+                  "|                  -loops <looptimes> -show <0/1> -interval <intervaltimes>          |\n"+
+                  "|                  -r <value> -a <value> -m <value> -k <value> -l <value> -dt <value>|\n"+
+                  "--------------------------------------------------------------------------------------\n" +
+                  " The detailed parameter description:\n" + 
+                  "    File path and name:\n" +
+                  "         -mapfile\tthe name of the land map file\n" +
+                  "         -cfgfile\tthe name of the config file\n" +
+                  "         -pumafile\tthe name of the file of puma's initialize density\n" +
+                  "         -harefile\tthe name of the file of hare's initialize density\n" +
+                  "         -ppmfolder\tthe folder of the ppm file\n" +
+                  "    Key parameters and switches:\n" +
+                  "         -loops\tthe total loop times\n" +
+                  "         -show\t 0/1 1-display_changes_of_density 0-don't display\n" +
+                  "         -interval\tthe interval times for output\n" +
+                  "         -r\tthe birth rate of hares\n" +
+                  "         -a\tthe predation rate of pumas\n" +
+                  "         -b\tthe birth rate of pumas\n" +
+                  "         -m\tthe puma mortality rate\n" +
+                  "         -k\tthe diffusion rate for hares\n" +
+                  "         -l\tthe diffusion rates for pumas\n" +
+                  "         -dt\tthe size of the time step \n\n" +
+                  "--------------------------------------------------------------------------------------\n"+
+                  "|  Notice: 1. The -pumafile and -harefile is optional, system will randomly generate | \n"+
+                  "|             density if these parameters missed.                                    |\n"+
+                  "|          2. The parameters can be configed in file or inputed in command, command  |\n"+
+                  "|             line have higher priority.                                             |\n"+
+                  "--------------------------------------------------------------------------------------\n";
+
     int index = 1;
     while (index < argc) {
         str_para = string(argv[index]);
@@ -185,23 +196,23 @@ int main(int argc , char **argv) {
             printf("Main : Now vector is %x\n",vector);
 #endif
             if (!SetParameter(cmdPara, vector, str_para, str_value)) { 
-                err_msg = "Some of your parameter is incorrect!";
+                err_msg = "\nSome of your parameter is incorrect!";
                 break;
             }
             else index++;
         }
         else {
-            err_msg = "Parameter is invalid!";
+            err_msg = "\nParameter is invalid!";
             break;
         }
     }
 
-    if ((vector & 0x7F72) != 0x7F72) err_msg = err_msg + "Not all the required parameters are configued.";
+    if ((vector & 0x7FF2) != 0x7FF2) err_msg = err_msg + "\nNot all the required parameters are configued.";
 #ifdef DEBUG_OUT
     printf("Main : err_msg is %s\nMain ：Vector is %x\n",err_msg.c_str(),vector); 
 #endif
     if ( !err_msg.empty() ) {
-	std::cout << err_msg << "\n\n" << usage << std::endl;
+	std::cout << err_msg << "\n" << usage << std::endl;
         return 0; 
     }
     else {

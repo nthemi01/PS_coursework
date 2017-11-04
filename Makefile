@@ -88,7 +88,8 @@ test:product
 		$(CC) -c $(CCFLAGS) $(LIB) $(TESTDIR)/$$name.cpp 1>/dev/null;\
 		$(CC) $$name.o $(OBJDIR)/landscape.o $(OBJDIR)/noise.o $(OBJDIR)/randommap.o $(CCFLAGS) $(LIB) $(GTESTFLAG) -o $$name.out  1>/dev/null; \
 	done
-	@rm -f *.o 
+	@rm -f *.o
+	@mkdir $(TESTBINDIR)
 	@mv *.out $(TESTBINDIR)/
 	@cp ./test/*.dat $(TESTBINDIR)/
 	@echo done!
