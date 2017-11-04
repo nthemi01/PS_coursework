@@ -12,7 +12,7 @@ OBJDIR = $(PS_PROJ_HOME)/build/obj
 
 BINDIR = $(PS_PROJ_HOME)/build/bin
 
-TESTBINDIR = $(PS_PROJ_HOME)/build/testbin
+TESTBINDIR = $(shell pwd)/build/testbin
 
 INCLUDEDIR = $(PS_PROJ_HOME)/include
 
@@ -100,9 +100,10 @@ test:product
 	@echo //////////////////////////////////////////////////////
 	@for files in `ls $(TESTBINDIR)` ;\
 	do \
+	  cd $(TESTBINDIR) ;\
 	  if [ "$${files##*.}" = "out" ] ; \
 	  then  \
-	    ./$(TESTBINDIR)/$$files ; \
+	    $(TESTBINDIR)/$$files ; \
 	  fi \
 	done
 	@echo ------------------------------------------------------

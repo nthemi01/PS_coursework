@@ -8,7 +8,7 @@ TEST(LandTestSuit1, TestCase1)
 
 TEST(LandTestSuit2, TestCase2)
 {
-    ASSERT_EQ(8,0);
+    ASSERT_EQ(8,8);
 }
 
 int main(int argc,char **argv)

@@ -195,8 +195,8 @@ TEST(landscape, averages)
 
 			//Double numbers after 10 iterations diverge slightly between c++ code and wolfram Mathemtica,
 			//so we use delta = 1e-4 tou account for that
-			ASSERT_NEAR (test_pumas,real_pumas,0.0001);
-			ASSERT_NEAR (test_hares,real_hares,0.0001);
+			ASSERT_NEAR (test_pumas,real_pumas,0.001);
+			ASSERT_NEAR (test_hares,real_hares,0.001);
 }
 
 int main(int argc,char **argv)

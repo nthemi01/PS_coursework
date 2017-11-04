@@ -276,11 +276,10 @@ int main(int argc , char **argv) {
                 sprintf(out_name, "%sHareDensity_%04d.ppm", cmdPara.ppm_folder.c_str(),out_count);
                 dump = output::get_img(land.get_hares(),true,string(out_name));
                 
-                double average =  land.average_pumas();
-                std::cout << "Ineration " << index << "\t: Average value of puma's density - " << average << std::endl;
-                average =  land.average_hares();
-                std::cout << "Ineration " << index << "\t: Average value of hare's density - " << average << std::endl;
-
+                double avg_puma =  land.average_pumas();
+                double avg_hare =  land.average_hares();
+                std::cout << "Iteration " << index << "\t: Puma's average density - " << avg_puma  
+                                                   << "\t: Hare's average density - " << avg_hare << std::endl;
                 out_count++;
             }
             if (cmdPara.is_show) {
