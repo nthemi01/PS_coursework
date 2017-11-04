@@ -37,6 +37,14 @@ TEST(mapgenTestSuite, ZeroSampleThrowCheck){
     EXPECT_ANY_THROW(map_gen(30,20,1.0,0,4));
 }
 
+TEST(mapgenTestSuite, ZeroSizeThrowCheck1){
+    EXPECT_ANY_THROW(map_gen(0,20,1.0,10,4));
+}
+
+TEST(mapgenTestSuite, ZeroSizeThrowCheck2){
+    EXPECT_ANY_THROW(map_gen(30,0,1.0,10,4));
+}
+
 int main(int argc,char **argv)
 {
     testing::InitGoogleTest(&argc,argv);
