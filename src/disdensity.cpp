@@ -6,7 +6,7 @@ cimg_library::CImg<unsigned int>  output::get_img( std::vector<std::vector<doubl
                                                    bool savefig, 
                                                    const std::string filename) {
     std::ofstream fout(filename);
-    auto norm_density = (density-min2d(density))/max2d(density);
+    auto norm_density = (density-min2d(density))/5;
     int size_x = norm_density[0].size();
     int size_y = norm_density.size();
 
@@ -58,7 +58,7 @@ cimg_library::CImg<unsigned int> output::get_img( std::vector<std::vector<double
                                                   bool savefig,
                                                   const std::string filename) {
     std::ofstream fout(filename);
-    auto norm_density = (density-min2d(density))/max2d(density);
+    auto norm_density = (density-min2d(density))/5;
     int size_x = norm_density[0].size();
     int size_y = norm_density.size();
 
