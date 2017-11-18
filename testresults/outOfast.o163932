@@ -1,0 +1,7 @@
+constant Ofast
+
+
+Iteration 0	: Puma's average density - 1.36883	: Hare's average density - 2.31186
+Iteration 9999	: Puma's average density - 8.41615	: Hare's average density - 1.59221e-06
+The total time is 27314ms
+done!

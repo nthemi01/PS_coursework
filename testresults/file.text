@@ -1,0 +1,388 @@
+Flat profile:
+
+Each sample counts as 0.01 seconds.
+  %   cumulative   self              self     total           
+ time   seconds   seconds    calls  ms/call  ms/call  name    
+ 71.34     26.33    26.33                             landscape::progress()
+ 15.69     32.12     5.79                             output::get_img(std::vector<std::vector<double, std::allocator<double> >, std::allocator<std::vector<double, std::allocator<double> > > >, bool, std::string)
+  3.60     33.45     1.33     2014     0.66     0.73  std::vector<std::vector<double, std::allocator<double> >, std::allocator<std::vector<double, std::allocator<double> > > > operator*<std::vector<double, std::allocator<double> > >(double, std::vector<std::vector<double, std::allocator<double> >, std::allocator<std::vector<double, std::allocator<double> > > >)
+  3.22     34.64     1.19     2004     0.59     0.66  std::vector<std::vector<double, std::allocator<double> >, std::allocator<std::vector<double, std::allocator<double> > > > operator-<std::vector<double, std::allocator<double> > >(std::vector<std::vector<double, std::allocator<double> >, std::allocator<std::vector<double, std::allocator<double> > > >, double)
+  1.76     35.29     0.65     2004     0.32     0.32  double max2d<double>(std::vector<std::vector<double, std::allocator<double> >, std::allocator<std::vector<double, std::allocator<double> > > >)
+  1.68     35.91     0.62     2004     0.31     0.31  double min2d<double>(std::vector<std::vector<double, std::allocator<double> >, std::allocator<std::vector<double, std::allocator<double> > > >)
+  0.73     36.18     0.27                             landscape::average_hares()
+  0.68     36.43     0.25                             landscape::average_pumas()
+  0.62     36.66     0.23 24293856     0.00     0.00  void std::vector<double, std::allocator<double> >::_M_emplace_back_aux<double const&>(double const&)
+  0.24     36.75     0.09 12041204     0.00     0.00  std::vector<double, std::allocator<double> >::operator=(std::vector<double, std::allocator<double> > const&)
+  0.14     36.80     0.05     6656     0.01     0.01  noise::coherent_series(std::vector<std::function<double (double)>, std::allocator<std::function<double (double)> > >, unsigned int, double) [clone .constprop.84]
+  0.14     36.85     0.05    44396     0.00     0.00  void std::vector<std::vector<double, std::allocator<double> >, std::allocator<std::vector<double, std::allocator<double> > > >::_M_emplace_back_aux<std::vector<double, std::allocator<double> > const&>(std::vector<double, std::allocator<double> > const&)
+  0.03     36.86     0.01  4306176     0.00     0.00  noise::cubic_func(double, double, double, double, double)
+  0.03     36.87     0.01    20002     0.00     0.00  std::vector<std::vector<double, std::allocator<double> >, std::allocator<std::vector<double, std::allocator<double> > > >::operator=(std::vector<std::vector<double, std::allocator<double> >, std::allocator<std::vector<double, std::allocator<double> > > > const&)
+  0.03     36.88     0.01     6656     0.00     0.00  void std::generate<__gnu_cxx::__normal_iterator<std::function<double (double)>*, std::vector<std::function<double (double)>, std::allocator<std::function<double (double)> > > >, noise::cubic_spline_functions(std::vector<double, std::allocator<double> > const&, double)::{lambda()#2}>(__gnu_cxx::__normal_iterator<std::function<double (double)>*, std::vector<std::function<double (double)>, std::allocator<std::function<double (double)> > > >, noise::cubic_spline_functions(std::vector<double, std::allocator<double> > const&, double)::{lambda()#2}, noise::cubic_spline_functions(std::vector<double, std::allocator<double> > const&, double)::{lambda()#2})
+  0.03     36.89     0.01     2004     0.00     0.73  std::vector<std::vector<double, std::allocator<double> >, std::allocator<std::vector<double, std::allocator<double> > > > operator/<std::vector<double, std::allocator<double> > >(std::vector<std::vector<double, std::allocator<double> >, std::allocator<std::vector<double, std::allocator<double> > > >, double)
+  0.03     36.90     0.01        8     1.25     1.35  std::vector<std::vector<double, std::allocator<double> >, std::allocator<std::vector<double, std::allocator<double> > > > operator+<std::vector<double, std::allocator<double> > >(std::vector<std::vector<double, std::allocator<double> >, std::allocator<std::vector<double, std::allocator<double> > > >, std::vector<std::vector<double, std::allocator<double> >, std::allocator<std::vector<double, std::allocator<double> > > >)
+  0.03     36.91     0.01                             landscape::get_hares()
+  0.00     36.91     0.00  4306176     0.00     0.00  std::_Function_handler<double (double), std::_Bind<double (*(std::_Placeholder<1>, double, double, double, double))(double, double, double, double, double)> >::_M_invoke(std::_Any_data const&, double)
+  0.00     36.91     0.00   233940     0.00     0.00  std::_Function_base::_Base_manager<std::_Bind<double (*(std::_Placeholder<1>, double, double, double, double))(double, double, double, double, double)> >::_M_manager(std::_Any_data&, std::_Any_data const&, std::_Manager_operation)
+  0.00     36.91     0.00    10010     0.00     0.00  std::vector<std::vector<double, std::allocator<double> >, std::allocator<std::vector<double, std::allocator<double> > > >::~vector()
+  0.00     36.91     0.00     6656     0.00     0.00  noise::cubic_spline_functions(std::vector<double, std::allocator<double> > const&, double) [clone .constprop.85]
+  0.00     36.91     0.00     6656     0.00     0.00  void std::vector<double, std::allocator<double> >::_M_emplace_back_aux<double>(double&&)
+  0.00     36.91     0.00     6006     0.00     0.00  std::vector<std::vector<double, std::allocator<double> >, std::allocator<std::vector<double, std::allocator<double> > > >::vector(std::vector<std::vector<double, std::allocator<double> >, std::allocator<std::vector<double, std::allocator<double> > > > const&)
+  0.00     36.91     0.00     2002     0.00     0.00  cimg_library::CImg<unsigned int>::CImg(unsigned int, unsigned int, unsigned int, unsigned int)
+  0.00     36.91     0.00      248     0.00     0.00  noise::discrete_random_series(unsigned int)
+  0.00     36.91     0.00       24     0.00     0.00  TrimString(std::string&)
+  0.00     36.91     0.00       12     0.00     0.00  SetParameter(CmdParam&, int&, std::string, std::string, std::string&)
+  0.00     36.91     0.00        8     0.00     8.76  noise::coherent_map(unsigned int, unsigned int, unsigned int, unsigned int)
+  0.00     36.91     0.00        4     0.00     0.00  std::vector<std::vector<double, std::allocator<double> >, std::allocator<std::vector<double, std::allocator<double> > > >::_M_fill_insert(__gnu_cxx::__normal_iterator<std::vector<double, std::allocator<double> >*, std::vector<std::vector<double, std::allocator<double> >, std::allocator<std::vector<double, std::allocator<double> > > > >, unsigned long, std::vector<double, std::allocator<double> > const&)
+  0.00     36.91     0.00        3     0.00     0.00  ReplaceEnv(std::string&, std::string const&)
+  0.00     36.91     0.00        2     0.00     0.07  std::vector<std::vector<double, std::allocator<double> >, std::allocator<std::vector<double, std::allocator<double> > > > pow<std::vector<double, std::allocator<double> > >(std::vector<std::vector<double, std::allocator<double> >, std::allocator<std::vector<double, std::allocator<double> > > >, double)
+  0.00     36.91     0.00        2     0.00    45.45  map_gen(unsigned int, unsigned int, double, unsigned int, unsigned int)
+  0.00     36.91     0.00        2     0.00    46.19  landscape::GenerateRandomDensity(std::vector<std::vector<double, std::allocator<double> >, std::allocator<std::vector<double, std::allocator<double> > > >&, std::vector<std::vector<bool, std::allocator<bool> >, std::allocator<std::vector<bool, std::allocator<bool> > > > const&)
+  0.00     36.91     0.00        1     0.00     0.00  _GLOBAL__sub_I__Z10TrimStringRSs
+  0.00     36.91     0.00        1     0.00     0.00  _GLOBAL__sub_I__Z7map_genjjdjj
+  0.00     36.91     0.00        1     0.00     0.00  _GLOBAL__sub_I__ZN6output7get_imgESt6vectorIS0_IdSaIdEESaIS2_EEbSs
+  0.00     36.91     0.00        1     0.00     0.00  _GLOBAL__sub_I__ZN9landscapeC2ERK6ParamsSsSsSs
+  0.00     36.91     0.00        1     0.00     0.00  ReadConfigfile(std::string, CmdParam&, int&, std::string&)
+  0.00     36.91     0.00        1     0.00     0.00  landscape::ReadInFile(std::string const&, std::vector<std::vector<bool, std::allocator<bool> >, std::allocator<std::vector<bool, std::allocator<bool> > > >&)
+  0.00     36.91     0.00        1     0.00     0.00  std::vector<std::vector<bool, std::allocator<bool> >, std::allocator<std::vector<bool, std::allocator<bool> > > >::_M_fill_insert(__gnu_cxx::__normal_iterator<std::vector<bool, std::allocator<bool> >*, std::vector<std::vector<bool, std::allocator<bool> >, std::allocator<std::vector<bool, std::allocator<bool> > > > >, unsigned long, std::vector<bool, std::allocator<bool> > const&)
+  0.00     36.91     0.00        1     0.00     0.00  std::vector<std::vector<int, std::allocator<int> >, std::allocator<std::vector<int, std::allocator<int> > > >::_M_fill_insert(__gnu_cxx::__normal_iterator<std::vector<int, std::allocator<int> >*, std::vector<std::vector<int, std::allocator<int> >, std::allocator<std::vector<int, std::allocator<int> > > > >, unsigned long, std::vector<int, std::allocator<int> > const&)
+  0.00     36.91     0.00        1     0.00     0.00  std::basic_string<char, std::char_traits<char>, std::allocator<char> > std::operator+<char, std::char_traits<char>, std::allocator<char> >(std::basic_string<char, std::char_traits<char>, std::allocator<char> > const&, char const*)
+
+ %         the percentage of the total running time of the
+time       program used by this function.
+
+cumulative a running sum of the number of seconds accounted
+ seconds   for by this function and those listed above it.
+
+ self      the number of seconds accounted for by this
+seconds    function alone.  This is the major sort for this
+           listing.
+
+calls      the number of times this function was invoked, if
+           this function is profiled, else blank.
+ 
+ self      the average number of milliseconds spent in this
+ms/call    function per call, if this function is profiled,
+	   else blank.
+
+ total     the average number of milliseconds spent in this
+ms/call    function and its descendents per call, if this 
+	   function is profiled, else blank.
+
+name       the name of the function.  This is the minor sort
+           for this listing. The index shows the location of
+	   the function in the gprof listing. If the index is
+	   in parenthesis it shows where it would appear in
+	   the gprof listing if it were to be printed.
+
+Copyright (C) 2012-2014 Free Software Foundation, Inc.
+
+Copying and distribution of this file, with or without modification,
+are permitted in any medium without royalty provided the copyright
+notice and this notice are preserved.
+
+		     Call graph (explanation follows)
+
+
+granularity: each sample hit covers 2 byte(s) for 0.03% of 36.91 seconds
+
+index % time    self  children    called     name
+                                                 <spontaneous>
+[1]     71.6   26.33    0.10                 landscape::progress() [1]
+                0.01    0.09   20000/20002       std::vector<std::vector<double, std::allocator<double> >, std::allocator<std::vector<double, std::allocator<double> > > >::operator=(std::vector<std::vector<double, std::allocator<double> >, std::allocator<std::vector<double, std::allocator<double> > > > const&) [11]
+-----------------------------------------------
+                                                 <spontaneous>
+[2]     26.7    5.79    4.07                 output::get_img(std::vector<std::vector<double, std::allocator<double> >, std::allocator<std::vector<double, std::allocator<double> > > >, bool, std::string) [2]
+                0.01    1.46    2002/2004        std::vector<std::vector<double, std::allocator<double> >, std::allocator<std::vector<double, std::allocator<double> > > > operator/<std::vector<double, std::allocator<double> > >(std::vector<std::vector<double, std::allocator<double> >, std::allocator<std::vector<double, std::allocator<double> > > >, double) [3]
+                1.19    0.14    2002/2004        std::vector<std::vector<double, std::allocator<double> >, std::allocator<std::vector<double, std::allocator<double> > > > operator-<std::vector<double, std::allocator<double> > >(std::vector<std::vector<double, std::allocator<double> >, std::allocator<std::vector<double, std::allocator<double> > > >, double) [5]
+                0.65    0.00    2002/2004        double max2d<double>(std::vector<std::vector<double, std::allocator<double> >, std::allocator<std::vector<double, std::allocator<double> > > >) [6]
+                0.62    0.00    2002/2004        double min2d<double>(std::vector<std::vector<double, std::allocator<double> >, std::allocator<std::vector<double, std::allocator<double> > > >) [7]
+                0.00    0.00   10010/10010       std::vector<std::vector<double, std::allocator<double> >, std::allocator<std::vector<double, std::allocator<double> > > >::~vector() [35]
+                0.00    0.00    6006/6006        std::vector<std::vector<double, std::allocator<double> >, std::allocator<std::vector<double, std::allocator<double> > > >::vector(std::vector<std::vector<double, std::allocator<double> >, std::allocator<std::vector<double, std::allocator<double> > > > const&) [37]
+                0.00    0.00    2002/2002        cimg_library::CImg<unsigned int>::CImg(unsigned int, unsigned int, unsigned int, unsigned int) [38]
+-----------------------------------------------
+                0.00    0.00       2/2004        map_gen(unsigned int, unsigned int, double, unsigned int, unsigned int) [14]
+                0.01    1.46    2002/2004        output::get_img(std::vector<std::vector<double, std::allocator<double> >, std::allocator<std::vector<double, std::allocator<double> > > >, bool, std::string) [2]
+[3]      4.0    0.01    1.46    2004         std::vector<std::vector<double, std::allocator<double> >, std::allocator<std::vector<double, std::allocator<double> > > > operator/<std::vector<double, std::allocator<double> > >(std::vector<std::vector<double, std::allocator<double> >, std::allocator<std::vector<double, std::allocator<double> > > >, double) [3]
+                1.32    0.14    2004/2014        std::vector<std::vector<double, std::allocator<double> >, std::allocator<std::vector<double, std::allocator<double> > > > operator*<std::vector<double, std::allocator<double> > >(double, std::vector<std::vector<double, std::allocator<double> >, std::allocator<std::vector<double, std::allocator<double> > > >) [4]
+-----------------------------------------------
+                0.00    0.00       2/2014        landscape::GenerateRandomDensity(std::vector<std::vector<double, std::allocator<double> >, std::allocator<std::vector<double, std::allocator<double> > > >&, std::vector<std::vector<bool, std::allocator<bool> >, std::allocator<std::vector<bool, std::allocator<bool> > > > const&) [12]
+                0.01    0.00       8/2014        map_gen(unsigned int, unsigned int, double, unsigned int, unsigned int) [14]
+                1.32    0.14    2004/2014        std::vector<std::vector<double, std::allocator<double> >, std::allocator<std::vector<double, std::allocator<double> > > > operator/<std::vector<double, std::allocator<double> > >(std::vector<std::vector<double, std::allocator<double> >, std::allocator<std::vector<double, std::allocator<double> > > >, double) [3]
+[4]      4.0    1.33    0.14    2014         std::vector<std::vector<double, std::allocator<double> >, std::allocator<std::vector<double, std::allocator<double> > > > operator*<std::vector<double, std::allocator<double> > >(double, std::vector<std::vector<double, std::allocator<double> >, std::allocator<std::vector<double, std::allocator<double> > > >) [4]
+                0.12    0.00 12146928/24293856     void std::vector<double, std::allocator<double> >::_M_emplace_back_aux<double const&>(double const&) [10]
+                0.02    0.00   22154/44396       void std::vector<std::vector<double, std::allocator<double> >, std::allocator<std::vector<double, std::allocator<double> > > >::_M_emplace_back_aux<std::vector<double, std::allocator<double> > const&>(std::vector<double, std::allocator<double> > const&) [18]
+-----------------------------------------------
+                0.00    0.00       2/2004        map_gen(unsigned int, unsigned int, double, unsigned int, unsigned int) [14]
+                1.19    0.14    2002/2004        output::get_img(std::vector<std::vector<double, std::allocator<double> >, std::allocator<std::vector<double, std::allocator<double> > > >, bool, std::string) [2]
+[5]      3.6    1.19    0.14    2004         std::vector<std::vector<double, std::allocator<double> >, std::allocator<std::vector<double, std::allocator<double> > > > operator-<std::vector<double, std::allocator<double> > >(std::vector<std::vector<double, std::allocator<double> >, std::allocator<std::vector<double, std::allocator<double> > > >, double) [5]
+                0.11    0.00 12064240/24293856     void std::vector<double, std::allocator<double> >::_M_emplace_back_aux<double const&>(double const&) [10]
+                0.02    0.00   22044/44396       void std::vector<std::vector<double, std::allocator<double> >, std::allocator<std::vector<double, std::allocator<double> > > >::_M_emplace_back_aux<std::vector<double, std::allocator<double> > const&>(std::vector<double, std::allocator<double> > const&) [18]
+-----------------------------------------------
+                0.00    0.00       2/2004        map_gen(unsigned int, unsigned int, double, unsigned int, unsigned int) [14]
+                0.65    0.00    2002/2004        output::get_img(std::vector<std::vector<double, std::allocator<double> >, std::allocator<std::vector<double, std::allocator<double> > > >, bool, std::string) [2]
+[6]      1.8    0.65    0.00    2004         double max2d<double>(std::vector<std::vector<double, std::allocator<double> >, std::allocator<std::vector<double, std::allocator<double> > > >) [6]
+-----------------------------------------------
+                0.00    0.00       2/2004        map_gen(unsigned int, unsigned int, double, unsigned int, unsigned int) [14]
+                0.62    0.00    2002/2004        output::get_img(std::vector<std::vector<double, std::allocator<double> >, std::allocator<std::vector<double, std::allocator<double> > > >, bool, std::string) [2]
+[7]      1.7    0.62    0.00    2004         double min2d<double>(std::vector<std::vector<double, std::allocator<double> >, std::allocator<std::vector<double, std::allocator<double> > > >) [7]
+-----------------------------------------------
+                                                 <spontaneous>
+[8]      0.7    0.27    0.00                 landscape::average_hares() [8]
+-----------------------------------------------
+                                                 <spontaneous>
+[9]      0.7    0.25    0.00                 landscape::average_pumas() [9]
+-----------------------------------------------
+                0.00    0.00   12200/24293856     std::vector<std::vector<double, std::allocator<double> >, std::allocator<std::vector<double, std::allocator<double> > > > pow<std::vector<double, std::allocator<double> > >(std::vector<std::vector<double, std::allocator<double> >, std::allocator<std::vector<double, std::allocator<double> > > >, double) [24]
+                0.00    0.00   70488/24293856     std::vector<std::vector<double, std::allocator<double> >, std::allocator<std::vector<double, std::allocator<double> > > > operator+<std::vector<double, std::allocator<double> > >(std::vector<std::vector<double, std::allocator<double> >, std::allocator<std::vector<double, std::allocator<double> > > >, std::vector<std::vector<double, std::allocator<double> >, std::allocator<std::vector<double, std::allocator<double> > > >) [19]
+                0.11    0.00 12064240/24293856     std::vector<std::vector<double, std::allocator<double> >, std::allocator<std::vector<double, std::allocator<double> > > > operator-<std::vector<double, std::allocator<double> > >(std::vector<std::vector<double, std::allocator<double> >, std::allocator<std::vector<double, std::allocator<double> > > >, double) [5]
+                0.12    0.00 12146928/24293856     std::vector<std::vector<double, std::allocator<double> >, std::allocator<std::vector<double, std::allocator<double> > > > operator*<std::vector<double, std::allocator<double> > >(double, std::vector<std::vector<double, std::allocator<double> >, std::allocator<std::vector<double, std::allocator<double> > > >) [4]
+[10]     0.6    0.23    0.00 24293856         void std::vector<double, std::allocator<double> >::_M_emplace_back_aux<double const&>(double const&) [10]
+-----------------------------------------------
+                0.00    0.00       2/20002       landscape::GenerateRandomDensity(std::vector<std::vector<double, std::allocator<double> >, std::allocator<std::vector<double, std::allocator<double> > > >&, std::vector<std::vector<bool, std::allocator<bool> >, std::allocator<std::vector<bool, std::allocator<bool> > > > const&) [12]
+                0.01    0.09   20000/20002       landscape::progress() [1]
+[11]     0.3    0.01    0.09   20002         std::vector<std::vector<double, std::allocator<double> >, std::allocator<std::vector<double, std::allocator<double> > > >::operator=(std::vector<std::vector<double, std::allocator<double> >, std::allocator<std::vector<double, std::allocator<double> > > > const&) [11]
+                0.09    0.00 12041204/12041204     std::vector<double, std::allocator<double> >::operator=(std::vector<double, std::allocator<double> > const&) [15]
+-----------------------------------------------
+                0.00    0.09       2/2           landscape::landscape(Params const&, std::string, std::string, std::string) [13]
+[12]     0.3    0.00    0.09       2         landscape::GenerateRandomDensity(std::vector<std::vector<double, std::allocator<double> >, std::allocator<std::vector<double, std::allocator<double> > > >&, std::vector<std::vector<bool, std::allocator<bool> >, std::allocator<std::vector<bool, std::allocator<bool> > > > const&) [12]
+                0.00    0.09       2/2           map_gen(unsigned int, unsigned int, double, unsigned int, unsigned int) [14]
+                0.00    0.00       2/2014        std::vector<std::vector<double, std::allocator<double> >, std::allocator<std::vector<double, std::allocator<double> > > > operator*<std::vector<double, std::allocator<double> > >(double, std::vector<std::vector<double, std::allocator<double> >, std::allocator<std::vector<double, std::allocator<double> > > >) [4]
+                0.00    0.00       2/20002       std::vector<std::vector<double, std::allocator<double> >, std::allocator<std::vector<double, std::allocator<double> > > >::operator=(std::vector<std::vector<double, std::allocator<double> >, std::allocator<std::vector<double, std::allocator<double> > > > const&) [11]
+-----------------------------------------------
+                                                 <spontaneous>
+[13]     0.3    0.00    0.09                 landscape::landscape(Params const&, std::string, std::string, std::string) [13]
+                0.00    0.09       2/2           landscape::GenerateRandomDensity(std::vector<std::vector<double, std::allocator<double> >, std::allocator<std::vector<double, std::allocator<double> > > >&, std::vector<std::vector<bool, std::allocator<bool> >, std::allocator<std::vector<bool, std::allocator<bool> > > > const&) [12]
+                0.00    0.00       4/4           std::vector<std::vector<double, std::allocator<double> >, std::allocator<std::vector<double, std::allocator<double> > > >::_M_fill_insert(__gnu_cxx::__normal_iterator<std::vector<double, std::allocator<double> >*, std::vector<std::vector<double, std::allocator<double> >, std::allocator<std::vector<double, std::allocator<double> > > > >, unsigned long, std::vector<double, std::allocator<double> > const&) [42]
+                0.00    0.00       1/1           landscape::ReadInFile(std::string const&, std::vector<std::vector<bool, std::allocator<bool> >, std::allocator<std::vector<bool, std::allocator<bool> > > >&) [49]
+                0.00    0.00       1/1           std::vector<std::vector<int, std::allocator<int> >, std::allocator<std::vector<int, std::allocator<int> > > >::_M_fill_insert(__gnu_cxx::__normal_iterator<std::vector<int, std::allocator<int> >*, std::vector<std::vector<int, std::allocator<int> >, std::allocator<std::vector<int, std::allocator<int> > > > >, unsigned long, std::vector<int, std::allocator<int> > const&) [51]
+                0.00    0.00       1/1           std::vector<std::vector<bool, std::allocator<bool> >, std::allocator<std::vector<bool, std::allocator<bool> > > >::_M_fill_insert(__gnu_cxx::__normal_iterator<std::vector<bool, std::allocator<bool> >*, std::vector<std::vector<bool, std::allocator<bool> >, std::allocator<std::vector<bool, std::allocator<bool> > > > >, unsigned long, std::vector<bool, std::allocator<bool> > const&) [50]
+-----------------------------------------------
+                0.00    0.09       2/2           landscape::GenerateRandomDensity(std::vector<std::vector<double, std::allocator<double> >, std::allocator<std::vector<double, std::allocator<double> > > >&, std::vector<std::vector<bool, std::allocator<bool> >, std::allocator<std::vector<bool, std::allocator<bool> > > > const&) [12]
+[14]     0.2    0.00    0.09       2         map_gen(unsigned int, unsigned int, double, unsigned int, unsigned int) [14]
+                0.00    0.07       8/8           noise::coherent_map(unsigned int, unsigned int, unsigned int, unsigned int) [16]
+                0.01    0.00       8/8           std::vector<std::vector<double, std::allocator<double> >, std::allocator<std::vector<double, std::allocator<double> > > > operator+<std::vector<double, std::allocator<double> > >(std::vector<std::vector<double, std::allocator<double> >, std::allocator<std::vector<double, std::allocator<double> > > >, std::vector<std::vector<double, std::allocator<double> >, std::allocator<std::vector<double, std::allocator<double> > > >) [19]
+                0.01    0.00       8/2014        std::vector<std::vector<double, std::allocator<double> >, std::allocator<std::vector<double, std::allocator<double> > > > operator*<std::vector<double, std::allocator<double> > >(double, std::vector<std::vector<double, std::allocator<double> >, std::allocator<std::vector<double, std::allocator<double> > > >) [4]
+                0.00    0.00       2/2004        std::vector<std::vector<double, std::allocator<double> >, std::allocator<std::vector<double, std::allocator<double> > > > operator/<std::vector<double, std::allocator<double> > >(std::vector<std::vector<double, std::allocator<double> >, std::allocator<std::vector<double, std::allocator<double> > > >, double) [3]
+                0.00    0.00       2/2004        std::vector<std::vector<double, std::allocator<double> >, std::allocator<std::vector<double, std::allocator<double> > > > operator-<std::vector<double, std::allocator<double> > >(std::vector<std::vector<double, std::allocator<double> >, std::allocator<std::vector<double, std::allocator<double> > > >, double) [5]
+                0.00    0.00       2/2004        double max2d<double>(std::vector<std::vector<double, std::allocator<double> >, std::allocator<std::vector<double, std::allocator<double> > > >) [6]
+                0.00    0.00       2/2004        double min2d<double>(std::vector<std::vector<double, std::allocator<double> >, std::allocator<std::vector<double, std::allocator<double> > > >) [7]
+                0.00    0.00       2/2           std::vector<std::vector<double, std::allocator<double> >, std::allocator<std::vector<double, std::allocator<double> > > > pow<std::vector<double, std::allocator<double> > >(std::vector<std::vector<double, std::allocator<double> >, std::allocator<std::vector<double, std::allocator<double> > > >, double) [24]
+-----------------------------------------------
+                0.09    0.00 12041204/12041204     std::vector<std::vector<double, std::allocator<double> >, std::allocator<std::vector<double, std::allocator<double> > > >::operator=(std::vector<std::vector<double, std::allocator<double> >, std::allocator<std::vector<double, std::allocator<double> > > > const&) [11]
+[15]     0.2    0.09    0.00 12041204         std::vector<double, std::allocator<double> >::operator=(std::vector<double, std::allocator<double> > const&) [15]
+-----------------------------------------------
+                0.00    0.07       8/8           map_gen(unsigned int, unsigned int, double, unsigned int, unsigned int) [14]
+[16]     0.2    0.00    0.07       8         noise::coherent_map(unsigned int, unsigned int, unsigned int, unsigned int) [16]
+                0.05    0.01    6656/6656        noise::coherent_series(std::vector<std::function<double (double)>, std::allocator<std::function<double (double)> > >, unsigned int, double) [clone .constprop.84] [17]
+                0.00    0.01    6656/6656        noise::cubic_spline_functions(std::vector<double, std::allocator<double> > const&, double) [clone .constprop.85] [21]
+                0.00    0.00      88/44396       void std::vector<std::vector<double, std::allocator<double> >, std::allocator<std::vector<double, std::allocator<double> > > >::_M_emplace_back_aux<std::vector<double, std::allocator<double> > const&>(std::vector<double, std::allocator<double> > const&) [18]
+                0.00    0.00  233940/233940      std::_Function_base::_Base_manager<std::_Bind<double (*(std::_Placeholder<1>, double, double, double, double))(double, double, double, double, double)> >::_M_manager(std::_Any_data&, std::_Any_data const&, std::_Manager_operation) [34]
+                0.00    0.00     248/248         noise::discrete_random_series(unsigned int) [39]
+-----------------------------------------------
+                0.05    0.01    6656/6656        noise::coherent_map(unsigned int, unsigned int, unsigned int, unsigned int) [16]
+[17]     0.2    0.05    0.01    6656         noise::coherent_series(std::vector<std::function<double (double)>, std::allocator<std::function<double (double)> > >, unsigned int, double) [clone .constprop.84] [17]
+                0.01    0.00 4306176/4306176     noise::cubic_func(double, double, double, double, double) [20]
+                0.00    0.00 4306176/4306176     std::_Function_handler<double (double), std::_Bind<double (*(std::_Placeholder<1>, double, double, double, double))(double, double, double, double, double)> >::_M_invoke(std::_Any_data const&, double) [33]
+                0.00    0.00    6656/6656        void std::vector<double, std::allocator<double> >::_M_emplace_back_aux<double>(double&&) [36]
+-----------------------------------------------
+                0.00    0.00      22/44396       std::vector<std::vector<double, std::allocator<double> >, std::allocator<std::vector<double, std::allocator<double> > > > pow<std::vector<double, std::allocator<double> > >(std::vector<std::vector<double, std::allocator<double> >, std::allocator<std::vector<double, std::allocator<double> > > >, double) [24]
+                0.00    0.00      88/44396       std::vector<std::vector<double, std::allocator<double> >, std::allocator<std::vector<double, std::allocator<double> > > > operator+<std::vector<double, std::allocator<double> > >(std::vector<std::vector<double, std::allocator<double> >, std::allocator<std::vector<double, std::allocator<double> > > >, std::vector<std::vector<double, std::allocator<double> >, std::allocator<std::vector<double, std::allocator<double> > > >) [19]
+                0.00    0.00      88/44396       noise::coherent_map(unsigned int, unsigned int, unsigned int, unsigned int) [16]
+                0.02    0.00   22044/44396       std::vector<std::vector<double, std::allocator<double> >, std::allocator<std::vector<double, std::allocator<double> > > > operator-<std::vector<double, std::allocator<double> > >(std::vector<std::vector<double, std::allocator<double> >, std::allocator<std::vector<double, std::allocator<double> > > >, double) [5]
+                0.02    0.00   22154/44396       std::vector<std::vector<double, std::allocator<double> >, std::allocator<std::vector<double, std::allocator<double> > > > operator*<std::vector<double, std::allocator<double> > >(double, std::vector<std::vector<double, std::allocator<double> >, std::allocator<std::vector<double, std::allocator<double> > > >) [4]
+[18]     0.1    0.05    0.00   44396         void std::vector<std::vector<double, std::allocator<double> >, std::allocator<std::vector<double, std::allocator<double> > > >::_M_emplace_back_aux<std::vector<double, std::allocator<double> > const&>(std::vector<double, std::allocator<double> > const&) [18]
+-----------------------------------------------
+                0.01    0.00       8/8           map_gen(unsigned int, unsigned int, double, unsigned int, unsigned int) [14]
+[19]     0.0    0.01    0.00       8         std::vector<std::vector<double, std::allocator<double> >, std::allocator<std::vector<double, std::allocator<double> > > > operator+<std::vector<double, std::allocator<double> > >(std::vector<std::vector<double, std::allocator<double> >, std::allocator<std::vector<double, std::allocator<double> > > >, std::vector<std::vector<double, std::allocator<double> >, std::allocator<std::vector<double, std::allocator<double> > > >) [19]
+                0.00    0.00   70488/24293856     void std::vector<double, std::allocator<double> >::_M_emplace_back_aux<double const&>(double const&) [10]
+                0.00    0.00      88/44396       void std::vector<std::vector<double, std::allocator<double> >, std::allocator<std::vector<double, std::allocator<double> > > >::_M_emplace_back_aux<std::vector<double, std::allocator<double> > const&>(std::vector<double, std::allocator<double> > const&) [18]
+-----------------------------------------------
+                0.01    0.00 4306176/4306176     noise::coherent_series(std::vector<std::function<double (double)>, std::allocator<std::function<double (double)> > >, unsigned int, double) [clone .constprop.84] [17]
+[20]     0.0    0.01    0.00 4306176         noise::cubic_func(double, double, double, double, double) [20]
+-----------------------------------------------
+                0.00    0.01    6656/6656        noise::coherent_map(unsigned int, unsigned int, unsigned int, unsigned int) [16]
+[21]     0.0    0.00    0.01    6656         noise::cubic_spline_functions(std::vector<double, std::allocator<double> > const&, double) [clone .constprop.85] [21]
+                0.01    0.00    6656/6656        void std::generate<__gnu_cxx::__normal_iterator<std::function<double (double)>*, std::vector<std::function<double (double)>, std::allocator<std::function<double (double)> > > >, noise::cubic_spline_functions(std::vector<double, std::allocator<double> > const&, double)::{lambda()#2}>(__gnu_cxx::__normal_iterator<std::function<double (double)>*, std::vector<std::function<double (double)>, std::allocator<std::function<double (double)> > > >, noise::cubic_spline_functions(std::vector<double, std::allocator<double> > const&, double)::{lambda()#2}, noise::cubic_spline_functions(std::vector<double, std::allocator<double> > const&, double)::{lambda()#2}) [22]
+-----------------------------------------------
+                0.01    0.00    6656/6656        noise::cubic_spline_functions(std::vector<double, std::allocator<double> > const&, double) [clone .constprop.85] [21]
+[22]     0.0    0.01    0.00    6656         void std::generate<__gnu_cxx::__normal_iterator<std::function<double (double)>*, std::vector<std::function<double (double)>, std::allocator<std::function<double (double)> > > >, noise::cubic_spline_functions(std::vector<double, std::allocator<double> > const&, double)::{lambda()#2}>(__gnu_cxx::__normal_iterator<std::function<double (double)>*, std::vector<std::function<double (double)>, std::allocator<std::function<double (double)> > > >, noise::cubic_spline_functions(std::vector<double, std::allocator<double> > const&, double)::{lambda()#2}, noise::cubic_spline_functions(std::vector<double, std::allocator<double> > const&, double)::{lambda()#2}) [22]
+-----------------------------------------------
+                                                 <spontaneous>
+[23]     0.0    0.01    0.00                 landscape::get_hares() [23]
+-----------------------------------------------
+                0.00    0.00       2/2           map_gen(unsigned int, unsigned int, double, unsigned int, unsigned int) [14]
+[24]     0.0    0.00    0.00       2         std::vector<std::vector<double, std::allocator<double> >, std::allocator<std::vector<double, std::allocator<double> > > > pow<std::vector<double, std::allocator<double> > >(std::vector<std::vector<double, std::allocator<double> >, std::allocator<std::vector<double, std::allocator<double> > > >, double) [24]
+                0.00    0.00   12200/24293856     void std::vector<double, std::allocator<double> >::_M_emplace_back_aux<double const&>(double const&) [10]
+                0.00    0.00      22/44396       void std::vector<std::vector<double, std::allocator<double> >, std::allocator<std::vector<double, std::allocator<double> > > >::_M_emplace_back_aux<std::vector<double, std::allocator<double> > const&>(std::vector<double, std::allocator<double> > const&) [18]
+-----------------------------------------------
+                0.00    0.00 4306176/4306176     noise::coherent_series(std::vector<std::function<double (double)>, std::allocator<std::function<double (double)> > >, unsigned int, double) [clone .constprop.84] [17]
+[33]     0.0    0.00    0.00 4306176         std::_Function_handler<double (double), std::_Bind<double (*(std::_Placeholder<1>, double, double, double, double))(double, double, double, double, double)> >::_M_invoke(std::_Any_data const&, double) [33]
+-----------------------------------------------
+                0.00    0.00  233940/233940      noise::coherent_map(unsigned int, unsigned int, unsigned int, unsigned int) [16]
+[34]     0.0    0.00    0.00  233940         std::_Function_base::_Base_manager<std::_Bind<double (*(std::_Placeholder<1>, double, double, double, double))(double, double, double, double, double)> >::_M_manager(std::_Any_data&, std::_Any_data const&, std::_Manager_operation) [34]
+-----------------------------------------------
+                0.00    0.00   10010/10010       output::get_img(std::vector<std::vector<double, std::allocator<double> >, std::allocator<std::vector<double, std::allocator<double> > > >, bool, std::string) [2]
+[35]     0.0    0.00    0.00   10010         std::vector<std::vector<double, std::allocator<double> >, std::allocator<std::vector<double, std::allocator<double> > > >::~vector() [35]
+-----------------------------------------------
+                0.00    0.00    6656/6656        noise::coherent_series(std::vector<std::function<double (double)>, std::allocator<std::function<double (double)> > >, unsigned int, double) [clone .constprop.84] [17]
+[36]     0.0    0.00    0.00    6656         void std::vector<double, std::allocator<double> >::_M_emplace_back_aux<double>(double&&) [36]
+-----------------------------------------------
+                0.00    0.00    6006/6006        output::get_img(std::vector<std::vector<double, std::allocator<double> >, std::allocator<std::vector<double, std::allocator<double> > > >, bool, std::string) [2]
+[37]     0.0    0.00    0.00    6006         std::vector<std::vector<double, std::allocator<double> >, std::allocator<std::vector<double, std::allocator<double> > > >::vector(std::vector<std::vector<double, std::allocator<double> >, std::allocator<std::vector<double, std::allocator<double> > > > const&) [37]
+-----------------------------------------------
+                0.00    0.00    2002/2002        output::get_img(std::vector<std::vector<double, std::allocator<double> >, std::allocator<std::vector<double, std::allocator<double> > > >, bool, std::string) [2]
+[38]     0.0    0.00    0.00    2002         cimg_library::CImg<unsigned int>::CImg(unsigned int, unsigned int, unsigned int, unsigned int) [38]
+-----------------------------------------------
+                0.00    0.00     248/248         noise::coherent_map(unsigned int, unsigned int, unsigned int, unsigned int) [16]
+[39]     0.0    0.00    0.00     248         noise::discrete_random_series(unsigned int) [39]
+-----------------------------------------------
+                0.00    0.00      24/24          ReadConfigfile(std::string, CmdParam&, int&, std::string&) <cycle 1> [48]
+[40]     0.0    0.00    0.00      24         TrimString(std::string&) [40]
+-----------------------------------------------
+                                  12             ReadConfigfile(std::string, CmdParam&, int&, std::string&) <cycle 1> [48]
+[41]     0.0    0.00    0.00      12         SetParameter(CmdParam&, int&, std::string, std::string, std::string&) <cycle 1> [41]
+                0.00    0.00       3/3           ReplaceEnv(std::string&, std::string const&) [43]
+                0.00    0.00       1/1           std::basic_string<char, std::char_traits<char>, std::allocator<char> > std::operator+<char, std::char_traits<char>, std::allocator<char> >(std::basic_string<char, std::char_traits<char>, std::allocator<char> > const&, char const*) [52]
+                                   1             ReadConfigfile(std::string, CmdParam&, int&, std::string&) <cycle 1> [48]
+-----------------------------------------------
+                0.00    0.00       4/4           landscape::landscape(Params const&, std::string, std::string, std::string) [13]
+[42]     0.0    0.00    0.00       4         std::vector<std::vector<double, std::allocator<double> >, std::allocator<std::vector<double, std::allocator<double> > > >::_M_fill_insert(__gnu_cxx::__normal_iterator<std::vector<double, std::allocator<double> >*, std::vector<std::vector<double, std::allocator<double> >, std::allocator<std::vector<double, std::allocator<double> > > > >, unsigned long, std::vector<double, std::allocator<double> > const&) [42]
+-----------------------------------------------
+                0.00    0.00       3/3           SetParameter(CmdParam&, int&, std::string, std::string, std::string&) <cycle 1> [41]
+[43]     0.0    0.00    0.00       3         ReplaceEnv(std::string&, std::string const&) [43]
+-----------------------------------------------
+                0.00    0.00       1/1           __libc_csu_init [243]
+[44]     0.0    0.00    0.00       1         _GLOBAL__sub_I__Z10TrimStringRSs [44]
+-----------------------------------------------
+                0.00    0.00       1/1           __libc_csu_init [243]
+[45]     0.0    0.00    0.00       1         _GLOBAL__sub_I__Z7map_genjjdjj [45]
+-----------------------------------------------
+                0.00    0.00       1/1           __libc_csu_init [243]
+[46]     0.0    0.00    0.00       1         _GLOBAL__sub_I__ZN6output7get_imgESt6vectorIS0_IdSaIdEESaIS2_EEbSs [46]
+-----------------------------------------------
+                0.00    0.00       1/1           __libc_csu_init [243]
+[47]     0.0    0.00    0.00       1         _GLOBAL__sub_I__ZN9landscapeC2ERK6ParamsSsSsSs [47]
+-----------------------------------------------
+                                   1             SetParameter(CmdParam&, int&, std::string, std::string, std::string&) <cycle 1> [41]
+[48]     0.0    0.00    0.00       1         ReadConfigfile(std::string, CmdParam&, int&, std::string&) <cycle 1> [48]
+                0.00    0.00      24/24          TrimString(std::string&) [40]
+                                  12             SetParameter(CmdParam&, int&, std::string, std::string, std::string&) <cycle 1> [41]
+-----------------------------------------------
+                0.00    0.00       1/1           landscape::landscape(Params const&, std::string, std::string, std::string) [13]
+[49]     0.0    0.00    0.00       1         landscape::ReadInFile(std::string const&, std::vector<std::vector<bool, std::allocator<bool> >, std::allocator<std::vector<bool, std::allocator<bool> > > >&) [49]
+-----------------------------------------------
+                0.00    0.00       1/1           landscape::landscape(Params const&, std::string, std::string, std::string) [13]
+[50]     0.0    0.00    0.00       1         std::vector<std::vector<bool, std::allocator<bool> >, std::allocator<std::vector<bool, std::allocator<bool> > > >::_M_fill_insert(__gnu_cxx::__normal_iterator<std::vector<bool, std::allocator<bool> >*, std::vector<std::vector<bool, std::allocator<bool> >, std::allocator<std::vector<bool, std::allocator<bool> > > > >, unsigned long, std::vector<bool, std::allocator<bool> > const&) [50]
+-----------------------------------------------
+                0.00    0.00       1/1           landscape::landscape(Params const&, std::string, std::string, std::string) [13]
+[51]     0.0    0.00    0.00       1         std::vector<std::vector<int, std::allocator<int> >, std::allocator<std::vector<int, std::allocator<int> > > >::_M_fill_insert(__gnu_cxx::__normal_iterator<std::vector<int, std::allocator<int> >*, std::vector<std::vector<int, std::allocator<int> >, std::allocator<std::vector<int, std::allocator<int> > > > >, unsigned long, std::vector<int, std::allocator<int> > const&) [51]
+-----------------------------------------------
+                0.00    0.00       1/1           SetParameter(CmdParam&, int&, std::string, std::string, std::string&) <cycle 1> [41]
+[52]     0.0    0.00    0.00       1         std::basic_string<char, std::char_traits<char>, std::allocator<char> > std::operator+<char, std::char_traits<char>, std::allocator<char> >(std::basic_string<char, std::char_traits<char>, std::allocator<char> > const&, char const*) [52]
+-----------------------------------------------
+
+ This table describes the call tree of the program, and was sorted by
+ the total amount of time spent in each function and its children.
+
+ Each entry in this table consists of several lines.  The line with the
+ index number at the left hand margin lists the current function.
+ The lines above it list the functions that called this function,
+ and the lines below it list the functions this one called.
+ This line lists:
+     index	A unique number given to each element of the table.
+		Index numbers are sorted numerically.
+		The index number is printed next to every function name so
+		it is easier to look up where the function is in the table.
+
+     % time	This is the percentage of the `total' time that was spent
+		in this function and its children.  Note that due to
+		different viewpoints, functions excluded by options, etc,
+		these numbers will NOT add up to 100%.
+
+     self	This is the total amount of time spent in this function.
+
+     children	This is the total amount of time propagated into this
+		function by its children.
+
+     called	This is the number of times the function was called.
+		If the function called itself recursively, the number
+		only includes non-recursive calls, and is followed by
+		a `+' and the number of recursive calls.
+
+     name	The name of the current function.  The index number is
+		printed after it.  If the function is a member of a
+		cycle, the cycle number is printed between the
+		function's name and the index number.
+
+
+ For the function's parents, the fields have the following meanings:
+
+     self	This is the amount of time that was propagated directly
+		from the function into this parent.
+
+     children	This is the amount of time that was propagated from
+		the function's children into this parent.
+
+     called	This is the number of times this parent called the
+		function `/' the total number of times the function
+		was called.  Recursive calls to the function are not
+		included in the number after the `/'.
+
+     name	This is the name of the parent.  The parent's index
+		number is printed after it.  If the parent is a
+		member of a cycle, the cycle number is printed between
+		the name and the index number.
+
+ If the parents of the function cannot be determined, the word
+ `<spontaneous>' is printed in the `name' field, and all the other
+ fields are blank.
+
+ For the function's children, the fields have the following meanings:
+
+     self	This is the amount of time that was propagated directly
+		from the child into the function.
+
+     children	This is the amount of time that was propagated from the
+		child's children to the function.
+
+     called	This is the number of times the function called
+		this child `/' the total number of times the child
+		was called.  Recursive calls by the child are not
+		listed in the number after the `/'.
+
+     name	This is the name of the child.  The child's index
+		number is printed after it.  If the child is a
+		member of a cycle, the cycle number is printed
+		between the name and the index number.
+
+ If there are any cycles (circles) in the call graph, there is an
+ entry for the cycle-as-a-whole.  This entry shows who called the
+ cycle (as parents) and the members of the cycle (as children.)
+ The `+' recursive calls entry shows the number of function calls that
+ were internal to the cycle, and the calls entry for each member shows,
+ for that member, how many times it was called from other members of
+ the cycle.
+
+Copyright (C) 2012-2014 Free Software Foundation, Inc.
+
+Copying and distribution of this file, with or without modification,
+are permitted in any medium without royalty provided the copyright
+notice and this notice are preserved.
+
+Index by function name
+
+  [44] _GLOBAL__sub_I__Z10TrimStringRSs [17] noise::coherent_series(std::vector<std::function<double (double)>, std::allocator<std::function<double (double)> > >, unsigned int, double) [clone .constprop.84] [37] std::vector<std::vector<double, std::allocator<double> >, std::allocator<std::vector<double, std::allocator<double> > > >::vector(std::vector<std::vector<double, std::allocator<double> >, std::allocator<std::vector<double, std::allocator<double> > > > const&)
+  [45] _GLOBAL__sub_I__Z7map_genjjdjj [21] noise::cubic_spline_functions(std::vector<double, std::allocator<double> > const&, double) [clone .constprop.85] [35] std::vector<std::vector<double, std::allocator<double> >, std::allocator<std::vector<double, std::allocator<double> > > >::~vector()
+  [46] _GLOBAL__sub_I__ZN6output7get_imgESt6vectorIS0_IdSaIdEESaIS2_EEbSs [39] noise::discrete_random_series(unsigned int) [11] std::vector<std::vector<double, std::allocator<double> >, std::allocator<std::vector<double, std::allocator<double> > > >::operator=(std::vector<std::vector<double, std::allocator<double> >, std::allocator<std::vector<double, std::allocator<double> > > > const&)
+  [47] _GLOBAL__sub_I__ZN9landscapeC2ERK6ParamsSsSsSs [2] output::get_img(std::vector<std::vector<double, std::allocator<double> >, std::allocator<std::vector<double, std::allocator<double> > > >, bool, std::string) [51] std::vector<std::vector<int, std::allocator<int> >, std::allocator<std::vector<int, std::allocator<int> > > >::_M_fill_insert(__gnu_cxx::__normal_iterator<std::vector<int, std::allocator<int> >*, std::vector<std::vector<int, std::allocator<int> >, std::allocator<std::vector<int, std::allocator<int> > > > >, unsigned long, std::vector<int, std::allocator<int> > const&)
+  [43] ReplaceEnv(std::string&, std::string const&) [49] landscape::ReadInFile(std::string const&, std::vector<std::vector<bool, std::allocator<bool> >, std::allocator<std::vector<bool, std::allocator<bool> > > >&) [10] void std::vector<double, std::allocator<double> >::_M_emplace_back_aux<double const&>(double const&)
+  [40] TrimString(std::string&) [8] landscape::average_hares() [36] void std::vector<double, std::allocator<double> >::_M_emplace_back_aux<double>(double&&)
+  [41] SetParameter(CmdParam&, int&, std::string, std::string, std::string&) [9] landscape::average_pumas() [15] std::vector<double, std::allocator<double> >::operator=(std::vector<double, std::allocator<double> > const&)
+  [48] ReadConfigfile(std::string, CmdParam&, int&, std::string&) [12] landscape::GenerateRandomDensity(std::vector<std::vector<double, std::allocator<double> >, std::allocator<std::vector<double, std::allocator<double> > > >&, std::vector<std::vector<bool, std::allocator<bool> >, std::allocator<std::vector<bool, std::allocator<bool> > > > const&) [22] void std::generate<__gnu_cxx::__normal_iterator<std::function<double (double)>*, std::vector<std::function<double (double)>, std::allocator<std::function<double (double)> > > >, noise::cubic_spline_functions(std::vector<double, std::allocator<double> > const&, double)::{lambda()#2}>(__gnu_cxx::__normal_iterator<std::function<double (double)>*, std::vector<std::function<double (double)>, std::allocator<std::function<double (double)> > > >, noise::cubic_spline_functions(std::vector<double, std::allocator<double> > const&, double)::{lambda()#2}, noise::cubic_spline_functions(std::vector<double, std::allocator<double> > const&, double)::{lambda()#2})
+  [24] std::vector<std::vector<double, std::allocator<double> >, std::allocator<std::vector<double, std::allocator<double> > > > pow<std::vector<double, std::allocator<double> > >(std::vector<std::vector<double, std::allocator<double> >, std::allocator<std::vector<double, std::allocator<double> > > >, double) [1] landscape::progress() [52] std::basic_string<char, std::char_traits<char>, std::allocator<char> > std::operator+<char, std::char_traits<char>, std::allocator<char> >(std::basic_string<char, std::char_traits<char>, std::allocator<char> > const&, char const*)
+   [6] double max2d<double>(std::vector<std::vector<double, std::allocator<double> >, std::allocator<std::vector<double, std::allocator<double> > > >) [23] landscape::get_hares() [3] std::vector<std::vector<double, std::allocator<double> >, std::allocator<std::vector<double, std::allocator<double> > > > operator/<std::vector<double, std::allocator<double> > >(std::vector<std::vector<double, std::allocator<double> >, std::allocator<std::vector<double, std::allocator<double> > > >, double)
+   [7] double min2d<double>(std::vector<std::vector<double, std::allocator<double> >, std::allocator<std::vector<double, std::allocator<double> > > >) [34] std::_Function_base::_Base_manager<std::_Bind<double (*(std::_Placeholder<1>, double, double, double, double))(double, double, double, double, double)> >::_M_manager(std::_Any_data&, std::_Any_data const&, std::_Manager_operation) [5] std::vector<std::vector<double, std::allocator<double> >, std::allocator<std::vector<double, std::allocator<double> > > > operator-<std::vector<double, std::allocator<double> > >(std::vector<std::vector<double, std::allocator<double> >, std::allocator<std::vector<double, std::allocator<double> > > >, double)
+  [14] map_gen(unsigned int, unsigned int, double, unsigned int, unsigned int) [33] std::_Function_handler<double (double), std::_Bind<double (*(std::_Placeholder<1>, double, double, double, double))(double, double, double, double, double)> >::_M_invoke(std::_Any_data const&, double) [4] std::vector<std::vector<double, std::allocator<double> >, std::allocator<std::vector<double, std::allocator<double> > > > operator*<std::vector<double, std::allocator<double> > >(double, std::vector<std::vector<double, std::allocator<double> >, std::allocator<std::vector<double, std::allocator<double> > > >)
+  [38] cimg_library::CImg<unsigned int>::CImg(unsigned int, unsigned int, unsigned int, unsigned int) [50] std::vector<std::vector<bool, std::allocator<bool> >, std::allocator<std::vector<bool, std::allocator<bool> > > >::_M_fill_insert(__gnu_cxx::__normal_iterator<std::vector<bool, std::allocator<bool> >*, std::vector<std::vector<bool, std::allocator<bool> >, std::allocator<std::vector<bool, std::allocator<bool> > > > >, unsigned long, std::vector<bool, std::allocator<bool> > const&) [19] std::vector<std::vector<double, std::allocator<double> >, std::allocator<std::vector<double, std::allocator<double> > > > operator+<std::vector<double, std::allocator<double> > >(std::vector<std::vector<double, std::allocator<double> >, std::allocator<std::vector<double, std::allocator<double> > > >, std::vector<std::vector<double, std::allocator<double> >, std::allocator<std::vector<double, std::allocator<double> > > >)
+  [20] noise::cubic_func(double, double, double, double, double) [42] std::vector<std::vector<double, std::allocator<double> >, std::allocator<std::vector<double, std::allocator<double> > > >::_M_fill_insert(__gnu_cxx::__normal_iterator<std::vector<double, std::allocator<double> >*, std::vector<std::vector<double, std::allocator<double> >, std::allocator<std::vector<double, std::allocator<double> > > > >, unsigned long, std::vector<double, std::allocator<double> > const&) (25) <cycle 1>
+  [16] noise::coherent_map(unsigned int, unsigned int, unsigned int, unsigned int) [18] void std::vector<std::vector<double, std::allocator<double> >, std::allocator<std::vector<double, std::allocator<double> > > >::_M_emplace_back_aux<std::vector<double, std::allocator<double> > const&>(std::vector<double, std::allocator<double> > const&)
