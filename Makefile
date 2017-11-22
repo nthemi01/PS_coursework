@@ -17,7 +17,9 @@ TESTBINDIR = $(shell pwd)/build/testbin
 INCLUDEDIR = $(PS_PROJ_HOME)/include
 
 CCFLAGS = -std=c++11\
-                  -I$(PS_PROJ_HOME)/include\
+		-I$(PS_PROJ_HOME)/include\
+
+CFTESTFLAGS = -O1 \
 
 GTESTFLAG = -lgtest \
 
@@ -52,31 +54,31 @@ $(BINDIR)/caldensity: $(OBJS)
 	@echo ------------------------------------------------------
 	@echo Compiling $@ 
 	@echo from $^......
-	@$(CC) $(CCFLAGS) $(LIB) -O3 -o $@ $^
+	@$(CC) $(CCFLAGS) $(LIB) $(CFTESTFLAGS) -o $@ $^
 
 $(OBJDIR)/caldensity.o: $(SRCDIR)/caldensity.cpp
 	@echo ------------------------------------------------------
 	@echo Compiling $@
 	@echo from $^......
-	@$(CC) -c $(CCFLAGS) $(LIB) $(CIMGINC) -o $@ $<
+	@$(CC) -c $(CCFLAGS) $(LIB) $(CIMGINC) $(CFTESTFLAGS) -o $@ $<
 
 $(OBJDIR)/landscape.o: $(SRCDIR)/landscape.cpp $(INCLUDEDIR)/landscape.h
 	@echo ------------------------------------------------------
 	@echo Compiling $@
 	@echo from $^......
-	@$(CC) -c $(CCFLAGS) $(LIB)  -o $@ $<
+	@$(CC) -c $(CCFLAGS) $(LIB) $(CFTESTFLAGS)  -o $@ $<
 
 $(OBJDIR)/disdensity.o: $(SRCDIR)/disdensity.cpp $(INCLUDEDIR)/disdensity.h
 	@echo ------------------------------------------------------
 	@echo Compiling $@
 	@echo from $^......
-	@$(CC) -c $(CCFLAGS) $(LIB) $(CIMGINC) -o $@ $<
+	@$(CC) -c $(CCFLAGS) $(LIB) $(CIMGINC) $(CFTESTFLAGS) -o $@ $<
 
 $(OBJDIR)/%.o: $(SRCDIR)/mapgenrator/%.cpp  $(INCLUDEDIR)/%.h
 	@echo ------------------------------------------------------
 	@echo Compiling $@
 	@echo from $<......
-	@$(CC) -c $(CCFLAGS) $(LIB) -o $@ $<
+	@$(CC) -c $(CCFLAGS) $(LIB) $(CFTESTFLAGS) -o $@ $<
 
 
 .PHONY: test
