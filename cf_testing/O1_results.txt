@@ -1,0 +1,45 @@
+Iteration 0	: Puma's average density - 1.23585	: Hare's average density - 1.68626
+Iteration 999	: Puma's average density - 23.4032	: Hare's average density - 8.67003e-08
+The total time is 9932ms
+Iteration 0	: Puma's average density - 1.5396	: Hare's average density - 1.13439
+Iteration 999	: Puma's average density - 22.3929	: Hare's average density - 8.70328e-08
+The total time is 10161ms
+Iteration 0	: Puma's average density - 1.01382	: Hare's average density - 1.89278
+Iteration 999	: Puma's average density - 24.934	: Hare's average density - 8.66337e-08
+The total time is 10081ms
+Iteration 0	: Puma's average density - 1.32096	: Hare's average density - 2.05456
+Iteration 999	: Puma's average density - 21.7501	: Hare's average density - 8.6783e-08
+The total time is 10063ms
+Iteration 0	: Puma's average density - 1.49473	: Hare's average density - 1.78927
+Iteration 999	: Puma's average density - 21.1228	: Hare's average density - 8.80099e-08
+The total time is 10207ms
+Iteration 0	: Puma's average density - 1.22068	: Hare's average density - 1.71681
+Iteration 999	: Puma's average density - 23.6228	: Hare's average density - 8.67091e-08
+The total time is 10181ms
+Iteration 0	: Puma's average density - 1.30723	: Hare's average density - 1.25917
+Iteration 999	: Puma's average density - 22.9937	: Hare's average density - 8.65292e-08
+The total time is 10200ms
+Iteration 0	: Puma's average density - 1.27703	: Hare's average density - 1.79015
+Iteration 999	: Puma's average density - 22.5029	: Hare's average density - 8.67246e-08
+The total time is 10199ms
+Iteration 0	: Puma's average density - 1.69414	: Hare's average density - 1.82274
+Iteration 999	: Puma's average density - 20.0586	: Hare's average density - 8.78684e-08
+The total time is 10286ms
+Iteration 0	: Puma's average density - 1.41424	: Hare's average density - 1.69627
+Iteration 999	: Puma's average density - 21.8667	: Hare's average density - 8.67948e-08
+The total time is 10276ms
+Iteration 0	: Puma's average density - 1.09032	: Hare's average density - 1.5886
+Iteration 999	: Puma's average density - 24.6417	: Hare's average density - 8.71374e-08
+The total time is 10228ms
+Iteration 0	: Puma's average density - 1.05075	: Hare's average density - 1.59677
+Iteration 999	: Puma's average density - 24.8848	: Hare's average density - 8.64533e-08
+The total time is 10275ms
+Iteration 0	: Puma's average density - 0.869053	: Hare's average density - 1.82639
+Iteration 999	: Puma's average density - 26.59	: Hare's average density - 8.64148e-08
+The total time is 10229ms
+Iteration 0	: Puma's average density - 1.29751	: Hare's average density - 1.32521
+Iteration 999	: Puma's average density - 22.9557	: Hare's average density - 8.67643e-08
+The total time is 10146ms
+Iteration 0	: Puma's average density - 0.953464	: Hare's average density - 1.90484
+Iteration 999	: Puma's average density - 26.2906	: Hare's average density - 2.7858e-07
+The total time is 10303ms

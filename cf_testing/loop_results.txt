@@ -10,3 +10,4 @@ The total time is 57048ms
 Iteration 0	: Puma's average density - 1.2218	: Hare's average density - 1.55236
 Iteration 9999	: Puma's average density - 8.90134	: Hare's average density - 1.00672e-06
 The total time is 557687ms
+

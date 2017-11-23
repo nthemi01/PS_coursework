@@ -19,7 +19,7 @@ INCLUDEDIR = $(PS_PROJ_HOME)/include
 CCFLAGS = -std=c++11\
 		-I$(PS_PROJ_HOME)/include\
 
-CFTESTFLAGS = -O1 \
+CFTESTFLAGS =  \
 
 GTESTFLAG = -lgtest \
 
