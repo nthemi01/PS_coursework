@@ -1,6 +1,7 @@
 #!/bin/bash
 
-cd ~/PS_coursework
+cd ../
+
 make clean
 make all
 make install
